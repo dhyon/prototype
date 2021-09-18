@@ -1,3 +1,11 @@
+## Project Titan - Read This First
+
+Collaboration workflow guidelines:
+1) "git pull" the latest main branch (please avoid rebasing if you can help it!)
+2) create new topic branch to develop your feature/change
+3) once you're ready to create a PR (pull request), push to your branch to create the PR
+4) tag team @dev to review the PR; one approval is all you need to merge your code
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
