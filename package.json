@@ -11,12 +11,6 @@
     "storybook:build": "build-storybook",
     "build-storybook": "build-storybook"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint && lint-staged",
-      "pre-push": "git pull && git pull origin main"
-    }
-  },
   "dependencies": {
     "next": "11.1.2",
     "react": "17.0.2",
