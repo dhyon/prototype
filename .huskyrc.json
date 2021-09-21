@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "yarn lint && lint-staged",
+    "pre-push": "git pull && git pull origin main"
+  }
+}
