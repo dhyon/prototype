@@ -9,13 +9,8 @@
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "build-storybook": "build-storybook"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint && lint-staged",
-      "pre-push": "git pull && git pull origin main"
-    }
+    "build-storybook": "build-storybook",
+    "prepare": "husky install"
   },
   "dependencies": {
     "axios": "^0.21.4",
@@ -36,7 +31,7 @@
     "babel-loader": "^8.2.2",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
-    "husky": "^7.0.2",
+    "husky": "^4.3.8",
     "lint-staged": "^11.1.2",
     "postcss": "^7.0.36",
     "prettier": "2.4.1",
