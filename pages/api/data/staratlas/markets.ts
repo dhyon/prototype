@@ -1,54 +1,49 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Account, Connection, PublicKey } from '@solana/web3.js';
-import { Market } from '@project-serum/serum';
+import axios from 'axios'
+import { CacheContainer } from 'node-ts-cache'
+import { MemoryStorage } from 'node-ts-cache-storage-memory'
 
-type Data = {
-    name: string
-}
-let connection = new Connection('https://solana-api.projectserum.com');
+const STAR_ATLAS_NFT_URL = 'https://galaxy.staratlas.com/nfts'
 
-let marketAddress = new PublicKey('EJ8MX3M4xsgAn8uZkLNyp76zAqn9uY18NtitASoYoRyS');
-// mainnet program id
-let programAddress = new PublicKey("9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin");
+const CACHE = new CacheContainer(new MemoryStorage())
 
+/**
+ * Returns catalog of Star Atlas NFT items as a list
+ *
+ * e.g. localhost:3000/api/data/staratlas/markets?category=cosmetic
+ *
+ * query params:
+ * category = structure | cosmetic | access | ship | crew | equipment
+ */
 export default async (
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse
 ) => {
-    console.log(req.query)
-    //let market = await Market.load(connection, marketAddress, {}, programAddress);
+    // check in-memory cache first
+    const maybeCatalog = await CACHE.getItem('catalog')
 
-    res.status(200).json({ name: 'lotsa markets' })
-    // TODO: this should return data on all existing markets
-    // Note: data source needs to be cached
-    // query params:
-    // category = structure | cosmetic | access | ship | crew | equipment
+    if (maybeCatalog) {
+        console.log("Returning cached catalog")
+        res.status(200).json(applyFilter(maybeCatalog as Array<any>, req.query))
+        return
+    }
 
-    // // Fetching orderbooks
-    // let bids = await market.loadBids(connection);
-    // let asks = await market.loadAsks(connection);
-    // // L2 orderbook data
-    // for (let [price, size] of bids.getL2(20)) {
-    // console.log(price, size);
-    // }
+    await axios
+        .get(STAR_ATLAS_NFT_URL)
+        .then(result => {
+            CACHE.setItem('catalog', result.data, { ttl: 600 })
+            res.status(200).json(applyFilter(result.data as Array<any>, req.query))
+        })
+        .catch(({ err }) => {
+            res.status(404).json({ err })
+        })
+}
 
-    // // Retrieving fills
-    // for (let fill of await market.loadFills(connection)) {
-    //     console.log(fill.orderId, fill.price, fill.size, fill.side);
-    // }
+function applyFilter(catalog: Array<any>, queryParams: any) {
+    console.log(queryParams)
+    var result = catalog
+    if (queryParams.category)
+        result = result.filter(item => item.attributes.category === queryParams.category)
+    return result
 
-    let url = 'https://galaxy.staratlas.com/nfts';
-
-    fetch(url)
-    .then(res => res.json())
-    .then((out) => {
-    console.log(out);
-    })
-    .catch(err => { throw err });
-
-    // fetch url data
-    // make data struct with name, marketid, total supply and attributes
-
-
-  
 }
