@@ -41,7 +41,7 @@ export default async (
 
 function applyFilter(catalog: Array<any>, queryParams: any) {
     console.log(queryParams)
-    var result = catalog
+    let result = catalog
     if (queryParams.category)
         result = result.filter(item => item.attributes.category === queryParams.category)
     return result
