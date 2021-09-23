@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         <Box position="absolute" bottom={[10, 10, 20]} width="100%" px={[10, 10, 20]} zIndex={2}>
           <Button isDisabled>Solana</Button>
 
-          <SimpleGrid columns={[1, 1, 2]} my={8} spacing={8}>
+          <SimpleGrid columns={[1, 1, 2]} my={4} spacing={8}>
             <Box>
               <Heading color="white" size="4xl">
                 Star atlas
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
 
             <Box height="100%">
               <Center height="100%">
-                <SimpleGrid columns={[2, 2, 4]} spacing={3} width={["100%", 400, 600]}>
+                <SimpleGrid columns={[2, 2, 2, 4]} spacing={3} width={["100%", 400, 600]}>
                   {['yellow', 'green', 'red', 'blue'].map((el) => {
                     return <Button height={'50px'} colorScheme={el}></Button>;
                   })}

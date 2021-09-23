@@ -1,4 +1,5 @@
 
+import Link from "next/link"
 import {
 	Box, 
 	Grid, 
@@ -10,9 +11,10 @@ import {
 
 function HomeButton() {
   return (
-    <Grid templateColumns="40px 80px" gap="15px">
-      <Box rounded="full" bg="black" height="40px" width="40px" rounded="full" overflow="hidden">
-        <Image src="/logo.png" objectFit="cover" />
+    <Link href="/">
+    <Grid templateColumns="40px 80px" gap="15px" cursor="pointer">
+      <Box height="40px" width="40px" rounded="full" overflow="hidden">
+        <Image src="/titan-logo.png" objectFit="cover" />
       </Box>
 
       <Box>
@@ -23,6 +25,7 @@ function HomeButton() {
         </Center>
       </Box>
     </Grid>
+    </Link>
   );
 }
 

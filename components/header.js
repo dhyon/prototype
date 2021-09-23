@@ -13,6 +13,7 @@ import {
   Button, 
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import HomeButton from './home-button';
 
 import { HiOutlineSun } from 'react-icons/hi';
 function Header() {
@@ -23,21 +24,7 @@ function Header() {
     shadow="md"
     borderLeft={1}
     zIndex={1000} >
-      <Link href="/">
-      <Grid templateColumns="40px 80px" gap="15px" display="inline-grid" cursor="pointer">
-        <Box rounded="full" bg="black" height="40px" width="40px" rounded="full" overflow="hidden">
-          <Image src="/logo.png" objectFit="cover" />
-        </Box>
-
-        <Box>
-          <Center height="100%">
-            <Heading fontWeight="900" fontSize="28px" letterSpacing={'2px'}>
-              TITAN
-            </Heading>
-          </Center>
-        </Box>
-      </Grid>
-      </Link>
+     <HomeButton />
 
       <Box p={3}>
         <SidebarElement

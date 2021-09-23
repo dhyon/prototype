@@ -7,7 +7,7 @@ export default class extends Document {
       <Html lang="en">
         <Head>
           <meta name="description" content="Titan app." />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/titan-logo.png" />
         </Head>
 
         <body>
