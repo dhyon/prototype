@@ -1,16 +1,18 @@
 import type { NextPage } from 'next'
 // import Image from 'next/image'
 import Layout from "../components/layout";
-import { Box, Image  } from "@chakra-ui/react";
+import { Box, Image, Heading,   } from "@chakra-ui/react";
 
 
 
 const Home: NextPage = () => {
   return (
-    <Layout>
+    <Layout title="Balance">
 
-      <Box height="100vh">
-        <Image src="/hero.jpg" height="100%" layout="fill" objectFit="cover"/>
+      <Box p={ 5 }>
+        <Heading fontWeight="bold" textTransform="uppercase" size="lg">
+        Balance
+        </Heading>
       </Box>
 
     
