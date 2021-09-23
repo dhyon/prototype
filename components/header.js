@@ -19,7 +19,10 @@ function Header() {
   const { toggleColorMode } = useColorMode();
 
   return (
-    <Box px={5} py={5} position="fixed" width="256px" overflowY="scroll" >
+    <Box px={5} py={5} position="fixed" width="256px" overflowY="scroll"  overflowY="scroll"
+    shadow="md"
+    borderLeft={1}
+    zIndex={1000} >
       <Link href="/">
       <Grid templateColumns="40px 80px" gap="15px" display="inline-grid" cursor="pointer">
         <Box rounded="full" bg="black" height="40px" width="40px" rounded="full" overflow="hidden">

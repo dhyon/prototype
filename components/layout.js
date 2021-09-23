@@ -27,11 +27,7 @@ function Layout({ children, title }) {
       <Grid templateColumns={['100%', '100%', '256px calc(100% - 256px)']}>
         <Box
           display={['none', 'none', 'block']}
-          overflowY="scroll"
-          height="100vh"
-          shadow="md"
-          borderLeft={1}
-          zIndex={1000}
+         
           position="relative"
         >
           <Header />
