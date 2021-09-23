@@ -19,7 +19,7 @@ function Header() {
   const { toggleColorMode } = useColorMode();
 
   return (
-    <Box px={5} py={3} >
+    <Box px={5} py={5} position="fixed" width="256px" overflowY="scroll" >
       <Link href="/">
       <Grid templateColumns="40px 80px" gap="15px" display="inline-grid" cursor="pointer">
         <Box rounded="full" bg="black" height="40px" width="40px" rounded="full" overflow="hidden">
@@ -36,7 +36,7 @@ function Header() {
       </Grid>
       </Link>
 
-      <Box p={5}>
+      <Box p={3}>
         <SidebarElement
           link="/games"
           icon={<Image src="/header/all-games.svg" />}

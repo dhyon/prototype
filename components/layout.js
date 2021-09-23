@@ -25,29 +25,42 @@ function Layout({ children, title }) {
       </Head>
 
       <Grid templateColumns={['100%', '100%', '256px calc(100% - 256px)']}>
-        <Box display={["none", "none", "block"]} overflowY="scroll" minHeight="100vh" shadow="md" borderLeft={1} zIndex={60}>
+        <Box
+          display={['none', 'none', 'block']}
+          overflowY="scroll"
+          height="100vh"
+          shadow="md"
+          borderLeft={1}
+          zIndex={1000}
+          position="relative"
+        >
           <Header />
         </Box>
 
         <Box minHeight="100vh">
-
           <Box position="relative">
             <PageHeader />
           </Box>
 
-          <Box pt={12}>
-          <main>{children}</main>
+          <Box pt={20}>
+            <main>{children}</main>
           </Box>
         </Box>
-
-
 
         {/* <Footer /> */}
       </Grid>
 
-      <Box display={["block", "block", "none"]} px={ 5 } py={ 3 } zIndex={1000} position="fixed" bottom={0} width="100vw" bg="white">
+      <Box
+        display={['block', 'block', 'none']}
+        px={5}
+        py={3}
+        zIndex={1000}
+        position="fixed"
+        bottom={0}
+        width="100vw"
+        bg="white"
+      >
         <HomeButton />
-
       </Box>
     </div>
   );
