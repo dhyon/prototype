@@ -52,9 +52,17 @@ export default async (
     })
     totalCalculatedVolume = totalSize / marketData.length
     sortedPrices.sort()
-    let currUniqueHolders = randomIntFromInterval(totalCalculatedVolume, totalCalculatedVolume*2)
-    res.status(200).json(  { marketid: marketId, totalFillSize : marketData.length,
-    totalVolume : totalCalculatedVolume, recentFills : marketData, sortedPriceFills : sortedPrices,
-    allTimeHigh : highest, allTimeLow : lowest, uniqueHolders : currUniqueHolders } )
+    let currUniqueHolders = randomIntFromInterval(totalCalculatedVolume, totalSize)
+    res.status(200).json(
+    { 
+    marketid: marketId, 
+    totalFillSize : marketData.length,
+    totalVolume : totalCalculatedVolume, 
+    recentFills : marketData, 
+    sortedPriceFills : sortedPrices,
+    allTimeHigh : highest, 
+    allTimeLow : lowest, 
+    uniqueHolders : currUniqueHolders 
+    })
 
 }
