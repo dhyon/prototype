@@ -4,6 +4,7 @@ import Layout from '../components/layout';
 import { HStack, Box, Image, Heading, Button, SimpleGrid, Center } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import siteStore from "../stores/site";
+import GameCard from "../components/game-card";
 
 
 const Home: NextPage = () => {
@@ -84,13 +85,11 @@ const Home: NextPage = () => {
 
       <Box py={[5, 5, 10]} px={[10, 10, 20]} pt={[0, 0, 0]}>
         <Box height="700px" bg="gray.200" rounded="lg" p={5}>
-          <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 8]}>
+          <SimpleGrid columns={[1, 1, 2]} spacing={[4, 4, 8]}>
 
           {
             state.data.map( el => {
-              return <Box key={el._id} bg="orange.300" height="100px">
-                { el._id }
-                </Box>
+              return <GameCard key={ el._id } el={ el } />;
             })
           }
 

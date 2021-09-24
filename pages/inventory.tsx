@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <Layout title="Inventory">
 
-      <Box p={ 5 }>
+      <Box  px={[5, 5, 10]}>
         <Heading fontWeight="bold" textTransform="uppercase" size="lg">
         Inventory
         </Heading>
