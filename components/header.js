@@ -15,7 +15,7 @@ import {
 import Link from 'next/link';
 import HomeButton from './home-button';
 
-import { HiOutlineSun, HiOutlineTrendingUp } from 'react-icons/hi';
+import { HiOutlineSun, HiOutlineTrendingUp, HiOutlineChartSquareBar, HiOutlineCollection, HiOutlineDocumentText, HiOutlinePlay } from 'react-icons/hi';
 function Header() {
   const { toggleColorMode } = useColorMode();
 
@@ -33,18 +33,18 @@ function Header() {
     >
       <HomeButton />
 
-      <Box p={3}>
+      <Box p={3} mt={2}>
         <SidebarElement link="/games" icon={<HiOutlineTrendingUp />} title="All games" />
 
         <Divider my={4} />
 
-        <SidebarElement link="/dashboard" icon={<HiOutlineTrendingUp />} title="Dashboard" />
+        <SidebarElement link="/dashboard" icon={<HiOutlineChartSquareBar />} title="Dashboard" />
 
-        <SidebarElement link="/inventory" icon={<HiOutlineTrendingUp />} title="Inventory" />
+        <SidebarElement link="/inventory" icon={<HiOutlineCollection />} title="Inventory" />
 
-        <SidebarElement link="/history" icon={<HiOutlineTrendingUp />} title="History" />
+        <SidebarElement link="/history" icon={<HiOutlineDocumentText />} title="History" />
 
-        <SidebarElement link="/games" icon={<HiOutlineTrendingUp />} title="Games" />
+        <SidebarElement link="/games" icon={<HiOutlinePlay />} title="Games" />
 
         <Divider my={4} />
 
@@ -52,8 +52,8 @@ function Header() {
           My games
         </Heading>
 
-        <GameElement link="/games" icon={<HiOutlineTrendingUp />} title="My Game" />
-        <GameElement link="/games" icon={<HiOutlineTrendingUp />} title="My Game" />
+        <GameElement link="/games" icon={<HiOutlineSun />} title="My Game" />
+        <GameElement link="/games" icon={<HiOutlineSun />} title="My Game" />
 
         <Box mt={5}>
           <Button variant="outline" colorScheme="gray" size="lg" width="100%" py={8}>
@@ -112,7 +112,7 @@ function GameElement({ icon, title, link }) {
           p={4}
           rounded="lg"
         >
-          <Box>{icon}</Box>
+          {/* <Box>{icon}</Box> */}
 
           <Box>{title}</Box>
         </HStack>

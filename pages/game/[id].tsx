@@ -1,9 +1,9 @@
-import type { NextPage } from 'next';
+// import type { NextPage } from 'next';
 // import Image from 'next/image'
 import Layout from '../../components/layout';
 import { Box, Image, Heading } from '@chakra-ui/react';
 
-const Home: NextPage = ({ game }) => {
+const Page = ({ game }) => {
   const {
     name, 
     image, 
@@ -22,7 +22,7 @@ const Home: NextPage = ({ game }) => {
   );
 };
 
-export default Home;
+export default Page;
 
 export async function getStaticPaths() {
   const data = [
