@@ -29,7 +29,7 @@ export default async (
     let totalSize = 0
     var sortedPrices:string[] = [] 
     let fakeDate = new Date()
-    let currUniqueHolders = randomIntFromInterval(500, 10000)
+    
 
     const marketData = fills
     .filter(f => f.side === 'buy')
@@ -52,6 +52,7 @@ export default async (
     })
     totalCalculatedVolume = totalSize / marketData.length
     sortedPrices.sort()
+    let currUniqueHolders = randomIntFromInterval(totalCalculatedVolume, totalCalculatedVolume*2)
     res.status(200).json(  { marketid: marketId, totalFillSize : marketData.length,
     totalVolume : totalCalculatedVolume, recentFills : marketData, sortedPriceFills : sortedPrices,
     allTimeHigh : highest, allTimeLow : lowest, uniqueHolders : currUniqueHolders } )
