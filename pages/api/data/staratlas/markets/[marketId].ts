@@ -53,6 +53,7 @@ export default async (
     totalCalculatedVolume = totalSize / marketData.length
     sortedPrices.sort();
     res.status(200).json(  { marketid: marketId, totalFillSize : marketData.length,
-    totalVolume : totalCalculatedVolume, aggregatedData : marketData, sortedPriceFills : sortedPrices,
+    totalVolume : totalCalculatedVolume, recentFills : marketData, sortedPriceFills : sortedPrices,
     allTimeHigh : highest, allTimeLow : lowest, uniqueHolders : currUniqueHolders } );
+
 }
