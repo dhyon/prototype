@@ -68,8 +68,9 @@ const Home: NextPage = () => {
           </SimpleGrid>
         </Box>
       </Box>
-
-      <Box py={[5, 5, 10]} px={[10, 10, 20]}>
+      
+      <Box overflow="hidden" pb={5}> 
+      <Box py={[5, 5, 10]} px={[10, 10, 20]} shadow="sm">
         <Heading size="sm" color="gray.500" mb={2}>
           NFTs
         </Heading>
@@ -82,9 +83,10 @@ const Home: NextPage = () => {
           <Box>Structures</Box>
         </HStack>
       </Box>
+      </Box>
 
-      <Box py={[5, 5, 10]} px={[10, 10, 20]} pt={[0, 0, 0]}>
-        <Box height="700px" bg="gray.200" rounded="lg" p={5}>
+      <Box py={[5, 5, 10]} px={[10, 10, 20]} >
+        <Box >
           <SimpleGrid columns={[1, 1, 2]} spacing={[4, 4, 8]}>
 
           {
