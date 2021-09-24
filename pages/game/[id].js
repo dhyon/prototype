@@ -3,20 +3,17 @@
 import Layout from '../../components/layout';
 import { Box, Image, Heading } from '@chakra-ui/react';
 
-const Page = ({ game }) => {
-  const {
-    name, 
-    image, 
-  } = game;
+const Page = ({ game = {} }) => {
+  
 	
   return (
     <Layout title="Dashboard">
       <Box px={[5, 5, 10]}>
         <Heading fontWeight="bold" textTransform="uppercase" size="lg">
-          { name }
+          { game.name || "Untitled" }
         </Heading>
 
-        <Image src={ image } width="100%" height="500px" loading="lazy" objectFit="cover" />
+        <Image src={ game.image || "#" } width="100%" height="500px" loading="lazy" objectFit="cover" />
       </Box>
     </Layout>
   );

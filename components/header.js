@@ -15,7 +15,14 @@ import {
 import Link from 'next/link';
 import HomeButton from './home-button';
 
-import { HiOutlineSun, HiOutlineTrendingUp, HiOutlineChartSquareBar, HiOutlineCollection, HiOutlineDocumentText, HiOutlinePlay } from 'react-icons/hi';
+import {
+  HiOutlineSun,
+  HiOutlineTrendingUp,
+  HiOutlineChartSquareBar,
+  HiOutlineCollection,
+  HiOutlineDocumentText,
+  HiOutlinePlay,
+} from 'react-icons/hi';
 function Header() {
   const { toggleColorMode } = useColorMode();
 
@@ -25,7 +32,6 @@ function Header() {
       py={5}
       position="fixed"
       width="256px"
-      overflowY="scroll"
       overflowY="scroll"
       shadow="md"
       borderLeft={1}
