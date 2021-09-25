@@ -22,7 +22,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import HomeButton from './home-button';
@@ -38,6 +37,9 @@ import {
 function Header() {
   const state =  site(state => state);
   const { toggleColorMode } = useColorMode();
+  // const dashboardIcon = useColorModeValue("/icons/dashboard-light.svg", "/icons/dashboard-dark.svg" )
+  // const inventoryIcon = useColorModeValue("/icons/inventory-light.svg", "/icons/inventory-dark.svg" )
+  const bg = useColorModeValue('gray.50', 'gray.900');
   let myGame = state.data[0]
   return (
     <Box
@@ -48,6 +50,7 @@ function Header() {
       shadow="md"
       borderLeft={1}
       minH="100vh"
+      bg={bg}
       zIndex={1000}
     >
       <HomeButton />
@@ -57,9 +60,9 @@ function Header() {
 
         <Divider my={4} />
 
-        <SidebarElement link="/dashboard" icon={<HiOutlineChartSquareBar />} title="Dashboard" />
+        <SidebarElement link="/dashboard" icon={ <HiOutlineChartSquareBar /> } title="Dashboard" />
 
-        <SidebarElement link="/inventory" icon={<HiOutlineCollection />} title="Inventory" />
+        <SidebarElement link="/inventory" icon={<HiOutlineCollection /> } title="Inventory" />
 
         <SidebarElement link="/history" icon={<HiOutlineDocumentText />} title="History" />
 
@@ -94,6 +97,7 @@ export default Header;
 function SidebarElement({ icon, title, link }) {
   const hoverBg = useColorModeValue('gray.200', 'gray.600');
   const hoverColor = useColorModeValue('gray.600', 'gray.100');
+  const color = useColorModeValue('gray.900', 'gray.200');
 
   return (
     <Box my={0.5}>
@@ -101,12 +105,13 @@ function SidebarElement({ icon, title, link }) {
         <HStack
           height="100%"
           cursor="pointer"
+          color={ color }
           transition="0.1s ease"
           _hover={{ bg: hoverBg, color: hoverColor }}
           p={4}
           rounded="lg"
         >
-          <Box>{icon}</Box>
+          <Box >{icon}</Box>
 
           <Box>{title}</Box>
         </HStack>
@@ -118,6 +123,7 @@ function SidebarElement({ icon, title, link }) {
 function GameElement({ icon, title, link }) {
   const hoverBg = useColorModeValue('gray.200', 'gray.600');
   const hoverColor = useColorModeValue('gray.600', 'gray.100');
+  const color = useColorModeValue('gray.900', 'gray.200');
 
   return (
     <Box my={0.5}>
@@ -126,6 +132,7 @@ function GameElement({ icon, title, link }) {
           height="100%"
           cursor="pointer"
           transition="0.1s ease"
+          color={ color }
           _hover={{ bg: hoverBg, color: hoverColor }}
           p={4}
           rounded="lg"

@@ -20,7 +20,7 @@ const Home: NextPage = () => {
           Dashboard
         </Heading>
 
-        <Grid templateColumns={['100% 100%', '100% 100%', '100% 100%', 'calc(100% - 256px) 256px']}>
+        {/* <Grid templateColumns={['100% 100%', '100% 100%', '100% 100%', 'calc(100% - 256px) 256px']}>
           <Box>
             <SimpleGrid columns={[1, 2, 3]} spacing={[4, 4, 8]} mb={[4, 4, 8]}>
               <Box height="120px" bg={ cardBackground } rounded="md" shadow="md"></Box>
@@ -47,8 +47,10 @@ const Home: NextPage = () => {
           <Box gridRow={[2, 2, 2, 1]} gridColumn={[1, 1, 1, 2]} pl={[0, 0, 4]}>
             adsf
           </Box>
-        </Grid>
-      </Box>
+        </Grid> */}
+
+
+        </Box>
     </Layout>
   );
 };

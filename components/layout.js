@@ -1,10 +1,14 @@
 import Head from 'next/head';
-import { Box, Grid } from '@chakra-ui/react';
+import { Box, Grid, useColorMode, useColorModeValue,  IconButton, Icon } from '@chakra-ui/react';
 import Header from '../components/header';
 import PageHeader from '../components/page-header';
 import HomeButton from '../components/home-button';
 
+import { HiOutlineSun } from "react-icons/hi"
+
 function Layout({ children, title }) {
+  const { toggleColorMode } = useColorMode();
+  const  mobileHeaderBg = useColorModeValue("white", "gray.900");
   // useEffect(() => {
   //   // resize script for mobile browser resize
   //   function setResize() {
@@ -17,6 +21,7 @@ function Layout({ children, title }) {
 
   //   setResize();
   // }, []);
+
 
   return (
     <div>
@@ -38,7 +43,7 @@ function Layout({ children, title }) {
             <PageHeader />
           </Box>
 
-          <Box pt={20}>
+          <Box pt={[50, 50, 100]} >
             <main>{children}</main>
           </Box>
         </Box>
@@ -54,9 +59,17 @@ function Layout({ children, title }) {
         position="fixed"
         bottom={0}
         width="100vw"
-        bg="white"
+        bg={ mobileHeaderBg }
+        
       >
+
+<IconButton fontSize="lg" variant="ghost" onClick={toggleColorMode} float="right">
+          <Icon as={HiOutlineSun} />
+        </IconButton>
+
         <HomeButton />
+
+       
       </Box>
     </div>
   );
