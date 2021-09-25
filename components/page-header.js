@@ -22,7 +22,7 @@ function PageHeader() {
   const inputBg = useColorModeValue('white', 'gray.700');
   const linkColors = useColorModeValue('gray.700', 'gray.400');
   return (
-    <Box px={5} py={3} position="fixed" top={0} zIndex={500} width="100%" bg={bg}>
+    <Box px={[5, 5, 8]} py={3} position="fixed" top={0} zIndex={500} width="100%" bg={bg}>
       <InputGroup mr={4} maxWidth="500px" bg={inputBg} size="lg" display="inline-block">
         <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
           <HiSearch />
