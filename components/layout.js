@@ -1,15 +1,35 @@
 import Head from 'next/head';
-import { Box, Grid, useColorMode, useColorModeValue,  IconButton, Icon } from '@chakra-ui/react';
+import Link from 'next/link';
+import {
+  Stack, 
+  Link as ChakraLink, 
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  Heading, 
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
+  Box,
+  Grid,
+  useColorMode,
+  useColorModeValue,
+  IconButton,
+  Icon,
+} from '@chakra-ui/react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import PageHeader from '../components/page-header';
 import HomeButton from '../components/home-button';
+import { useRef } from 'react';
 
-import { HiOutlineSun } from "react-icons/hi"
+import { HiOutlineSun, HiChevronUp } from 'react-icons/hi';
 
 function Layout({ children, title }) {
   const { toggleColorMode } = useColorMode();
-  const  mobileHeaderBg = useColorModeValue("gray.50", "gray.900");
+  const mobileHeaderBg = useColorModeValue('gray.50', 'gray.900');
   // useEffect(() => {
   //   // resize script for mobile browser resize
   //   function setResize() {
@@ -23,7 +43,6 @@ function Layout({ children, title }) {
   //   setResize();
   // }, []);
 
-
   return (
     <div>
       <Head>
@@ -31,27 +50,21 @@ function Layout({ children, title }) {
       </Head>
 
       <Grid templateColumns={['100%', '100%', '256px calc(100% - 256px)']}>
-        <Box
-          display={['none', 'none', 'block']}
-         
-          position="relative"
-        >
+        <Box display={['none', 'none', 'block']} position="relative">
           <Header />
         </Box>
 
-        <Box >
+        <Box>
           <Box position="relative">
             <PageHeader />
           </Box>
 
-          <Box pt={["90px", "90px", 100]} minHeight="100vh">
+          <Box pt={['90px', '90px', 100]} minHeight="100vh">
             <main>{children}</main>
 
             <Footer />
           </Box>
         </Box>
-
-        
       </Grid>
 
       <Box
@@ -62,20 +75,84 @@ function Layout({ children, title }) {
         position="fixed"
         bottom={0}
         width="100vw"
-        bg={ mobileHeaderBg }
-        
+        bg={mobileHeaderBg}
       >
+        <Box float="right" ml={2}>
+          <BottomsUp />
+        </Box>
 
-<IconButton fontSize="lg" variant="ghost" onClick={toggleColorMode} float="right">
+        <IconButton fontSize="lg" variant="outline" rounded="full" onClick={toggleColorMode} float="right">
           <Icon as={HiOutlineSun} />
         </IconButton>
 
         <HomeButton />
-
-       
       </Box>
     </div>
   );
 }
 
 export default Layout;
+
+function BottomsUp() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
+  const linkColors = useColorModeValue('gray.700', 'gray.100');
+  const bg = useColorModeValue('white', 'gray.900');
+
+  return (
+    <>
+      <IconButton variant="outline" ref={btnRef} onClick={onOpen} rounded="full">
+        <HiChevronUp />
+      </IconButton>
+
+      <Drawer isOpen={isOpen} placement="bottom" onClose={onClose} finalFocusRef={btnRef}>
+        <DrawerOverlay />
+        <DrawerContent bg={bg}>
+          <DrawerCloseButton />
+          <DrawerHeader></DrawerHeader>
+
+          <DrawerBody>
+            <Stack spacing={4} color={linkColors} mb={ 8 }>
+              <Box>
+                <ChakraLink as={ Link } href="/games" rounded="sm" >
+                  All games
+                </ChakraLink>
+              </Box>
+
+              <Box>
+                <ChakraLink as={ Link } href="/dashboard" rounded="sm" >
+                  Dashboard
+                </ChakraLink>
+              </Box>
+
+              <Box>
+                <ChakraLink as={ Link } href="/inventory" rounded="sm" >
+                  Inventory
+                </ChakraLink>
+              </Box>
+
+              <Box>
+                <ChakraLink as={ Link } href="/history" rounded="sm" >
+                  History
+                </ChakraLink>
+              </Box>
+
+              <Box>
+                <ChakraLink as={ Link } href="/games" rounded="sm" >
+                  Games
+                </ChakraLink>
+              </Box>
+            </Stack>
+
+            <Heading size="md">
+              MY GAMES
+
+            </Heading>
+          </DrawerBody>
+
+          <DrawerFooter></DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+}

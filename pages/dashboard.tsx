@@ -14,8 +14,8 @@ const Home: NextPage = () => {
           textTransform="uppercase"
           size="lg"
           as={'h1'}
-          opacity="0"
-          position="absolute"
+          // opacity="0"
+          // position="absolute"
         >
           Dashboard
         </Heading>
