@@ -30,6 +30,7 @@ import { HiOutlineSun, HiChevronUp } from 'react-icons/hi';
 function Layout({ children, title }) {
   const { toggleColorMode } = useColorMode();
   const mobileHeaderBg = useColorModeValue('gray.50', 'gray.900');
+  const borderColor = useColorModeValue('gray.100', 'gray.700');
   // useEffect(() => {
   //   // resize script for mobile browser resize
   //   function setResize() {
@@ -70,7 +71,10 @@ function Layout({ children, title }) {
       <Box
         display={['block', 'block', 'none']}
         px={5}
-        py={3}
+        py={5}
+        
+        borderTopWidth={2}
+        borderColor={ borderColor }
         zIndex={1000}
         position="fixed"
         bottom={0}
