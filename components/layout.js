@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Box, Grid, useColorMode, useColorModeValue,  IconButton, Icon } from '@chakra-ui/react';
 import Header from '../components/header';
+import Footer from '../components/footer';
 import PageHeader from '../components/page-header';
 import HomeButton from '../components/home-button';
 
@@ -8,7 +9,7 @@ import { HiOutlineSun } from "react-icons/hi"
 
 function Layout({ children, title }) {
   const { toggleColorMode } = useColorMode();
-  const  mobileHeaderBg = useColorModeValue("white", "gray.900");
+  const  mobileHeaderBg = useColorModeValue("gray.50", "gray.900");
   // useEffect(() => {
   //   // resize script for mobile browser resize
   //   function setResize() {
@@ -38,17 +39,19 @@ function Layout({ children, title }) {
           <Header />
         </Box>
 
-        <Box minHeight="100vh">
+        <Box >
           <Box position="relative">
             <PageHeader />
           </Box>
 
-          <Box pt={[50, 50, 100]} >
+          <Box pt={["90px", "90px", 100]} minHeight="100vh">
             <main>{children}</main>
+
+            <Footer />
           </Box>
         </Box>
 
-        {/* <Footer /> */}
+        
       </Grid>
 
       <Box
