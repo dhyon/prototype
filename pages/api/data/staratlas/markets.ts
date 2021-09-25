@@ -45,5 +45,4 @@ function applyFilter(catalog: Array<any>, queryParams: any) {
     if (queryParams.category)
         result = result.filter(item => item.attributes.category === queryParams.category)
     return result
-
 }
