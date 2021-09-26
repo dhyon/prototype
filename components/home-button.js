@@ -1,12 +1,14 @@
 import Link from 'next/link';
-import { Box, Grid, Image, Heading, Center } from '@chakra-ui/react';
+import { Box, Grid, Image, Heading, Center, useColorModeValue } from '@chakra-ui/react';
 
 function HomeButton() {
+
+  let logo = useColorModeValue("/titan-logo.png", "/titan-dark.png")
   return (
     <Link href="/" >
-        <Grid templateColumns="40px 80px" gap="15px" cursor="pointer">
+        <Grid templateColumns="40px 80px" gap="12px" cursor="pointer">
           <Box height="40px" width="40px" rounded="full" overflow="hidden">
-            <Image src="/titan-logo.png" objectFit="cover" alt="Titan Logo" />
+            <Image src={ logo } objectFit="cover" alt="Titan Logo" />
           </Box>
 
           <Box>
