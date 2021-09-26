@@ -14,9 +14,13 @@ import {
   Image,
   Heading,
   useColorModeValue,
+  SimpleGrid
 } from '@chakra-ui/react';
+import useStore from "../../stores/site";
+import ItemCard from "../../components/item-card";
 
 const Page = ({ game = {} }) => {
+  const state = useStore(state => state)
   const cardBg = useColorModeValue('gray.100', 'gray.700');
   return (
     <Layout title="Dashboard">
@@ -44,11 +48,8 @@ const Page = ({ game = {} }) => {
           </Box>
 
          
-
-
         <Box p={[5, 5, 8]}>
-
-          <Box mb={ 2 }>
+          <Box mb={[ 5, 5, 8 ]}>
           <LoremIpsum />
           </Box>
 
@@ -59,30 +60,53 @@ const Page = ({ game = {} }) => {
 
             <Tabs isLazy>
               <TabList gridGap={5}>
-                <Tab fontWeight="bold">All items</Tab>
-                <Tab fontWeight="bold">Ships</Tab>
-                <Tab fontWeight="bold">Structures</Tab>
+                <Tab fontWeight="bold">All Items</Tab>
+                <Tab fontWeight="bold">Structure</Tab>
+                <Tab fontWeight="bold">Cosmetic</Tab>
                 <Tab fontWeight="bold">Access</Tab>
-                <Tab fontWeight="bold">Collectibles</Tab>
+                <Tab fontWeight="bold">Ship</Tab>
+
+                <Tab fontWeight="bold">Crew</Tab>
+                <Tab fontWeight="bold">Equipment</Tab>
               </TabList>
 
               <TabPanels>
-                <TabPanel px={2}>
+                <TabPanel px={0} py={[4, 4, 5, 6]}>
+                  <SimpleGrid columns={[2, 3, 4, ]} spacing={[4, 4, 5, 6]}>
+                  {
+                    state.data.map( el => {
+                      return <Box key={el._id}>
+                        <ItemCard el={el} />
+                        </Box>
+                    })
+                  }
+                  </SimpleGrid>
                 </TabPanel>
-                <TabPanel px={2}>
-                </TabPanel>
-                <TabPanel px={2}>
+                
+                <TabPanel px={0} py={5}>
+                  
                 </TabPanel>
 
-                <TabPanel px={2}>
+                <TabPanel px={0} py={5}>
+                  
                 </TabPanel>
 
-                <TabPanel px={2}>
+                <TabPanel px={0} py={5}>
+                  
+                </TabPanel>
+
+                <TabPanel px={0} py={5}>
+                </TabPanel>
+
+                <TabPanel px={0} py={5}>
+                </TabPanel>
+
+                <TabPanel px={0} py={5}>
                 </TabPanel>
               </TabPanels>
             </Tabs>
 
-            <Box height="200px" bg={cardBg} rounded="lg" transition="0.1s ease"></Box>
+            
           </Box>
         </Box>
       </Box>
