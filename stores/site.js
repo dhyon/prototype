@@ -1,6 +1,18 @@
 import create from 'zustand';
 
 const store = create((set) => ({
+  games: [
+    {
+      name: "Star Atlas",
+      description: "Lorem", 
+      slug: "star-atlas", 
+      _id: "foobar", 
+      image: "/star-atlas.jpg", 
+      symbol: "SA",
+
+    }
+  ], 
+
   data: [
     {
       _id: '6083562f1b5bc51379ab9e14',

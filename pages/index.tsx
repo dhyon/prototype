@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from "next/link"
 // import Image from 'next/image'
 import Layout from '../components/layout';
 import {
@@ -47,6 +48,21 @@ const Home: NextPage = () => {
 
   return (
     <Layout title="Home">
+
+      <Box px={[ 5, 5, 8 ]}>
+        <Link  href="/game/star-atlas" >
+        <Box cursor="pointer" borderWidth={1} rounded="lg" display="inline-block" position="relative">
+        <Image src="/star-atlas.jpg" height="400px" maxWidth="800px" rounded="lg" objectFit="cover" width="100%" />
+
+        <Box position="absolute"width="100%" p={10} bottom={0}>
+          <Heading color="white" letterSpacing={1}>
+          Star Atlas
+
+            </Heading>
+          </Box>
+        </Box>
+        </Link>
+      </Box>
       <Box height={600} px={10}>
         {/* <VictoryChart
           width={800}

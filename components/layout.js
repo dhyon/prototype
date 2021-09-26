@@ -60,7 +60,7 @@ function Layout({ children, title }) {
             <PageHeader />
           </Box>
 
-          <Box pt={['90px', '90px', 100]} minHeight="100vh">
+          <Box pt={["72px"]} minHeight="100vh">
             <main>{children}</main>
 
             <Footer />

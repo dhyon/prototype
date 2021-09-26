@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         </Heading>
 
         <SimpleGrid columns={[1, 1, 2]} spacing={[4, 4, 8]}>
-          {state.data.map((el: any) => {
+          {state.games.map((el: any) => {
             return <GameCard key={el._id} el={el} />;
           })}
         </SimpleGrid>
