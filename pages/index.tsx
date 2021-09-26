@@ -49,7 +49,7 @@ const Home: NextPage = () => {
   return (
     <Layout title="Home">
 
-      <Box px={[ 5, 5, 8 ]}>
+      <Box p={[ 5, 5, 8 ]}>
         <Link  href="/game/star-atlas" >
         <Box cursor="pointer" borderWidth={1} rounded="lg" display="inline-block" position="relative">
         <Image src="/star-atlas.jpg" height="400px" maxWidth="800px" rounded="lg" objectFit="cover" width="100%" />

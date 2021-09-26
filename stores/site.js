@@ -18,6 +18,7 @@ const store = create((set) => ({
       _id: '6083562f1b5bc51379ab9e14',
       deactivated: false,
       name: 'Discovery of Iris',
+      gameSlug: "star-atlas",
       description:
         'The rogue planet, Iris, dense with invaluable materials, draws in and collides with seven child planets in a remote region of space, creating what is henceforth referred to as “The Cataclysm”. When combined, these eight elements create a form of free energy. The collision creates a massively valuable debris field.',
       image: 'https://storage.googleapis.com/nft-assets/ReBirth/poster-1/discovery-of-iris.jpg',
@@ -55,6 +56,7 @@ const store = create((set) => ({
       _id: '6083562f1b5bc51379ab9e15',
       deactivated: false,
       name: 'The Heart of Star Atlas',
+      gameSlug: "star-atlas",
       description:
         'At the core of Star Atlas lies a treasure trove of priceless data. After an unsuspecting deep space explorer discovers “The Cataclysm”, he scans its riches, creating what will once be known as the first intergalactic data block. He sells this invaluable information to all three rival factions, igniting a lethal spark that forever changes the course of history.',
       image:
@@ -94,6 +96,7 @@ const store = create((set) => ({
       _id: '6083562f1b5bc51379ab9e16',
       deactivated: false,
       name: 'The Convergence War',
+      gameSlug: "star-atlas",
       description:
         'All three factions, thinking they were the sole owners of the cataclysmic data drop, converge to settle the area. A devastating war breaks out across the galaxy after their inability to settle the disputed territory.',
       image: 'https://storage.googleapis.com/nft-assets/ReBirth/poster-3/the-convergence-war.jpg',
@@ -131,6 +134,7 @@ const store = create((set) => ({
       _id: '6083562f1b5bc51379ab9e17',
       deactivated: false,
       name: 'Short Story of a Lost Astronaut',
+      gameSlug: "star-atlas",
       description:
         'He thought it would be just another routine exploration mission. Get there, scan, save data blocks and return. But when a surprise radiation storm knocked out his spaceship and swept him up into its high-velocity current, the only thing that saved him from certain doom was his custom ion shield.',
       image:
