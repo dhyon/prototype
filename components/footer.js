@@ -1,16 +1,14 @@
-import {Heading, Divider,  Box, Image, Button, useColorModeValue } from '@chakra-ui/react';
-import Link from "next/link";
+import { Heading, Divider, Box, Image, Button, useColorModeValue } from '@chakra-ui/react';
+import Link from 'next/link';
 
-function Footer () {
-  const  bg = useColorModeValue("gray.50", "gray.900");
+function Footer() {
+  const bg = useColorModeValue('gray.50', 'gray.900');
   return (
-    <Box mt={[5, 5, 10]}>
+    <Box>
       <Divider />
-    <Box p={[5, 5, 10]} >
-      <Heading>
-        Footer
-      </Heading>
-    </Box>
+      <Box p={[5, 5, 8]}>
+        <Heading>Footer</Heading>
+      </Box>
     </Box>
   );
 }

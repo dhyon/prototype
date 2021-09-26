@@ -49,7 +49,7 @@ function PageHeader() {
         </Box>
 
 
-      <InputGroup mr={4} maxWidth={[220, 400, "500px"]} bg={inputBg} size="lg" rounded="lg" display="inline-block">
+      <InputGroup mr={4} maxWidth={[220, 400, 400, "500px"]} bg={inputBg} size="lg" rounded="lg" display="inline-block">
         <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
           <HiSearch />
         </InputLeftElement>

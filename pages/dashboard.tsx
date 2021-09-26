@@ -4,15 +4,13 @@ import Layout from '../components/layout';
 import { useColorModeValue, Grid, Box, Image, Heading, SimpleGrid, Flex } from '@chakra-ui/react';
 
 const Home: NextPage = () => {
-
-  let cardBackground = useColorModeValue("gray.100", "gray.700")
+  let cardBackground = useColorModeValue('gray.100', 'gray.700');
   return (
     <Layout title="Dashboard">
-      <Box px={[5, 5, 10, 10]}>
+      <Box p={[5, 5, 8]}>
         <Heading
           fontWeight="bold"
           textTransform="uppercase"
-          size="lg"
           as={'h1'}
           // opacity="0"
           // position="absolute"
@@ -48,9 +46,7 @@ const Home: NextPage = () => {
             adsf
           </Box>
         </Grid> */}
-
-
-        </Box>
+      </Box>
     </Layout>
   );
 };

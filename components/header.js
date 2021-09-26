@@ -40,7 +40,7 @@ function Header() {
   // const dashboardIcon = useColorModeValue("/icons/dashboard-light.svg", "/icons/dashboard-dark.svg" )
   // const inventoryIcon = useColorModeValue("/icons/inventory-light.svg", "/icons/inventory-dark.svg" )
   const bg = useColorModeValue('gray.50', 'gray.900');
-  let myGame = state.data[0]
+  let myGame = state.games[0]
   return (
     <Box
       px={5}
@@ -75,7 +75,7 @@ function Header() {
         </Heading>
 
         
-        <GameElement link={"/game/" + myGame["_id"] } icon={<HiOutlineSun />} title={ myGame.name } />
+        <GameElement link={"/game/" + myGame.slug } icon={<HiOutlineSun />} title={ myGame.name } />
         
 
         <Box mt={5}>
