@@ -48,7 +48,7 @@ const Home: NextPage = () => {
   return (
     <Layout title="Home">
       <Box height={600} px={10}>
-        <VictoryChart
+        {/* <VictoryChart
           width={800}
           height={500}
           
@@ -125,7 +125,7 @@ const Home: NextPage = () => {
               { x: new Date(2015, 1, 1), y: 470 },
             ]}
           />
-        </VictoryChart>
+        </VictoryChart> */}
       </Box>
     </Layout>
   );
