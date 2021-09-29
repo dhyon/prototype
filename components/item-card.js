@@ -2,7 +2,6 @@ import {Heading,  Box, Image, Button, } from '@chakra-ui/react';
 import Link from "next/link";
 
 function ItemCard({ el }) {
-  debugger
   return (
     <Link href={ `/item/` + el._id }>
       <Box rounded="md" overflow="hidden" borderWidth={1}>

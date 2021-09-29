@@ -1,41 +1,39 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
 import Layout from '../../components/layout';
-import { Box, Image, Heading } from '@chakra-ui/react';
+import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
 
 const Page = ({ item = {} }) => {
+  // let bg = useColorModeValue('green.200', 'red.500');
   
-	
   return (
-    <Layout title="Dashboard">
-
-<Box position="relative">
-            <Image
-              src={item.image || '#'}
-              width="100%"
-              height={[200, 300, '400px']}
-              loading="lazy"
-              objectFit="cover"
-            />
-
-            <Box position="absolute" p={[10, 10, 20]} px={[8, 8, 10]} bottom={0}>
-              <Heading color="white" size="4xl">
-                {item.name}
-              </Heading>
-
-              <Heading color="gray.500" size="lg">
-                { item.symbol }
-
-              </Heading>
-            </Box>
-          </Box>
+    <Layout title={ item.name }>
+      <Box position="relative" > 
+        <Image
+          src={item.image || '#'}
+          width="100%"
+          height={[200, 300, '400px']}
+          loading="lazy"
+          objectFit="cover"
+        />
 
 
 
-      <Box p={[5, 5, 10]} >
-        { item.description }
+        <Box position="absolute" p={[10, 10, 20]} px={[8, 8, 10]} bottom={0} >
+          <Heading color="white" size="4xl" >
+            {item.name}
+          </Heading>
 
+          <Heading color="gray.500" size="lg">
+            {item.symbol}
+          </Heading>
+        </Box>
       </Box>
+
+      {/* Victory Chart */}
+      {/* /item/asdfakjsndfkjandsf/movement */}
+
+      <Box p={[5, 5, 10]}>{item.description}</Box>
     </Layout>
   );
 };
@@ -197,15 +195,14 @@ export async function getStaticPaths() {
       updatedAt: '2021-09-03T07:08:46.766Z',
     },
   ];
-//   let games = await fetch("http://localhost:3000/api/data/startatlas/markets");
-  
+  //   let games = await fetch("http://localhost:3000/api/data/startatlas/markets");
+
   const paths = data.map((el, idx) => {
     return {
-      
       params: {
-        id: el["_id"],
+        id: el['_id'],
         data: el,
-	    
+
         // handle: el["_id"],
       },
     };
@@ -223,7 +220,7 @@ export async function getStaticProps({ params, locale, locales, preview }) {
       _id: '6083562f1b5bc51379ab9e14',
       deactivated: false,
       name: 'Discovery of Iris',
-      gameSlug: "star-atlas",
+      gameSlug: 'star-atlas',
       description:
         'The rogue planet, Iris, dense with invaluable materials, draws in and collides with seven child planets in a remote region of space, creating what is henceforth referred to as “The Cataclysm”. When combined, these eight elements create a form of free energy. The collision creates a massively valuable debris field.',
       image: 'https://storage.googleapis.com/nft-assets/ReBirth/poster-1/discovery-of-iris.jpg',
@@ -261,7 +258,7 @@ export async function getStaticProps({ params, locale, locales, preview }) {
       _id: '6083562f1b5bc51379ab9e15',
       deactivated: false,
       name: 'The Heart of Star Atlas',
-      gameSlug: "star-atlas",
+      gameSlug: 'star-atlas',
       description:
         'At the core of Star Atlas lies a treasure trove of priceless data. After an unsuspecting deep space explorer discovers “The Cataclysm”, he scans its riches, creating what will once be known as the first intergalactic data block. He sells this invaluable information to all three rival factions, igniting a lethal spark that forever changes the course of history.',
       image:
@@ -301,7 +298,7 @@ export async function getStaticProps({ params, locale, locales, preview }) {
       _id: '6083562f1b5bc51379ab9e16',
       deactivated: false,
       name: 'The Convergence War',
-      gameSlug: "star-atlas",
+      gameSlug: 'star-atlas',
       description:
         'All three factions, thinking they were the sole owners of the cataclysmic data drop, converge to settle the area. A devastating war breaks out across the galaxy after their inability to settle the disputed territory.',
       image: 'https://storage.googleapis.com/nft-assets/ReBirth/poster-3/the-convergence-war.jpg',
@@ -338,7 +335,7 @@ export async function getStaticProps({ params, locale, locales, preview }) {
     {
       _id: '6083562f1b5bc51379ab9e17',
       deactivated: false,
-      gameSlug: "star-atlas",
+      gameSlug: 'star-atlas',
       name: 'Short Story of a Lost Astronaut',
       description:
         'He thought it would be just another routine exploration mission. Get there, scan, save data blocks and return. But when a surprise radiation storm knocked out his spaceship and swept him up into its high-velocity current, the only thing that saved him from certain doom was his custom ion shield.',
@@ -380,8 +377,10 @@ export async function getStaticProps({ params, locale, locales, preview }) {
   return {
     props: {
       // id: params.id,
-      item: data.filter( el => { return el["_id"] === params.id })[0]
-//       handle: "game/" + params.handle,
+      item: data.filter((el) => {
+        return el['_id'] === params.id;
+      })[0],
+      //       handle: "game/" + params.handle,
     },
   };
 }
