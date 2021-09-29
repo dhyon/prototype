@@ -1,6 +1,3 @@
-// import type { NextPage } from 'next';
-
-
 import { LoremIpsum } from 'react-lorem-ipsum';
 import Layout from '../../components/layout';
 import {
@@ -16,29 +13,14 @@ import {
   useColorModeValue,
   SimpleGrid,
 } from '@chakra-ui/react';
-import useStore from '../../stores/site';
 import ItemCard from '../../components/item-card';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 
-const Page = ({ game = {} }) => {
-  const [first, setFirst] = useState(true);
-  const [items, setItems] = useState([]);
-  const state = useStore((state) => state);
+const Page = ({ game = {}, markets = []}) => {
+  const [items, setItems] = useState(markets);
   const cardBg = useColorModeValue('gray.100', 'gray.700');
 
-  // api call
-
-  async function getGameData() {
-    // let apiCall = await fetch(process.env.baseURL + '/api/data/staratlas/markets');
-    let apiCall = await fetch('http://localhost:3000/api/data/staratlas/markets');
-    let data = await apiCall.json();
-    setItems(data);
-  }
-
-  useEffect(() => {
-    first && getGameData();
-    setFirst(false);
-  }, []);
   return (
     <Layout title={game.name}>
       <Box overflow="hidden">
@@ -101,7 +83,7 @@ const Page = ({ game = {} }) => {
                   <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
                     {items
                       .filter((el) => {
-                        return el.attributes.itemType === 'structure';
+                        return el.attributes.category === 'structure';
                       })
                       .map((el) => {
                         return (
@@ -117,7 +99,7 @@ const Page = ({ game = {} }) => {
                   <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
                     {items
                       .filter((el) => {
-                        return el.attributes.itemType === 'cosmetic';
+                        return el.attributes.category === 'cosmetic';
                       })
                       .map((el) => {
                         return (
@@ -133,7 +115,7 @@ const Page = ({ game = {} }) => {
                   <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
                     {items
                       .filter((el) => {
-                        return el.attributes.itemType === 'access';
+                        return el.attributes.category === 'access';
                       })
                       .map((el) => {
                         return (
@@ -149,7 +131,7 @@ const Page = ({ game = {} }) => {
                   <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
                     {items
                       .filter((el) => {
-                        return el.attributes.itemType === 'ship';
+                        return el.attributes.category === 'ship';
                       })
                       .map((el) => {
                         return (
@@ -165,7 +147,7 @@ const Page = ({ game = {} }) => {
                   <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
                     {items
                       .filter((el) => {
-                        return el.attributes.itemType === 'crew';
+                        return el.attributes.category === 'crew';
                       })
                       .map((el) => {
                         return (
@@ -181,7 +163,7 @@ const Page = ({ game = {} }) => {
                   <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
                     {items
                       .filter((el) => {
-                        return el.attributes.itemType === 'equipment';
+                        return el.attributes.category === 'equipment';
                       })
                       .map((el) => {
                         return (
@@ -220,7 +202,6 @@ export async function getStaticPaths() {
       params: {
         slug: el['slug'],
         data: el,
-
         // handle: el["_id"],
       },
     };
@@ -244,13 +225,16 @@ export async function getStaticProps({ params, locale, locales, preview }) {
     },
   ];
 
+  const markets = await getAllStarAtlasMarkets();
+
   return {
     props: {
       // id: params.id,
       game: data.filter((el) => {
         return el['slug'] === params.slug;
       })[0],
-      //       handle: "game/" + params.handle,
+      markets: markets,
+      // handle: "game/" + params.handle,
     },
   };
 }

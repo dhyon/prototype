@@ -1,33 +1,30 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
-import { VictoryChart, VictoryScatter, VictoryAxis } from "victory";
+import { VictoryChart, VictoryScatter, VictoryAxis } from 'victory';
 
 import Layout from '../../components/layout';
 import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
+import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 
 const Page = ({ item = {} }) => {
   // let bg = useColorModeValue('green.200', 'red.500');
-  const colors =[
-    "blue", "red", "green", "orange",
-    "purple", "teal", "yellow"
-  ];
+  const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
 
   let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
     const scaledIndex = Math.floor(index % 7);
     return {
       x: Math.random(-1, 1),
-      y: Math.random(-1, 1) ,
+      y: Math.random(-1, 1),
       size: Math.random(10) * 10 + 10,
-      symbol: "circle",
-      fill: colors[ index ],
-      opacity: 0.6
+      symbol: 'circle',
+      fill: colors[index],
+      opacity: 0.6,
     };
   });
 
-
   return (
-    <Layout title={ item.name }>
-      <Box position="relative" > 
+    <Layout title={item.name}>
+      <Box position="relative">
         <Image
           src={item.image || '#'}
           width="100%"
@@ -36,10 +33,8 @@ const Page = ({ item = {} }) => {
           objectFit="cover"
         />
 
-
-
-        <Box position="absolute" p={[10, 10, 20]} px={[8, 8, 10]} bottom={0} >
-          <Heading color="white" size="4xl" >
+        <Box position="absolute" p={[10, 10, 20]} px={[8, 8, 10]} bottom={0}>
+          <Heading color="white" size="4xl">
             {item.name}
           </Heading>
 
@@ -52,40 +47,40 @@ const Page = ({ item = {} }) => {
       {/* Victory Chart */}
       {/* /item/asdfakjsndfkjandsf/movement */}
 
-      <Box p={[5, 5, 10]}>{item.description}
-      
+      <Box p={[5, 5, 10]}>
+        {item.description}
+
         <Box height="320px" width="320px">
+          <VictoryChart animate={{ duration: 1200, easing: 'bounceIn' }}>
+            <VictoryScatter
+              data={data}
+              style={{
+                data: {
+                  fill: ({ datum }) => datum.fill,
+                  opacity: ({ datum }) => datum.opacity,
+                },
+              }}
+            />
 
-        <VictoryChart animate={{ duration: 1200, easing: "bounceIn" }}>
-        <VictoryScatter
-          data={
-            data 
-          }
-          style={{
-            data: {
-              fill: ({ datum }) => datum.fill,
-              opacity: ({ datum }) => datum.opacity
-            }
-          }}
-        />
-
-<VictoryAxis crossAxis
-    width={320}
-    height={320}
-    domain={[-1, 1]}
-    // theme={VictoryTheme.material}
-    standalone={false}
-  />
-  <VictoryAxis dependentAxis crossAxis
-    width={320}
-    height={320}
-    domain={[-1, 1]}
-    // theme={VictoryTheme.material}
-    standalone={false}
-  />
-      </VictoryChart>
-
-          </Box>
+            <VictoryAxis
+              crossAxis
+              width={320}
+              height={320}
+              domain={[-1, 1]}
+              // theme={VictoryTheme.material}
+              standalone={false}
+            />
+            <VictoryAxis
+              dependentAxis
+              crossAxis
+              width={320}
+              height={320}
+              domain={[-1, 1]}
+              // theme={VictoryTheme.material}
+              standalone={false}
+            />
+          </VictoryChart>
+        </Box>
       </Box>
     </Layout>
   );
@@ -94,8 +89,7 @@ const Page = ({ item = {} }) => {
 export default Page;
 
 export async function getStaticPaths() {
-  let apiCall = await fetch('http://localhost:3000/api/data/staratlas/markets');
-  let data = await apiCall.json();
+  let data = await getAllStarAtlasMarkets();
 
   const paths = data.map((el, idx) => {
     return {
@@ -115,8 +109,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params, locale, locales, preview }) {
-  let apiCall = await fetch('http://localhost:3000/api/data/staratlas/markets');
-  let data = await apiCall.json();
+  let data = await getAllStarAtlasMarkets();
 
   return {
     props: {
