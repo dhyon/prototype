@@ -1,5 +1,5 @@
 // import type { NextPage } from 'next';
-// import Image from 'next/image'
+
 
 import { LoremIpsum } from 'react-lorem-ipsum';
 import Layout from '../../components/layout';
