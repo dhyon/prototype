@@ -1,11 +1,30 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
+import { VictoryChart, VictoryScatter, VictoryAxis } from "victory";
+
 import Layout from '../../components/layout';
 import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
 
 const Page = ({ item = {} }) => {
   // let bg = useColorModeValue('green.200', 'red.500');
-  
+  const colors =[
+    "blue", "red", "green", "orange",
+    "purple", "teal", "yellow"
+  ];
+
+  let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
+    const scaledIndex = Math.floor(index % 7);
+    return {
+      x: Math.random(-1, 1),
+      y: Math.random(-1, 1) ,
+      size: Math.random(10) * 10 + 10,
+      symbol: "circle",
+      fill: colors[ index ],
+      opacity: 0.6
+    };
+  });
+
+
   return (
     <Layout title={ item.name }>
       <Box position="relative" > 
@@ -33,7 +52,41 @@ const Page = ({ item = {} }) => {
       {/* Victory Chart */}
       {/* /item/asdfakjsndfkjandsf/movement */}
 
-      <Box p={[5, 5, 10]}>{item.description}</Box>
+      <Box p={[5, 5, 10]}>{item.description}
+      
+        <Box height="320px" width="320px">
+
+        <VictoryChart animate={{ duration: 1200, easing: "bounceIn" }}>
+        <VictoryScatter
+          data={
+            data 
+          }
+          style={{
+            data: {
+              fill: ({ datum }) => datum.fill,
+              opacity: ({ datum }) => datum.opacity
+            }
+          }}
+        />
+
+<VictoryAxis crossAxis
+    width={320}
+    height={320}
+    domain={[-1, 1]}
+    // theme={VictoryTheme.material}
+    standalone={false}
+  />
+  <VictoryAxis dependentAxis crossAxis
+    width={320}
+    height={320}
+    domain={[-1, 1]}
+    // theme={VictoryTheme.material}
+    standalone={false}
+  />
+      </VictoryChart>
+
+          </Box>
+      </Box>
     </Layout>
   );
 };
