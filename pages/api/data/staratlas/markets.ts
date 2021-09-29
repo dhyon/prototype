@@ -14,6 +14,7 @@ const CACHE = new CacheContainer(new MemoryStorage())
  *
  * query params:
  * category = structure | cosmetic | access | ship | crew | equipment
+ *
  */
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
