@@ -1,32 +1,36 @@
-import {
-	Box, 
+import { Box, useColorModeValue } from '@chakra-ui/react';
 
-} from "@chakra-ui/react";
+function Rarity({ val }) {
+  let color, gradient;
+	let heat = useColorModeValue(".400", ".300")
+	let borderHeat = useColorModeValue(".300", ".400")
 
-function Rarity ({ val }) {
-	let color, gradient;
+  switch (val) {
+    case 'epic':
+      color = 'pink';
 
+      break;
 
-	switch ( val ) {
-		case "epic":
-			color = "pink.500";
-			
-			break;
+    case 'rare':
+      color = 'red';
 
-			case "rare":
-			color = "red.500";
-			
-			break;
+      break;
+
+		case 'common':
+				color = 'blue';
 	
-		default:
-			color = "green.500";
-			break;
-	}
-	return <Box>
-		<Box display="inline-block" bg={ color } textTransform="uppercase" px={2} py={1}>
-			{ val }
-		</Box>
+				break;
 
-	</Box>
+    default:
+      color = 'green';
+      break;
+  }
+  return (
+    <Box>
+      <Box fontSize="xs" fontWeight="500" borderWidth={2} rounded="md" color={ color + heat } borderColor={ color + borderHeat } display="inline-block"  textTransform="uppercase" px={1} py={0.5}>
+        {val}
+      </Box>
+    </Box>
+  );
 }
 export default Rarity;
