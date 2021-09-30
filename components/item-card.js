@@ -1,8 +1,12 @@
 import { Heading, Box, Image, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 import NextImage from 'next/image';
+import Rarity from "./rarity";
+
 
 function ItemCard({ el }) {
+
+
   return (
     <Link href={`/item/` + el._id}>
       <Box rounded="md" overflow="hidden" borderWidth={1}>
@@ -12,7 +16,10 @@ function ItemCard({ el }) {
         </Box>
 
         <Box p={3}>
-          <Heading size="sm">{el.name}</Heading>
+          <Heading size="sm" mb={2}>{el.name}</Heading>
+          <Box>
+            <Rarity val={ el.attributes.rarity } />
+          </Box>
         </Box>
       </Box>
     </Link>

@@ -1,6 +1,7 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
 import { VictoryChart, VictoryScatter, VictoryAxis } from 'victory';
+import Rarity from "../../components/rarity";
 
 import Layout from '../../components/layout';
 import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
@@ -13,8 +14,8 @@ const Page = ({ item = {} }) => {
   let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
     const scaledIndex = Math.floor(index % 7);
     return {
-      x: Math.random(-1, 1),
-      y: Math.random(-1, 1),
+      x: Math.random(-2, 2),
+      y: Math.random(-2, 2),
       size: Math.random(10) * 10 + 10,
       symbol: 'circle',
       fill: colors[index],
@@ -48,9 +49,15 @@ const Page = ({ item = {} }) => {
       {/* /item/asdfakjsndfkjandsf/movement */}
 
       <Box p={[5, 5, 10]}>
+        <Box>
+          <Rarity val={ item.attributes.rarity } />
+          </Box>
+          
+        <Box mb={2}>
         {item.description}
+        </Box>
 
-        <Box height="320px" width="320px">
+        <Box height="220px" width="320px" bg="white" rounded="md">
           <VictoryChart animate={{ duration: 1200, easing: 'bounceIn' }}>
             <VictoryScatter
               data={data}
@@ -65,8 +72,8 @@ const Page = ({ item = {} }) => {
             <VictoryAxis
               crossAxis
               width={320}
-              height={320}
-              domain={[-1, 1]}
+              height={220}
+              domain={[-2, 2]}
               // theme={VictoryTheme.material}
               standalone={false}
             />
@@ -74,8 +81,8 @@ const Page = ({ item = {} }) => {
               dependentAxis
               crossAxis
               width={320}
-              height={320}
-              domain={[-1, 1]}
+              height={220}
+              domain={[-2, 2]}
               // theme={VictoryTheme.material}
               standalone={false}
             />
