@@ -21,7 +21,7 @@ function ItemCard({ el }) {
             <Rarity val={ el.attributes.rarity } />
           </Box>
 
-          <Box>
+          <Box display="none">
             {el.totalSupply}
           </Box>
         </Box>
