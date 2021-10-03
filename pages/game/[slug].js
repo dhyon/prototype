@@ -2,11 +2,11 @@ import { LoremIpsum } from 'react-lorem-ipsum';
 import Layout from '../../components/layout';
 import PanelGrid from '../../components/panel-grid';
 import {
-  CheckboxGroup, 
+  CheckboxGroup,
   Checkbox,
   Tabs,
   TabList,
-  Button, 
+  Button,
   TabPanels,
   Tab,
   TabPanel,
@@ -31,9 +31,9 @@ import ItemCard from '../../components/item-card';
 import { useState } from 'react';
 import { HiChevronDown } from 'react-icons/hi';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
+import create from 'zustand'
 
-const Page = ({ game = {}, markets = [] }) => {
-  const [items, setItems] = useState(markets);
+const Page = ({ game = {}, items = [] }) => {
   const cardBg = useColorModeValue('gray.100', 'gray.700');
 
   return (
@@ -139,7 +139,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params, locale, locales, preview }) {
-  const data = [
+  const gamesData = [
     {
       name: 'Star Atlas',
       description: 'Lorem',
@@ -154,12 +154,10 @@ export async function getStaticProps({ params, locale, locales, preview }) {
 
   return {
     props: {
-      // id: params.id,
-      game: data.filter((el) => {
+      game: gamesData.filter((el) => {
         return el['slug'] === params.slug;
       })[0],
-      markets: markets,
-      // handle: "game/" + params.handle,
+      items: markets,
     },
   };
 }
