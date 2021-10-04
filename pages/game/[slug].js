@@ -1,40 +1,86 @@
 import { LoremIpsum } from 'react-lorem-ipsum';
 import Layout from '../../components/layout';
 import PanelGrid from '../../components/panel-grid';
+import * as JsSearch from 'js-search';
+
 import {
   CheckboxGroup,
   Checkbox,
-  Tabs,
-  TabList,
+  Input,
   Button,
-  TabPanels,
-  Tab,
-  TabPanel,
+  FormLabel,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
   HStack,
   Box,
   Image,
   Heading,
   useColorModeValue,
-  SimpleGrid,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuIcon,
-  MenuCommand,
-  MenuDivider,
+  IconButton,
 } from '@chakra-ui/react';
 import ItemCard from '../../components/item-card';
 import { useState } from 'react';
-import { HiChevronDown } from 'react-icons/hi';
+import { HiChevronDown, HiSearch } from 'react-icons/hi';
+import { IoClose } from 'react-icons/io5';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
-import create from 'zustand'
 
-const Page = ({ game = {}, items = [] }) => {
+const Page = ({ game = {}, markets = [] }) => {
+  const [items, setItems] = useState(markets);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filters, setFilters] = useState([]);
   const cardBg = useColorModeValue('gray.100', 'gray.700');
+  const search = new JsSearch.Search('_id');
+  search.addIndex('name');
+  search.addIndex('description');
+  search.addIndex('network');
+  search.addIndex(['attributes', 'itemType']);
+  search.addIndex(['attributes', 'rarity']);
+  search.addIndex(['attributes', 'poster']);
+  search.addIndex(['attributes', 'musician']);
+  search.addDocuments(markets);
+
+  function changeSearchTerm(e) {
+    let newItems = search.search(e.currentTarget.value);
+    setSearchTerm(e.currentTarget.value);
+    setItems(newItems);
+
+    if (e.currentTarget.value == '') {
+      setItems(markets);
+    }
+  }
+
+  function clearSearch() {
+    setSearchTerm('');
+    setItems(markets);
+  }
+
+  function addFilter(e) {
+    setFilters(e);
+  }
+
+  function addFilters(items) {
+    if (filters.length) {
+      let filteredItems = [];
+
+      filters.forEach((filter) => {
+
+        let tempFilter = items.filter((item) => {
+          return item.attributes.rarity == filter;
+        });
+
+        filteredItems = filteredItems.concat( tempFilter );
+      });
+
+      return filteredItems;
+    } else {
+      return items;
+    }
+  }
 
   return (
     <Layout title={game.name}>
@@ -69,38 +115,46 @@ const Page = ({ game = {}, items = [] }) => {
               NFTs
             </Heading>
 
-            <HStack mb={4}>
-              <Menu>
-                <MenuButton as={Button} rightIcon={<HiChevronDown />}>
-                  Filter
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem>Create a Copy</MenuItem>
-                  <MenuItem>Mark as Draft</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                  <MenuItem>Attend a Workshop</MenuItem>
-                </MenuList>
-              </Menu>
+            <InputGroup mb={[2, 2, 3]}>
+              <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
+                <HiSearch />
+              </InputLeftElement>
 
+              <Input value={searchTerm} onChange={changeSearchTerm.bind(this)} />
 
-              <Box>
-                <CheckboxGroup >
-                  <Checkbox mx={4}>
-                    asdf
-                  </Checkbox>
-                  <Checkbox mx={4}>
-                  asdf
-                    </Checkbox>
-                  <Checkbox mx={4}>
-                    asdf
-                  </Checkbox>
+              <InputRightElement
+                onClick={clearSearch.bind(this)}
+                cursor="pointer"
+                _hover={{ color: 'gray.500' }}
+                color="gray.300"
+                fontSize="1.2em"
+              >
+                <IoClose />
+              </InputRightElement>
+            </InputGroup>
 
-                </CheckboxGroup>
-              </Box>
-            </HStack>
+            <Box mb={[2, 2, 3]}>
+              <FormLabel mb={1}>Rarity</FormLabel>
+              <CheckboxGroup onChange={addFilter.bind(this)}>
+                <Checkbox mr={6} mb={2} value="epic">
+                  Epic
+                </Checkbox>
+                <Checkbox mr={6} mb={2} value="legendary">
+                  Legendary
+                </Checkbox>
+                <Checkbox mr={6} mb={2} value="rare">
+                  Rare
+                </Checkbox>
+                <Checkbox mr={6} mb={2} value="common">
+                  Common
+                </Checkbox>
+                <Checkbox mr={6} mb={2} value="uncommon">
+                  Uncommon
+                </Checkbox>
+              </CheckboxGroup>
+            </Box>
 
-            <PanelGrid items={items} />
+            <PanelGrid items={addFilters(items)} />
           </Box>
         </Box>
       </Box>
