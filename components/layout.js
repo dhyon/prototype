@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import {
-  Stack, 
-  Link as ChakraLink, 
+  Stack,
+  Link as ChakraLink,
   Drawer,
   DrawerBody,
   DrawerFooter,
-  Heading, 
+  Heading,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -62,35 +62,11 @@ function Layout({ children, title }) {
 
           <Box pt={["72px"]} minHeight="100vh">
             <main>{children}</main>
-
             <Footer />
           </Box>
         </Box>
       </Grid>
 
-      <Box
-        display={['block', 'block', 'none']}
-        px={5}
-        py={5}
-        
-        borderTopWidth={2}
-        borderColor={ borderColor }
-        zIndex={1000}
-        position="fixed"
-        bottom={0}
-        width="100vw"
-        bg={mobileHeaderBg}
-      >
-        <Box float="right" ml={2}>
-          <BottomsUp />
-        </Box>
-
-        <IconButton fontSize="lg" variant="outline" rounded="full" onClick={toggleColorMode} float="right">
-          <Icon as={HiOutlineSun} />
-        </IconButton>
-
-        <HomeButton />
-      </Box>
     </div>
   );
 }
