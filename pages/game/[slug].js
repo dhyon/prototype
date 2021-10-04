@@ -107,7 +107,6 @@ const Page = ({ game = {}, markets = [] }) => {
 
         <Box p={[5, 5, 8]}>
           <Box mb={[5, 5, 8]}>
-            <LoremIpsum />
           </Box>
 
           <Box>
