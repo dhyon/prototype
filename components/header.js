@@ -47,7 +47,7 @@ function Header() {
       py={5}
       position="fixed"
       width="256px"
-      shadow="md"
+      borderRightWidth={1}
       borderLeft={1}
       minH="100vh"
       bg={bg}

@@ -35,7 +35,7 @@ function PageHeader() {
   const inputBg = useColorModeValue('white', 'gray.700');
   const linkColors = useColorModeValue('gray.700', 'gray.400');
   return (
-    <Box px={[5, 5, 8]} py={3} position="fixed" top={0} shadow="sm" zIndex={400} bg={bg} width={["100%", "100%", "calc(100% - 256px)"]}>
+    <Box px={[5, 5]} py={3} position="fixed" top={0} borderBottomWidth={1} zIndex={400} bg={bg} width={["100%", "100%", "calc(100% - 256px)"]}>
 
 <Box float="right" display={["block", "block", "block", "block", "none"]} ml={ 2 } height="100%"> 
       <Sidebar /> 
