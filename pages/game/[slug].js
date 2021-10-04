@@ -1,8 +1,12 @@
 import { LoremIpsum } from 'react-lorem-ipsum';
 import Layout from '../../components/layout';
+import PanelGrid from '../../components/panel-grid';
 import {
+  CheckboxGroup,
+  Checkbox,
   Tabs,
   TabList,
+  Button,
   TabPanels,
   Tab,
   TabPanel,
@@ -12,13 +16,24 @@ import {
   Heading,
   useColorModeValue,
   SimpleGrid,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuIcon,
+  MenuCommand,
+  MenuDivider,
 } from '@chakra-ui/react';
 import ItemCard from '../../components/item-card';
 import { useState } from 'react';
+import { HiChevronDown } from 'react-icons/hi';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
+import create from 'zustand'
 
-const Page = ({ game = {}, markets = []}) => {
-  const [items, setItems] = useState(markets);
+const Page = ({ game = {}, items = [] }) => {
   const cardBg = useColorModeValue('gray.100', 'gray.700');
 
   return (
@@ -54,128 +69,38 @@ const Page = ({ game = {}, markets = []}) => {
               NFTs
             </Heading>
 
-            <Tabs isLazy>
-              <TabList gridGap={5}>
-                <Tab fontWeight="bold">All Items</Tab>
-                <Tab fontWeight="bold">Structure</Tab>
-                <Tab fontWeight="bold">Cosmetic</Tab>
-                <Tab fontWeight="bold">Access</Tab>
-                <Tab fontWeight="bold">Ship</Tab>
+            <HStack mb={4}>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<HiChevronDown />}>
+                  Filter
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Download</MenuItem>
+                  <MenuItem>Create a Copy</MenuItem>
+                  <MenuItem>Mark as Draft</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                  <MenuItem>Attend a Workshop</MenuItem>
+                </MenuList>
+              </Menu>
 
-                <Tab fontWeight="bold">Crew</Tab>
-                <Tab fontWeight="bold">Equipment</Tab>
-              </TabList>
 
-              <TabPanels>
-                <TabPanel px={0} py={[4, 4, 5, 6]}>
-                  <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
-                    {items.map((el) => {
-                      return (
-                        <Box key={el._id}>
-                          <ItemCard el={el} />
-                        </Box>
-                      );
-                    })}
-                  </SimpleGrid>
-                </TabPanel>
+              <Box>
+                <CheckboxGroup >
+                  <Checkbox mx={4}>
+                    asdf
+                  </Checkbox>
+                  <Checkbox mx={4}>
+                  asdf
+                    </Checkbox>
+                  <Checkbox mx={4}>
+                    asdf
+                  </Checkbox>
 
-                <TabPanel px={0} py={5}>
-                  <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
-                    {items
-                      .filter((el) => {
-                        return el.attributes.category === 'structure';
-                      })
-                      .map((el) => {
-                        return (
-                          <Box key={el._id}>
-                            <ItemCard el={el} />
-                          </Box>
-                        );
-                      })}
-                  </SimpleGrid>
-                </TabPanel>
+                </CheckboxGroup>
+              </Box>
+            </HStack>
 
-                <TabPanel px={0} py={5}>
-                  <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
-                    {items
-                      .filter((el) => {
-                        return el.attributes.category === 'cosmetic';
-                      })
-                      .map((el) => {
-                        return (
-                          <Box key={el._id}>
-                            <ItemCard el={el} />
-                          </Box>
-                        );
-                      })}
-                  </SimpleGrid>
-                </TabPanel>
-
-                <TabPanel px={0} py={5}>
-                  <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
-                    {items
-                      .filter((el) => {
-                        return el.attributes.category === 'access';
-                      })
-                      .map((el) => {
-                        return (
-                          <Box key={el._id}>
-                            <ItemCard el={el} />
-                          </Box>
-                        );
-                      })}
-                  </SimpleGrid>
-                </TabPanel>
-
-                <TabPanel px={0} py={5}>
-                  <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
-                    {items
-                      .filter((el) => {
-                        return el.attributes.category === 'ship';
-                      })
-                      .map((el) => {
-                        return (
-                          <Box key={el._id}>
-                            <ItemCard el={el} />
-                          </Box>
-                        );
-                      })}
-                  </SimpleGrid>
-                </TabPanel>
-
-                <TabPanel px={0} py={5}>
-                  <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
-                    {items
-                      .filter((el) => {
-                        return el.attributes.category === 'crew';
-                      })
-                      .map((el) => {
-                        return (
-                          <Box key={el._id}>
-                            <ItemCard el={el} />
-                          </Box>
-                        );
-                      })}
-                  </SimpleGrid>
-                </TabPanel>
-
-                <TabPanel px={0} py={5}>
-                  <SimpleGrid columns={[2, 3, 4]} spacing={[4, 4, 5, 6]}>
-                    {items
-                      .filter((el) => {
-                        return el.attributes.category === 'equipment';
-                      })
-                      .map((el) => {
-                        return (
-                          <Box key={el._id}>
-                            <ItemCard el={el} />
-                          </Box>
-                        );
-                      })}
-                  </SimpleGrid>
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
+            <PanelGrid items={items} />
           </Box>
         </Box>
       </Box>
@@ -214,7 +139,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params, locale, locales, preview }) {
-  const data = [
+  const gamesData = [
     {
       name: 'Star Atlas',
       description: 'Lorem',
@@ -229,12 +154,10 @@ export async function getStaticProps({ params, locale, locales, preview }) {
 
   return {
     props: {
-      // id: params.id,
-      game: data.filter((el) => {
+      game: gamesData.filter((el) => {
         return el['slug'] === params.slug;
       })[0],
-      markets: markets,
-      // handle: "game/" + params.handle,
+      items: markets,
     },
   };
 }
