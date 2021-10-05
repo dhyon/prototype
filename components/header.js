@@ -6,7 +6,7 @@ import {
   useColorModeValue,
   useColorMode,
   IconButton,
-  useDisclosure, 
+  useDisclosure,
   Icon,
   HStack,
   Box,
@@ -32,11 +32,11 @@ import {
   HiOutlineChartSquareBar,
   HiOutlineCollection,
   HiOutlineDocumentText,
-  HiOutlinePlay,
+  HiOutlineCog,
 } from 'react-icons/hi';
+
 function Header() {
   const state =  site(state => state);
-  const { toggleColorMode } = useColorMode();
   // const dashboardIcon = useColorModeValue("/icons/dashboard-light.svg", "/icons/dashboard-dark.svg" )
   // const inventoryIcon = useColorModeValue("/icons/inventory-light.svg", "/icons/inventory-dark.svg" )
   const bg = useColorModeValue('gray.50', 'gray.900');
@@ -62,31 +62,23 @@ function Header() {
 
         <SidebarElement link="/dashboard" icon={ <HiOutlineChartSquareBar /> } title="Dashboard" />
 
-        <SidebarElement link="/inventory" icon={<HiOutlineCollection /> } title="Inventory" />
+        <SidebarElement link="/inventory" icon={<HiOutlineCollection /> } title="My Inventory" />
 
         <SidebarElement link="/history" icon={<HiOutlineDocumentText />} title="History" />
 
-        <SidebarElement link="/games" icon={<HiOutlinePlay />} title="Games" />
+        <SidebarElement link="/" icon={<HiOutlineCog />} title="Settings" />
 
         <Divider my={4} />
 
-        <Heading fontSize="18px" textTransform="uppercase" mb={4}>
+        <Heading fontSize="18px" textTransform="uppercase" p={4}>
           My games
         </Heading>
 
-        
-        <GameElement link={"/game/" + myGame.slug } icon={<HiOutlineSun />} title={ myGame.name } />
-        
+        <GameElement link={"/game/" + myGame.slug } title={ myGame.name } />
 
         <Box mt={5}>
           <AddMore />
         </Box>
-      </Box>
-
-      <Box>
-        <IconButton fontSize="lg" variant="ghost" onClick={toggleColorMode}>
-          <Icon as={HiOutlineSun} />
-        </IconButton>
       </Box>
     </Box>
   );
@@ -111,7 +103,7 @@ function SidebarElement({ icon, title, link }) {
           p={4}
           rounded="lg"
         >
-          <Box >{icon}</Box>
+          <Box>{icon}</Box>
 
           <Box>{title}</Box>
         </HStack>
@@ -120,10 +112,11 @@ function SidebarElement({ icon, title, link }) {
   );
 }
 
-function GameElement({ icon, title, link }) {
+function GameElement({ title, link }) {
   const hoverBg = useColorModeValue('gray.200', 'gray.600');
   const hoverColor = useColorModeValue('gray.600', 'gray.100');
   const color = useColorModeValue('gray.900', 'gray.200');
+  const iconBgColor = useColorModeValue('gray.900', 'gray.900')
 
   return (
     <Box my={0.5}>
@@ -131,13 +124,19 @@ function GameElement({ icon, title, link }) {
         <HStack
           height="100%"
           cursor="pointer"
-          transition="0.1s ease"
+          transition="0.3s ease"
           color={ color }
           _hover={{ bg: hoverBg, color: hoverColor }}
           p={4}
           rounded="lg"
         >
-          {/* <Box>{icon}</Box> */}
+          <Box mx={0.5}>
+            <Image
+              src="/staratlas.png"
+              boxSize="20px"
+              objectFit="cover"
+            />
+          </Box>
 
           <Box>{title}</Box>
         </HStack>
@@ -149,13 +148,13 @@ function GameElement({ icon, title, link }) {
 
 const AddMore = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-    
+
     return (
       <>
        <Button variant="outline" onClick={onOpen} colorScheme="gray" size="lg" width="100%" py={8}>
             Add more
           </Button>
-  
+
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent p={ 4 }>
@@ -164,7 +163,7 @@ const AddMore = () => {
             <ModalBody>
               <LoremIpsum />
             </ModalBody>
-  
+
             <ModalFooter>
               <Button colorScheme="blue" variant="outline" mr={3} onClick={onClose}>
                 Close

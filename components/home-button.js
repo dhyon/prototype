@@ -6,7 +6,7 @@ function HomeButton() {
   let logo = useColorModeValue("/titan-logo.png", "/titan-dark.png")
   return (
     <Link href="/" >
-        <Grid templateColumns="40px 80px" gap="12px" cursor="pointer">
+        <Grid templateColumns="40px 80px" gap="12px" cursor="pointer" p={4}>
           <Box height="40px" width="40px" rounded="full" overflow="hidden">
             <Image src={ logo } objectFit="cover" alt="Titan Logo" />
           </Box>
