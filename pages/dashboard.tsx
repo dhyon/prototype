@@ -174,7 +174,7 @@ const Home: NextPage = () => {
 
             <SimpleGrid columns={[1, 1, 2]} spacing={[4, 4, 5]}>
               <Box bg={cardBackground} rounded="md" >
-                <Heading fontSize={'lg'}p={5} pb={0}>
+                <Heading fontSize={'lg'}p={5} pb={0} mb={-1}>
                   Monthly earnings
                 </Heading>
 
@@ -186,7 +186,7 @@ const Home: NextPage = () => {
 
               <Box bg={cardBackground} rounded="md">
 
-                <Heading fontSize={'lg'}p={5} pb={0}>
+                <Heading fontSize={'lg'}p={5} pb={0} mb={-1}>
                 Volume by Game
                 </Heading>
 
