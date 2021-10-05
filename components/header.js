@@ -130,9 +130,9 @@ function GameElement({ title, link }) {
           p={4}
           rounded="lg"
         >
-          <Box bg={iconBgColor} mx={0.5}>
+          <Box mx={0.5}>
             <Image
-              src="/staratlas-icon.svg"
+              src="/staratlas.png"
               boxSize="20px"
               objectFit="cover"
             />
