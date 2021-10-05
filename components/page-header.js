@@ -40,23 +40,23 @@ function PageHeader() {
   return (
     <Box px={[5, 5]} py={3} position="fixed" top={0} borderBottomWidth={1} zIndex={400} bg={bg} width={["100%", "100%", "calc(100% - 256px)"]}>
 
-      <Box float="right" display={["block", "block", "block", "block", "none"]} ml={ 2 } height="100%">
+      <Box float="right" height="48px"  alignItems="center" display={["flex", "flex", "flex", "flex", "none"]} ml={ 2 } >
         <Sidebar />
       </Box>
 
-      <Box float="right" ml={2}>
-        <IconButton variant="outline" rounded="full">
+      <Box float="right" ml={2} height="48px" display="flex" alignItems="center">
+        <IconButton variant="ghost" rounded="full">
           <HiOutlineBell />
         </IconButton>
         </Box>
 
-      <Box float="right">
-        <IconButton fontSize="lg" variant="outline" onClick={toggleColorMode}>
+      <Box float="right" height="48px" display="flex" alignItems="center">
+        <IconButton fontSize="lg" variant="ghost" rounded="full" onClick={toggleColorMode}>
           <Icon as={HiOutlineSun} />
         </IconButton>
       </Box>
 
-      <InputGroup mr={4} maxWidth={[220, 400, 400, "500px"]} bg={inputBg} size="lg" rounded="lg" display="inline-block">
+      <InputGroup mr={4} maxWidth={[220, "calc(100% - 160px)", "calc(100% - 200px)", "500px"]} bg={inputBg} size="lg" rounded="lg" display="inline-block">
         <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
           <HiSearch />
         </InputLeftElement>
@@ -121,7 +121,7 @@ function Sidebar () {
 
   return (
     <>
-      <IconButton variant="outline" ref={btnRef}onClick={onOpen}   rounded="full">
+      <IconButton variant="ghost" ref={btnRef}onClick={onOpen}   rounded="full">
           <HiMenuAlt3 />
         </IconButton>
       <Drawer
