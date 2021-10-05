@@ -31,6 +31,7 @@ import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 
 const Page = ({ game = {}, markets = [] }) => {
   const [items, setItems] = useState(markets);
+  debugger
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState([]);
   const cardBg = useColorModeValue('gray.100', 'gray.700');
