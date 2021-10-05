@@ -66,16 +66,18 @@ const Page = ({ game = {}, markets = [] }) => {
 
   function addFilters(items) {
     if (filters.length) {
-      let filteredItems = [];
-
-      filters.forEach((filter) => {
-
-        let tempFilter = items.filter((item) => {
-          return item.attributes.rarity == filter;
+      let filteredItems = items.filter((item) => {
+          return filters.includes(item.attributes.rarity);
         });
 
-        filteredItems = filteredItems.concat( tempFilter );
-      });
+      // filters.forEach((filter) => {
+
+      //   let tempFilter = items.filter((item) => {
+      //     return item.attributes.rarity == filter;
+      //   });
+
+      //   filteredItems = filteredItems.concat( tempFilter );
+      // });
 
       return filteredItems;
     } else {
