@@ -1,39 +1,27 @@
 import type { NextPage } from 'next';
 // import Image from 'next/image'
 import { useTable, useSortBy } from 'react-table';
-
+import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
 import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-const Home: NextPage = () => {
-  const data = useMemo(
-    () => [
-      {
-        col1: 'Hello',
-        col2: 'World',
-      },
-      {
-        col1: 'react-table',
-        col2: 'rocks',
-      },
-      {
-        col1: 'whatever',
-        col2: 'you want',
-      },
-    ],
-    [],
-  );
+const Home: NextPage = ({ items }) => {
+  const data = useMemo(() => items, []);
 
   const columns = useMemo(
     () => [
       {
-        Header: 'Column 1',
-        accessor: 'col1', // accessor is the "key" in the data
+        Header: 'Name',
+        accessor: 'name', // accessor is the "key" in the data
       },
       {
-        Header: 'Column 2',
-        accessor: 'col2',
+        Header: 'Image',
+        accessor: 'image', // accessor is the "key" in the data
+      },
+      {
+        Header: 'Rarity',
+        accessor: 'attributes.rarity',
       },
     ],
     [],
@@ -42,38 +30,31 @@ const Home: NextPage = () => {
   const tableInstance = useTable({ columns, data }, useSortBy);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
-
-  const tableBorderColor = useColorModeValue("#eaeaea", "#1a1a1a")
-  const tableColor = useColorModeValue("#1a1a1a", "#eaeaea")
+  const tableBorderColor = useColorModeValue('#eaeaea', '#1a1a1a');
+  const tableColor = useColorModeValue('#1a1a1a', '#eaeaea');
 
   return (
     <Layout title="Inventory">
       <Box p={[5, 5, 8]}>
-        <Heading fontWeight="bold" textTransform="uppercase" mb={ 4 }>
+        <Heading fontWeight="bold" textTransform="uppercase" mb={4}>
           Inventory
         </Heading>
 
-        <table {...getTableProps()} style={{ border: `solid 1px ${tableColor}` }}>
+        <table {...getTableProps()} >
           <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                // Add the sorting props to control sorting. For this example
-                // we can add them into the header props
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
-                  {/* Add a sort direction indicator */}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  // Add the sorting props to control sorting. For this example
+                  // we can add them into the header props
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    {column.render('Header')}
+                    {/* Add a sort direction indicator */}
+                    <span>{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}</span>
+                  </th>
+                ))}
+              </tr>
+            ))}
           </thead>
           <tbody {...getTableBodyProps()}>
             {rows.map((row) => {
@@ -81,18 +62,41 @@ const Home: NextPage = () => {
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        style={{
-                          padding: '10px',
-                          border: 'solid 1px gray',
-                          background: 'papayawhip',
-                        }}
-                      >
-                        {cell.render('Cell')}
-                      </td>
-                    );
+                    switch (cell.column.Header) {
+                      case "Image":
+                        debugger
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            style={{
+                              padding: '10px',
+                              borderBottom: 'solid 1px gray',
+                            }}
+                          >
+                            <Image src={cell.value} width="40px" height="40px" rounded="md" objectFit="cover" />
+                          </td>
+                        );
+                        
+                        break;
+                    
+                      default:
+
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            style={{
+                              padding: '10px',
+                              borderBottom: 'solid 1px gray',
+                            }}
+                          >
+                            {cell.render('Cell')}
+                          </td>
+                        );
+
+
+                        break;
+                    }
+                    
                   })}
                 </tr>
               );
@@ -105,3 +109,13 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getStaticProps() {
+  const markets = await getAllStarAtlasMarkets();
+
+  return {
+    props: {
+      items: markets,
+    },
+  };
+}
