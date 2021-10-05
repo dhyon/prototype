@@ -14,6 +14,7 @@ import {
 import { HiChevronRight } from 'react-icons/hi';
 const Home: NextPage = () => {
   let cardBackground = useColorModeValue('gray.100', 'gray.700');
+  let normalBg = useColorModeValue('white', 'gray.800');
   let lightBg = useColorModeValue('gray.50', 'gray.700');
   let colorTitan = useColorModeValue('titan', 'titanLight');
   let sidebarBg = useColorModeValue('"gray.50"', 'gray.900');
@@ -50,7 +51,7 @@ const Home: NextPage = () => {
                   <Box textAlign="center">
                     <Heading fontSize={30}>483,167</Heading>
 
-                    <Box color={colorTitan} fontWeight="bold" fontSize="sm">
+                    <Box color={colorTitan} fontWeight="500" fontSize="sm">
                       Total volume / Solana
                     </Box>
                   </Box>
@@ -61,7 +62,7 @@ const Home: NextPage = () => {
                   <Box textAlign="center">
                     <Heading fontSize={30}>Pearce X5</Heading>
 
-                    <Box color={colorTitan} fontWeight="bold" fontSize="sm">
+                    <Box color={colorTitan} fontWeight="500" fontSize="sm">
                       Most sold item — 90d trailing
                     </Box>
                   </Box>
@@ -72,7 +73,7 @@ const Home: NextPage = () => {
                   <Box textAlign="center">
                     <Heading fontSize={30}>21,589</Heading>
 
-                    <Box color={colorTitan} fontWeight="bold" fontSize="sm">
+                    <Box color={colorTitan} fontWeight="500" fontSize="sm">
                       Yesterday’s volume / Solana
                     </Box>
                   </Box>
@@ -172,20 +173,28 @@ const Home: NextPage = () => {
             </Flex>
 
             <SimpleGrid columns={[1, 1, 2]} spacing={[4, 4, 5]}>
-              <Box bg={cardBackground} rounded="md" p={5}>
-                <Heading fontSize={'lg'} mb={4}>
+              <Box bg={cardBackground} rounded="md" >
+                <Heading fontSize={'lg'}p={5} pb={0}>
                   Monthly earnings
                 </Heading>
 
-                <Box height="400px" bg="orange.500" rounded="md"></Box>
+                <Box p={5}>
+                  <Box bg={ normalBg } height="400px" rounded="md">
+                    </Box>
+                </Box>
               </Box>
 
-              <Box bg={cardBackground} rounded="md" p={5}>
-                <Heading fontSize={'lg'} mb={5}>
-                  Volume by Game
+              <Box bg={cardBackground} rounded="md">
+
+                <Heading fontSize={'lg'}p={5} pb={0}>
+                Volume by Game
                 </Heading>
 
-                <Box height="400px" bg="purple.500" rounded="md"></Box>
+                <Box p={5}>
+                  <Box bg={ normalBg } height="400px" rounded="md">
+                    </Box>
+                </Box>
+
               </Box>
             </SimpleGrid>
           </Box>
@@ -226,6 +235,12 @@ const Home: NextPage = () => {
                 </Box>
               );
             })}
+
+            <Box p={ 5 } >
+              <Box height="320px" borderWidth={1} rounded="md">
+              </Box>
+
+            </Box>
           </Box>
         </Grid>
       </Box>
