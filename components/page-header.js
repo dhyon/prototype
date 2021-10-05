@@ -4,14 +4,16 @@ import {
   MenuList,
   MenuItem,
   HStack,
-  Stack, 
-  useDisclosure, 
+  Stack,
+  useDisclosure,
   Link as ChakraLink,
   MenuDivider,
   useColorModeValue,
+  useColorMode,
   Box,
   Input,
-  Center, 
+  Icon,
+  Center,
   InputGroup,
   InputLeftElement,
   InputRightElement,
@@ -29,25 +31,30 @@ import {
 
 import { useRef } from "react";
 
-import { HiChevronDown, HiSearch, HiOutlineBell, HiMenuAlt3 } from 'react-icons/hi';
+import { HiChevronDown, HiSearch, HiOutlineBell, HiMenuAlt3, HiOutlineSun } from 'react-icons/hi';
 function PageHeader() {
   const bg = useColorModeValue('gray.50', 'gray.900');
   const inputBg = useColorModeValue('white', 'gray.700');
   const linkColors = useColorModeValue('gray.700', 'gray.400');
+  const { toggleColorMode } = useColorMode();
   return (
     <Box px={[5, 5]} py={3} position="fixed" top={0} borderBottomWidth={1} zIndex={400} bg={bg} width={["100%", "100%", "calc(100% - 256px)"]}>
 
-<Box float="right" display={["block", "block", "block", "block", "none"]} ml={ 2 } height="100%"> 
-      <Sidebar /> 
+      <Box float="right" display={["block", "block", "block", "block", "none"]} ml={ 2 } height="100%">
+        <Sidebar />
+      </Box>
 
-    </Box>
-
-      <Box float="right" >
+      <Box float="right" ml={2}>
         <IconButton variant="outline" rounded="full">
           <HiOutlineBell />
         </IconButton>
         </Box>
 
+      <Box float="right">
+        <IconButton fontSize="lg" variant="outline" onClick={toggleColorMode}>
+          <Icon as={HiOutlineSun} />
+        </IconButton>
+      </Box>
 
       <InputGroup mr={4} maxWidth={[220, 400, 400, "500px"]} bg={inputBg} size="lg" rounded="lg" display="inline-block">
         <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
@@ -99,7 +106,6 @@ function PageHeader() {
         </Box>
       </HStack>
 
-  
     </Box>
   );
 }
@@ -157,7 +163,7 @@ function Sidebar () {
         </Box>
       </Stack>
 
-            
+
           </DrawerBody>
 
           <DrawerFooter>
