@@ -73,7 +73,7 @@ const Home: NextPage = ({ items }) => {
                               borderBottom: 'solid 1px gray',
                             }}
                           >
-                            <Image src={cell.value} width="40px" height="40px" rounded="md" objectFit="cover" />
+                            <Image imageResolution="10dpi" src={cell.value} width="40px" height="40px" rounded="md" objectFit="cover" />
                           </td>
                         );
                         

@@ -15,7 +15,7 @@ function ItemCard({ el }) {
           position="relative"
           overflow="hidden"
         >
-          <NextImage src={el.image} layout="fill" quality={25} objectFit="cover" />
+          <NextImage src={el.image} layout="fill" quality={5} objectFit="cover" />
         </Box>
 
         <Box p={3}>
