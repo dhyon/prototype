@@ -27,13 +27,13 @@ function RarityGradient({ val }) {
       break;
 
     case 'anomaly':
-      max = 'blue.800';
-      min = 'gray.500';
+      max = 'blue.600';
+      min = 'blue.300';
       break;
 
     default:
-      max = 'gray.400';
-      min = 'gray.300';
+      max = 'gray.600';
+      min = 'gray.500';
       break;
   }
   return <Box bgGradient={`linear(to-r, ${min}, ${max})`} height="5px"></Box>;

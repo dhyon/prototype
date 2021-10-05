@@ -153,6 +153,27 @@ const Page = ({ game = {}, markets = [] }) => {
               </CheckboxGroup>
             </Box>
 
+
+            <Box mb={[2, 2, 3]}>
+              <FormLabel mb={1}>Item Type</FormLabel>
+              <CheckboxGroup onChange={addFilter.bind(this)}>
+                <Checkbox mr={6} mb={2} value="collectible">
+                  Collectible
+                </Checkbox>
+                <Checkbox mr={6} mb={2} value="ship">
+                  Ship
+                </Checkbox>
+                <Checkbox mr={6} mb={2} value="structure">
+                  Structure
+                </Checkbox>
+
+                <Checkbox mr={6} mb={2} value="access">
+                  Access
+                </Checkbox>
+               
+              </CheckboxGroup>
+            </Box>
+
             <PanelGrid items={addFilters(items)} />
           </Box>
         </Box>
