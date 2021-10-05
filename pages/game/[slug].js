@@ -210,7 +210,7 @@ export async function getStaticProps({ params, locale, locales, preview }) {
       game: gamesData.filter((el) => {
         return el['slug'] === params.slug;
       })[0],
-      items: markets,
+      markets: markets,
     },
   };
 }
