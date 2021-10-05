@@ -33,7 +33,9 @@ const Page = ({ game = {}, markets = [] }) => {
   const [items, setItems] = useState(markets);
   debugger;
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState([]);
+  const [rarityFilters, setRarityFilters] = useState([]);
+
+  const [itemTypeFilters, setItemTypeFilters] = useState([]);
   const cardBg = useColorModeValue('gray.100', 'gray.700');
   const search = new JsSearch.Search('_id');
   search.addIndex('name');
@@ -60,20 +62,44 @@ const Page = ({ game = {}, markets = [] }) => {
     setItems(markets);
   }
 
-  function addFilter(e) {
-    setFilters(e);
+  function updateRarityFilter(e) {
+    setRarityFilters(e);
+  }
+
+  function updateItemTypeFilter(e) {
+    setItemTypeFilters(e);
   }
 
   function addFilters(items) {
-    if (filters.length) {
-      let filteredItems = items.filter((item) => {
-        return filters.includes(item.attributes.rarity);
+    let filteredItems = []
+
+    if (rarityFilters.length) {
+      let rarityFiltered = items.filter((item) => {
+        return rarityFilters.includes(item.attributes.rarity);
       });
 
-      return filteredItems;
+      filteredItems = filteredItems.concat(rarityFiltered);
+    }
+
+    if (itemTypeFilters.length) {
+      let typeFilters = items.filter((item) => {
+        return itemTypeFilters.includes(item.attributes.itemType);
+      });
+
+      filteredItems = filteredItems.concat(typeFilters);
+    } 
+
+    if ( rarityFilters.length || itemTypeFilters.length ) {
+      return filteredItems
     } else {
       return items;
     }
+
+    
+    
+
+
+
   }
 
   return (
@@ -134,7 +160,7 @@ const Page = ({ game = {}, markets = [] }) => {
 
             <Box mb={[2, 2, 3]}>
               <FormLabel mb={1}>Rarity</FormLabel>
-              <CheckboxGroup onChange={addFilter.bind(this)}>
+              <CheckboxGroup onChange={updateRarityFilter.bind(this)}>
                 <Checkbox mr={6} mb={2} value="epic">
                   Epic
                 </Checkbox>
@@ -156,7 +182,7 @@ const Page = ({ game = {}, markets = [] }) => {
 
             <Box mb={[2, 2, 3]}>
               <FormLabel mb={1}>Item Type</FormLabel>
-              <CheckboxGroup onChange={addFilter.bind(this)}>
+              <CheckboxGroup onChange={updateItemTypeFilter.bind(this)}>
                 <Checkbox mr={6} mb={2} value="collectible">
                   Collectible
                 </Checkbox>
