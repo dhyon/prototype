@@ -1,6 +1,6 @@
 import { Text, Box, useColorModeValue } from '@chakra-ui/react';
 
-function Rarity({ val }) {
+function RarityGradient({ val }) {
   let color, gradient, min, max;
   let heat = useColorModeValue('.400', '.300');
   let borderHeat = useColorModeValue('.300', '.400');
@@ -27,35 +27,15 @@ function Rarity({ val }) {
       break;
 
     case 'anomaly':
-        max = 'blue.800';
-        min = 'gray.500';
-        break;
+      max = 'blue.800';
+      min = 'gray.500';
+      break;
 
     default:
       max = 'gray.400';
       min = 'gray.300';
       break;
   }
-  return (
-    <Text
-      bgGradient={`linear(to-r, ${min}, ${max})`}
-      // bgClip="text"
-      fontWeight="bold"
-      fontSize="xs"
-      letterSpacing={1}
-      fontWeight="extrabold"
-      // borderWidth={2}
-      color="white"
-      rounded="full"
-      // color={color + heat}
-      // borderColor={color + borderHeat}
-      display="inline-block"
-      textTransform="uppercase"
-      px={2}
-      py={1}
-    >
-      {val}
-    </Text>
-  );
+  return <Box bgGradient={`linear(to-r, ${min}, ${max})`} height="5px"></Box>;
 }
-export default Rarity;
+export default RarityGradient;
