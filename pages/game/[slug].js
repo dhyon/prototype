@@ -31,7 +31,7 @@ import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 
 const Page = ({ game = {}, markets = [] }) => {
   const [items, setItems] = useState(markets);
-  debugger
+  debugger;
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState([]);
   const cardBg = useColorModeValue('gray.100', 'gray.700');
@@ -67,17 +67,8 @@ const Page = ({ game = {}, markets = [] }) => {
   function addFilters(items) {
     if (filters.length) {
       let filteredItems = items.filter((item) => {
-          return filters.includes(item.attributes.rarity);
-        });
-
-      // filters.forEach((filter) => {
-
-      //   let tempFilter = items.filter((item) => {
-      //     return item.attributes.rarity == filter;
-      //   });
-
-      //   filteredItems = filteredItems.concat( tempFilter );
-      // });
+        return filters.includes(item.attributes.rarity);
+      });
 
       return filteredItems;
     } else {
@@ -109,7 +100,13 @@ const Page = ({ game = {}, markets = [] }) => {
         </Box>
 
         <Box p={[5, 5, 8]}>
-          <Box mb={[5, 5, 8]}>
+          <Box mb={4}>
+            Lorem ipsum odor amet, consectetuer adipiscing elit. Laoreet sociosqu tincidunt sagittis
+            curae mattis primis finibus congue. Placerat placerat habitant eu lacinia himenaeos sem
+            nec per pretium. Magna vel justo sem suscipit varius. Morbi gravida eu arcu congue
+            natoque pulvinar fames tempor. Efficitur sociosqu tellus mi malesuada semper. In
+            scelerisque dolor maximus ultricies commodo elementum habitasse elit hendrerit. Eu eu
+            ultrices dignissim sapien orci imperdiet elementum eros augue.
           </Box>
 
           <Box>

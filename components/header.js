@@ -124,6 +124,7 @@ function GameElement({ icon, title, link }) {
   const hoverBg = useColorModeValue('gray.200', 'gray.600');
   const hoverColor = useColorModeValue('gray.600', 'gray.100');
   const color = useColorModeValue('gray.900', 'gray.200');
+  const gameColor = useColorModeValue('titanLight', 'titan');
 
   return (
     <Box my={0.5}>
@@ -137,7 +138,7 @@ function GameElement({ icon, title, link }) {
           p={4}
           rounded="lg"
         >
-          {/* <Box>{icon}</Box> */}
+          <Box mr={2 }><Box height="20px" width="20px" bg={gameColor} rounded="full" /></Box>
 
           <Box>{title}</Box>
         </HStack>
