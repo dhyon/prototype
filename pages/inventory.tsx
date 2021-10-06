@@ -6,7 +6,9 @@ import Layout from '../components/layout';
 import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
 
-const Home: NextPage = ({ items }) => {
+
+
+const Home: NextPage = ({ items } ) => {
   const data = useMemo(() => items, []);
 
   const columns = useMemo(
