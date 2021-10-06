@@ -43,7 +43,6 @@ function Rarity({ val }) {
       fontWeight="bold"
       fontSize="xs"
       letterSpacing={1}
-      fontWeight="extrabold"
       // borderWidth={2}
       color="white"
       rounded="full"

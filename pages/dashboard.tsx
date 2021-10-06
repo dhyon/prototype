@@ -224,6 +224,7 @@ const Home: NextPage = () => {
             {[1, 2, 3, 4, 6].map((el) => {
               return (
                 <Box
+                  key={el}
                   cursor="pointer"
                   borderBottomWidth={1}
                   px={5}

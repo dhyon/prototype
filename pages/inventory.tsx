@@ -1,14 +1,15 @@
 import type { NextPage } from 'next';
-// import Image from 'next/image'
 import { useTable, useSortBy } from 'react-table';
 import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
 import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
 
+interface HomeProps {
+  items: Array<any>
+}
 
-
-const Home: NextPage = ({ items } ) => {
+const Home = ({ items }: HomeProps) => {
   const data = useMemo(() => items, []);
 
   const columns = useMemo(
@@ -44,12 +45,12 @@ const Home: NextPage = ({ items } ) => {
 
         <table {...getTableProps()} >
           <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroups.map((headerGroup, index) => (
+              <tr {...headerGroup.getHeaderGroupProps()} key={index}>
                 {headerGroup.headers.map((column) => (
                   // Add the sorting props to control sorting. For this example
                   // we can add them into the header props
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index}>
                     {column.render('Header')}
                     {/* Add a sort direction indicator */}
                     <span>{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}</span>
@@ -59,10 +60,10 @@ const Home: NextPage = ({ items } ) => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {rows.map((row, index) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell) => {
                     switch (cell.column.Header) {
                       case "Image":
@@ -78,9 +79,9 @@ const Home: NextPage = ({ items } ) => {
                             <Image imageResolution="10dpi" src={cell.value} width="40px" height="40px" rounded="md" objectFit="cover" />
                           </td>
                         );
-                        
+
                         break;
-                    
+
                       default:
 
                         return (
@@ -98,7 +99,7 @@ const Home: NextPage = ({ items } ) => {
 
                         break;
                     }
-                    
+
                   })}
                 </tr>
               );
