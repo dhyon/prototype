@@ -66,7 +66,7 @@ function Header() {
 
         <SidebarElement link="/history" icon={<HiOutlineDocumentText />} title="History" />
 
-        <SidebarElement link="/" icon={<HiOutlineCog />} title="Settings" />
+        <SidebarElement link="/settings" icon={<HiOutlineCog />} title="Settings" />
 
         <Divider my={4} />
 
