@@ -14,35 +14,35 @@ const CACHE = new CacheContainer(new MemoryStorage())
  *
  * query params:
  * category = structure | cosmetic | access | ship | crew | equipment
+ *
  */
-export default async (
-    req: NextApiRequest,
-    res: NextApiResponse
-) => {
-    // check in-memory cache first
-    const maybeCatalog = await CACHE.getItem('catalog')
-
-    if (maybeCatalog) {
-        console.log("Returning cached catalog")
-        res.status(200).json(applyFilter(maybeCatalog as Array<any>, req.query))
-        return
-    }
-
-    await axios
-        .get(STAR_ATLAS_NFT_URL)
-        .then(result => {
-            CACHE.setItem('catalog', result.data, { ttl: 600 })
-            res.status(200).json(applyFilter(result.data as Array<any>, req.query))
-        })
-        .catch(({ err }) => {
-            res.status(404).json({ err })
-        })
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const catalog = await getAllStarAtlasMarkets(req.query)
+    res.status(200).json(catalog)
+  } catch (error) {
+    res.status(500).json({ error })
+  }
 }
 
-function applyFilter(catalog: Array<any>, queryParams: any) {
-    console.log(queryParams)
-    var result = catalog
-    if (queryParams.category)
-        result = result.filter(item => item.attributes.category === queryParams.category)
-    return result
+function applyFilter(catalog: Array<any>, queryParams: any): Array<any> {
+  var result = catalog
+  if (queryParams.category)
+    result = result.filter((item) => item.attributes.category === queryParams.category)
+  return result
+}
+
+export async function getAllStarAtlasMarkets(query: any = {}): Promise<Array<any>> {
+  // check in-memory cache first
+  const maybeCatalog = await CACHE.getItem('catalog')
+
+  if (maybeCatalog) {
+    console.log('Returning cached catalog')
+    return applyFilter(maybeCatalog as Array<any>, query)
+  }
+
+  return await axios.get(STAR_ATLAS_NFT_URL).then(result => {
+    CACHE.setItem('catalog', result.data, { ttl: 600 })
+    return applyFilter(result.data as Array<any>, query)
+  })
 }
