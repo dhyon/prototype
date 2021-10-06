@@ -50,7 +50,9 @@ const Home: NextPage = () => {
   return (
     <>
       <Flex>
-        <HomeButton />
+        <Box px={5} py={5}>
+          <HomeButton />
+        </Box>
         <Spacer />
         <Box p={5}>
           <IconButton
