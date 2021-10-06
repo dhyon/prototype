@@ -1,4 +1,3 @@
-import { LoremIpsum } from 'react-lorem-ipsum';
 import Layout from '../../components/layout';
 import PanelGrid from '../../components/panel-grid';
 import * as JsSearch from 'js-search';
@@ -7,36 +6,28 @@ import {
   CheckboxGroup,
   Checkbox,
   Input,
-  Button,
   FormLabel,
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  HStack,
   Box,
   Image,
   Heading,
   useColorModeValue,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
 } from '@chakra-ui/react';
-import ItemCard from '../../components/item-card';
 import { useState } from 'react';
-import { HiChevronDown, HiSearch } from 'react-icons/hi';
+import { HiSearch } from 'react-icons/hi';
 import { IoClose } from 'react-icons/io5';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 
 const Page = ({ game = {}, markets = [] }) => {
   const [items, setItems] = useState(markets);
-  debugger;
+
   const [searchTerm, setSearchTerm] = useState('');
   const [rarityFilters, setRarityFilters] = useState([]);
 
   const [itemTypeFilters, setItemTypeFilters] = useState([]);
-  const cardBg = useColorModeValue('gray.100', 'gray.700');
+
   const search = new JsSearch.Search('_id');
   search.addIndex('name');
   search.addIndex('description');
@@ -71,7 +62,7 @@ const Page = ({ game = {}, markets = [] }) => {
   }
 
   function addFilters(items) {
-    let filteredItems = []
+    let filteredItems = [];
 
     if (rarityFilters.length) {
       let rarityFiltered = items.filter((item) => {
@@ -87,19 +78,13 @@ const Page = ({ game = {}, markets = [] }) => {
       });
 
       filteredItems = filteredItems.concat(typeFilters);
-    } 
+    }
 
-    if ( rarityFilters.length || itemTypeFilters.length ) {
-      return filteredItems
+    if (rarityFilters.length || itemTypeFilters.length) {
+      return filteredItems;
     } else {
       return items;
     }
-
-    
-    
-
-
-
   }
 
   return (
@@ -179,7 +164,6 @@ const Page = ({ game = {}, markets = [] }) => {
               </CheckboxGroup>
             </Box>
 
-
             <Box mb={[2, 2, 3]}>
               <FormLabel mb={1}>Item Type</FormLabel>
               <CheckboxGroup onChange={updateItemTypeFilter.bind(this)}>
@@ -196,7 +180,6 @@ const Page = ({ game = {}, markets = [] }) => {
                 <Checkbox mr={6} mb={2} value="access">
                   Access
                 </Checkbox>
-               
               </CheckboxGroup>
             </Box>
 
