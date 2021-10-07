@@ -1,5 +1,5 @@
 import { LoremIpsum } from 'react-lorem-ipsum';
-import site from "../stores/site";
+import site from '../stores/site';
 
 import {
   Divider,
@@ -36,11 +36,11 @@ import {
 } from 'react-icons/hi';
 
 function Header() {
-  const state =  site(state => state);
+  const state = site((state) => state);
   // const dashboardIcon = useColorModeValue("/icons/dashboard-light.svg", "/icons/dashboard-dark.svg" )
   // const inventoryIcon = useColorModeValue("/icons/inventory-light.svg", "/icons/inventory-dark.svg" )
   const bg = useColorModeValue('gray.50', 'gray.900');
-  let myGame = state.games[0]
+  let myGame = state.games[0];
   return (
     <Box
       px={5}
@@ -60,9 +60,9 @@ function Header() {
 
         <Divider my={4} />
 
-        <SidebarElement link="/dashboard" icon={ <HiOutlineChartSquareBar /> } title="Dashboard" />
+        <SidebarElement link="/dashboard" icon={<HiOutlineChartSquareBar />} title="Dashboard" />
 
-        <SidebarElement link="/inventory" icon={<HiOutlineCollection /> } title="My Inventory" />
+        <SidebarElement link="/inventory" icon={<HiOutlineCollection />} title="My Inventory" />
 
         <SidebarElement link="/history" icon={<HiOutlineDocumentText />} title="History" />
 
@@ -74,7 +74,7 @@ function Header() {
           My games
         </Heading>
 
-        <GameElement link={"/game/" + myGame.slug } title={ myGame.name } />
+        <GameElement link={'/game/' + myGame.slug} title={myGame.name} />
 
         <Box mt={5}>
           <AddMore />
@@ -97,7 +97,7 @@ function SidebarElement({ icon, title, link }) {
         <HStack
           height="100%"
           cursor="pointer"
-          color={ color }
+          color={color}
           transition="0.1s ease"
           _hover={{ bg: hoverBg, color: hoverColor }}
           p={4}
@@ -125,12 +125,14 @@ function GameElement({ title, link }) {
           height="100%"
           cursor="pointer"
           transition="0.3s ease"
-          color={ color }
+          color={color}
           _hover={{ bg: hoverBg, color: hoverColor }}
           p={4}
           rounded="lg"
         >
-          <Box mr={2 }><Box height="20px" width="20px" bg={gameColor} rounded="full" /></Box>
+          <Box mr={2}>
+            <Image src="/staratlas.png" boxSize="25px" objectFit="cover" />
+          </Box>
 
           <Box>{title}</Box>
         </HStack>
@@ -139,36 +141,34 @@ function GameElement({ title, link }) {
   );
 }
 
-
 const AddMore = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-    return (
-      <>
-       <Button variant="outline" onClick={onOpen} colorScheme="gray" size="lg" width="100%" py={8}>
-            Add more
-          </Button>
+  return (
+    <>
+      <Button variant="outline" onClick={onOpen} colorScheme="gray" size="lg" width="100%" py={8}>
+        Add more
+      </Button>
 
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent p={ 4 }>
-            <ModalHeader>Add game</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <LoremIpsum />
-            </ModalBody>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent p={4}>
+          <ModalHeader>Add game</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <LoremIpsum />
+          </ModalBody>
 
-            <ModalFooter>
-              <Button colorScheme="blue" variant="outline" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="outline" colorScheme="green">Add game</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </>
-    )
-}
-
-
-
+          <ModalFooter>
+            <Button colorScheme="blue" variant="outline" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="outline" colorScheme="green">
+              Add game
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
