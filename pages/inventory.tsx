@@ -7,6 +7,8 @@ import { useMemo } from 'react';
 import InventoryTrend from '../components/inventory-trend';
 import { HiChevronUp, HiChevronDown } from 'react-icons/hi';
 
+import Trend from 'react-trend';
+import { HiChevronUp, HiChevronDown, } from 'react-icons/hi';
 interface HomeProps {
   items: Array<any>;
 }

@@ -19,7 +19,6 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { HiOutlineSun } from 'react-icons/hi';
