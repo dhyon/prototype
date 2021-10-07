@@ -26,6 +26,7 @@ import siteStore from '../stores/site';
 
 const Home: NextPage = () => {
   const { toggleColorMode } = useColorMode();
+  const solanaImg = useColorModeValue('/solanaLight.webp', '/solana.svg');
 
   // let axisColor = useColorModeValue('#0a0a0a', '#fafafa');
 
@@ -49,7 +50,9 @@ const Home: NextPage = () => {
   return (
     <>
       <Flex>
-        <HomeButton />
+        <Box px={5} py={5}>
+          <HomeButton />
+        </Box>
         <Spacer />
         <Box p={5}>
           <IconButton
@@ -77,14 +80,14 @@ const Home: NextPage = () => {
           Gain the edge in the biggest gaming worlds on
         </Heading>
         <Box align="center">
-          <Image src="/solana.svg" width="200px" objectFit="cover" />
+          <Image src={solanaImg} width="200px" objectFit="cover" />
         </Box>
       </HStack>
 
       <HStack
         align="center"
         justify={{ base: 'center', md: 'center', xl: 'center' }}
-        spacing="15px"
+        spacing="20px"
         mb={10}
       >
         <ChakraLink href="https://staratlas.com/">
