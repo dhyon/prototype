@@ -24,6 +24,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { HiChevronRight } from 'react-icons/hi';
+import { Primary } from '../stories/Button.stories';
 const Home: NextPage = () => {
   let cardBackground = useColorModeValue('gray.100', 'gray.700');
   let normalBg = useColorModeValue('white', 'gray.800');
@@ -34,6 +35,8 @@ const Home: NextPage = () => {
   let temperatureLight = useColorModeValue('.400', '.300');
   let temperatureDark = useColorModeValue('.600', '.600');
   let statsBg = useColorModeValue('gray.300', 'gray.600');
+  let axisLabelColor = useColorModeValue('gray', 'white');
+
   return (
     <Layout title="Dashboard">
       <Box>
@@ -197,7 +200,7 @@ const Home: NextPage = () => {
                   {/* <Center height="100%">
                     <Heading mb={-10}>$1690</Heading>
                   </Center> */}
-                  <MonthlyBalanceChart areaColor={colorTitanVal} />
+                  <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor}/>
                   <Center height="100%">
                     <Button>Go to portfolio trends →</Button>
                   </Center>
@@ -262,7 +265,7 @@ const Home: NextPage = () => {
                     Monthly Profit (USDC)
                   </Heading>
                   <Box rounded="md">
-                    <MonthlyEarningsChart areaColor={colorTitanVal} />
+                    <MonthlyEarningsChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor}/>
                     <Center height="100%">
                       <Button mb={5}>Go to balance →</Button>
                     </Center>
@@ -280,10 +283,11 @@ const Home: NextPage = () => {
 export default Home;
 
 interface ChartData {
-  areaColor: string;
+  areaColor: string,
+  axisLabelColor: string
 }
 
-function MonthlyBalanceChart({ areaColor }: ChartData) {
+function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
   const sampleData = [
     { x: 'Jan', y: 100 },
     { x: 'Feb', y: 100 },
@@ -304,11 +308,23 @@ function MonthlyBalanceChart({ areaColor }: ChartData) {
         animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
+        <VictoryAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: {stroke: 'gray'},
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: {stroke: 'gray'},
+          }}
+        />
         <VictoryArea
           data={sampleData}
           style={{
-            data: { fill: areaColor },
-            labels: { fill: '#B399FF' },
+            data: { fill: areaColor, fillOpacity: 0.5 },
           }}
         />
       </VictoryChart>
@@ -316,11 +332,11 @@ function MonthlyBalanceChart({ areaColor }: ChartData) {
   );
 }
 
-function MonthlyEarningsChart({ areaColor }: ChartData) {
+function MonthlyEarningsChart({ areaColor, axisLabelColor  }: ChartData) {
   const sampleData = [
-    { x: 'Feb', y: 0 },
-    { x: 'Mar', y: 100 },
-    { x: 'Apr', y: 100 },
+    // { x: 'Feb', y: 0 },
+    // { x: 'Mar', y: 100 },
+    // { x: 'Apr', y: 100 },
     { x: 'May', y: 0 },
     { x: 'Jun', y: 340 },
     { x: 'Jul', y: 200 },
@@ -334,9 +350,22 @@ function MonthlyEarningsChart({ areaColor }: ChartData) {
       <VictoryChart
         height={450}
         // theme={victoryTheme}
-        animate={{ duration: 400, easing: 'bounceIn' }}
+        animate={{ duration: 100, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
+        <VictoryAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: {stroke: 'gray'},
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: {stroke: 'gray'},
+          }}
+        />
         <VictoryLine
           data={sampleData}
           style={{
