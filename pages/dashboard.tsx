@@ -117,10 +117,11 @@ const Home: NextPage = () => {
                   Monthly game sales/DEX
                 </Heading>
 
-                <Box rounded="md" overflow="hidden" bg={statsBg}>
+                <Box rounded="md" overflow="hidden" >
                   <Box
                     px={3}
                     py={2}
+                    height={50}
                     color="white"
                     fontSize="sm"
                     fontWeight="bold"
@@ -137,6 +138,7 @@ const Home: NextPage = () => {
                   <Box
                     px={3}
                     py={2}
+                    height={50}
                     color="white"
                     width="calc(100% - 20px)"
                     fontSize="sm"
@@ -154,6 +156,7 @@ const Home: NextPage = () => {
                   <Box
                     px={3}
                     py={2}
+                    height={50}
                     color="white"
                     width="calc(100% - 40px)"
                     fontSize="sm"
@@ -171,6 +174,7 @@ const Home: NextPage = () => {
                   <Box
                     px={3}
                     py={2}
+                    height={50}
                     color="white"
                     width="calc(100% - 60px)"
                     fontSize="sm"
@@ -182,7 +186,25 @@ const Home: NextPage = () => {
                       35k
                     </Box>
 
-                    <Box alignSelf="flex-end">Luna</Box>
+                    <Box alignSelf="flex-end">Akash</Box>
+                  </Box>
+
+                  <Box
+                    px={3}
+                    py={2}
+                    height={50}
+                    color="white"
+                    width="calc(100% - 75px)"
+                    fontSize="sm"
+                    fontWeight="bold"
+                    display="flex"
+                    bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
+                  >
+                    <Box flex={1} color="gray.900">
+                      30k
+                    </Box>
+
+                    <Box alignSelf="flex-end">Raydium</Box>
                   </Box>
                 </Box>
               </Box>
@@ -267,7 +289,7 @@ const Home: NextPage = () => {
                   <Box rounded="md">
                     <MonthlyEarningsChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor}/>
                     <Center height="100%">
-                      <Button mb={5}>Go to balance →</Button>
+                      <Button mt={3} mb={5}>Go to balance →</Button>
                     </Center>
                   </Box>
                 </Box>
