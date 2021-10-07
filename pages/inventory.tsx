@@ -5,9 +5,6 @@ import Layout from '../components/layout';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import InventoryTrend from '../components/inventory-trend';
-import { HiChevronUp, HiChevronDown } from 'react-icons/hi';
-
-import Trend from 'react-trend';
 import { HiChevronUp, HiChevronDown, } from 'react-icons/hi';
 interface HomeProps {
   items: Array<any>;

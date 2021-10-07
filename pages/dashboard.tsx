@@ -262,7 +262,7 @@ const Home: NextPage = () => {
             {sidebarItems.map((el) => {
               return (
                 <Box
-                  key={el}
+                  key={el.title}
                   cursor="pointer"
                   borderBottomWidth={1}
                   px={5}
@@ -300,7 +300,7 @@ const Home: NextPage = () => {
             {sidebarItems.map((el) => {
               return (
                 <Box
-                  key={el}
+                  key={el.title + "2"}
                   cursor="pointer"
                   borderBottomWidth={1}
                   px={5}
