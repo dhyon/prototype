@@ -123,22 +123,24 @@ export default Page;
 
 function Bubble({ el, idx }) {
   const bg = useColorModeValue(el + '.400', el + '.200');
-
+  const size = Math.random() * 100 + idx;
   return (
     <Tooltip label={<Box height="200px" width="200px">
       
     </Box>}>
       <Box
         bg={bg}
-        width={10}
-        height={10}
+        cursor="pointer"
+        width={ size }
+        height={ size }
         rounded="full"
         opacity={0.8}
         _hover={{ opacity: 0.98 }}
         borderWidth={2}
         position="absolute"
         top={5}
-        left={idx * 10 + '%'}
+        left={Math.random() * 80 + '%'}
+        top={Math.random() * 80 + '%'}
         zIndex={10}
       ></Box>
     </Tooltip>
