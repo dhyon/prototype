@@ -63,7 +63,8 @@ const Page = ({ item = {}, marketData = {}, id }) => {
           <Image src={gridImage} width="100%" height="100%" zIndex={1} position="relative" />
 
           {['green', 'blue', 'red', 'yellow', 'orange', 'gray'].map((el, idx) => {
-            return <Bubble el={el} idx={idx} />;
+            return <Box key={ idx + el}> <Bubble el={el} idx={idx} />
+            </Box>
           })}
         </Box>
 
@@ -138,7 +139,6 @@ function Bubble({ el, idx }) {
         _hover={{ opacity: 0.98 }}
         borderWidth={2}
         position="absolute"
-        top={5}
         left={Math.random() * 80 + '%'}
         top={Math.random() * 80 + '%'}
         zIndex={10}

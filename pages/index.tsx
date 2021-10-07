@@ -1,3 +1,4 @@
+import NextLink from "next/link"
 import {
   Box,
   Button,
@@ -18,14 +19,13 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-import Trend from 'react-trend';
+
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useState } from 'react';
 import { HiOutlineSun } from 'react-icons/hi';
 import Footer from '../components/footer';
-import HomeButton from '../components/home-button';
-import siteStore from '../stores/site';
+import IndexTrend from "../components/index-trend"
+import ToggleDarkMode from "../components/toggle-dark-mode"
 
 const Home: NextPage = () => {
   const { toggleColorMode } = useColorMode();
@@ -90,28 +90,17 @@ const Home: NextPage = () => {
           Dominate with insights into the metaverse.
         </Heading>
       </Box>
-      <Box width="300px" margin="0 auto" height="140px" mb={8}>
-        <Trend
-          data={[0, 12, 6, 15, 10, 20]}
-          radius={50}
-          strokeWidth={10}
-          smooth
-          autoDraw
-          height={140}
-          autoDrawDuration={3000}
-          autoDrawEasing="ease-in"
-          gradient={['#B399FF', '#7956DD']}
-        />
-      </Box>
+      
+      <IndexTrend />
 
       <Box textAlign="center" pb={[10, 10, 16]}>
+        <NextLink href="/dashboard">
         <Button colorScheme="gray" size="lg" textTransform="uppercase" mr={5}>
           Enter
         </Button>
+        </NextLink>
 
-        <IconButton fontSize="lg" variant="ghost" rounded="full" onClick={toggleColorMode}>
-          <Icon as={HiOutlineSun} />
-        </IconButton>
+        <ToggleDarkMode />
       </Box>
 
   </Box>

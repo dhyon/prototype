@@ -2,17 +2,17 @@ import type { NextPage } from 'next';
 import { useTable, useSortBy } from 'react-table';
 import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
-import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
+import InventoryTrend from '../components/inventory-trend';
+import { HiChevronUp, HiChevronDown } from 'react-icons/hi';
 
-import Trend from 'react-trend';
-import { HiChevronUp, HiChevronDown, } from 'react-icons/hi';
 interface HomeProps {
   items: Array<any>;
 }
 
 const Home = ({ items }: HomeProps) => {
-  const data = useMemo(() => items.slice(0,10), []);
+  const data = useMemo(() => items.slice(0, 10), []);
 
   const columns = useMemo(
     () => [
@@ -48,7 +48,6 @@ const Home = ({ items }: HomeProps) => {
   return (
     <Layout title="Inventory">
       <Box p={[5, 5, 8]} pb={10}>
-
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, index) => (
@@ -59,7 +58,21 @@ const Home = ({ items }: HomeProps) => {
                   <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index}>
                     {column.render('Header')}
                     {/* Add a sort direction indicator */}
-                    <span>{column.isSorted ? (column.isSortedDesc ? <HiChevronDown style={{display: "inline-block", fontSize: 20, marginLeft: 5}} /> : <HiChevronUp  style={{display: "inline-block", fontSize: 20, marginLeft: 5}} />) : ''}</span>
+                    <span>
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <HiChevronDown
+                            style={{ display: 'inline-block', fontSize: 20, marginLeft: 5 }}
+                          />
+                        ) : (
+                          <HiChevronUp
+                            style={{ display: 'inline-block', fontSize: 20, marginLeft: 5 }}
+                          />
+                        )
+                      ) : (
+                        ''
+                      )}
+                    </span>
                   </th>
                 ))}
               </tr>
@@ -96,24 +109,7 @@ const Home = ({ items }: HomeProps) => {
                             }}
                           >
                             {/* <Image imageResolution="10dpi" src={cell.value} width="40px" height="40px" rounded="md" objectFit="cover" /> */}
-                            <Box width="80px" margin="0 auto" height="60px">
-                              <Trend
-                                data={[
-                                  Math.random(),
-                                  Math.random(),
-                                  Math.random(),
-                                  Math.random(),
-                                  Math.random(),
-                                  Math.random(),
-                                ]}
-                                radius={5}
-                                strokeWidth={6}
-                                smooth
-                                autoDraw
-                                height={80}
-                                gradient={['#B399FF', '#B399FF', '#7956DD']}
-                              />
-                            </Box>
+                            <InventoryTrend />
                           </td>
                         );
 
