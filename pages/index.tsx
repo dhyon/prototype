@@ -97,7 +97,7 @@ const Home: NextPage = () => {
           strokeWidth={10}
           smooth
           autoDraw
-          height="140"
+          height={140}
           autoDrawDuration={3000}
           autoDrawEasing="ease-in"
           gradient={['#B399FF', '#7956DD']}

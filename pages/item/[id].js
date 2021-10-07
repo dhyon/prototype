@@ -2,9 +2,10 @@
 // import Image from 'next/image'
 import { VictoryChart, VictoryScatter, VictoryAxis } from 'victory';
 import Rarity from '../../components/rarity';
+import RarityGradient from '../../components/rarity-gradient';
 
 import Layout from '../../components/layout';
-import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, Image, Heading, useColorModeValue, Tooltip } from '@chakra-ui/react';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 import { getMarketData } from '../api/data/staratlas/markets/[marketId]';
 
@@ -12,7 +13,8 @@ const Page = ({ item = {}, marketData = {}, id }) => {
   // TODO: if item/marketData are undefined/null then we should gracefully display an error message
   // let bg = useColorModeValue('green.200', 'red.500')
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
-
+  const lightBg = useColorModeValue('gray.200', 'gray.700');
+  const gridImage = useColorModeValue('/grid-light.jpg', '/dark-grid.jpg');
   let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
     const scaledIndex = Math.floor(index % 7);
     return {
@@ -41,23 +43,31 @@ const Page = ({ item = {}, marketData = {}, id }) => {
             {item.name}
           </Heading>
 
-          <Heading color="gray.300" size="lg">
+          <Heading color="gray.300" size="lg" mb={2}>
             {item.symbol}
           </Heading>
+
+          <Rarity val={item.attributes.rarity} />
         </Box>
       </Box>
 
       {/* Victory Chart */}
       {/* /item/asdfakjsndfkjandsf/movement */}
-
+      <Box>
+        <RarityGradient val={item.attributes.rarity} />
+      </Box>
       <Box p={[5, 5, 10]}>
-        <Box>
-          <Rarity val={item.attributes.rarity} />
-        </Box>
-
         <Box mb={2}>{item.description}</Box>
 
-        <Box height="220px" width="320px" bg="white" rounded="md">
+        <Box height={[300, 400, 500, 600]} width={[300, 400, 500, 600]} position="relative">
+          <Image src={gridImage} width="100%" height="100%" zIndex={1} position="relative" />
+
+          {['green', 'blue', 'red', 'yellow', 'orange', 'gray'].map((el, idx) => {
+            return <Bubble el={el} idx={idx} />;
+          })}
+        </Box>
+
+        <Box height="520px" width="520px" bg="white" rounded="md" display="none">
           <VictoryChart animate={{ duration: 1200, easing: 'bounceIn' }}>
             <VictoryScatter
               data={data}
@@ -71,8 +81,8 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 
             <VictoryAxis
               crossAxis
-              width={320}
-              height={220}
+              width={520}
+              height={520}
               domain={[-2, 2]}
               // theme={VictoryTheme.material}
               standalone={false}
@@ -110,3 +120,27 @@ export async function getServerSideProps(context) {
 }
 
 export default Page;
+
+function Bubble({ el, idx }) {
+  const bg = useColorModeValue(el + '.400', el + '.200');
+
+  return (
+    <Tooltip label={<Box height="200px" width="200px">
+      
+    </Box>}>
+      <Box
+        bg={bg}
+        width={10}
+        height={10}
+        rounded="full"
+        opacity={0.8}
+        _hover={{ opacity: 0.98 }}
+        borderWidth={2}
+        position="absolute"
+        top={5}
+        left={idx * 10 + '%'}
+        zIndex={10}
+      ></Box>
+    </Tooltip>
+  );
+}
