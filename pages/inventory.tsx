@@ -4,13 +4,15 @@ import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
 import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
+import useWalletStore from '../stores/wallet';
 
 interface HomeProps {
-  items: Array<any>
+  items: Array<any>;
 }
 
 const Home = ({ items }: HomeProps) => {
-  const data = useMemo(() => items, []);
+  const inventoryItems = useWalletStore((state) => state.items);
+  const data = useMemo(() => inventoryItems.map((i) => items.find((item) => item._id === i)), []);
 
   const columns = useMemo(
     () => [
@@ -43,7 +45,7 @@ const Home = ({ items }: HomeProps) => {
           Inventory
         </Heading>
 
-        <table {...getTableProps()} >
+        <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, index) => (
               <tr {...headerGroup.getHeaderGroupProps()} key={index}>
@@ -66,8 +68,8 @@ const Home = ({ items }: HomeProps) => {
                 <tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell) => {
                     switch (cell.column.Header) {
-                      case "Image":
-                        debugger
+                      case 'Image':
+                        debugger;
                         return (
                           <td
                             {...cell.getCellProps()}
@@ -76,14 +78,20 @@ const Home = ({ items }: HomeProps) => {
                               borderBottom: 'solid 1px gray',
                             }}
                           >
-                            <Image imageResolution="10dpi" src={cell.value} width="40px" height="40px" rounded="md" objectFit="cover" />
+                            <Image
+                              imageResolution="10dpi"
+                              src={cell.value}
+                              width="40px"
+                              height="40px"
+                              rounded="md"
+                              objectFit="cover"
+                            />
                           </td>
                         );
 
                         break;
 
                       default:
-
                         return (
                           <td
                             {...cell.getCellProps()}
@@ -96,10 +104,8 @@ const Home = ({ items }: HomeProps) => {
                           </td>
                         );
 
-
                         break;
                     }
-
                   })}
                 </tr>
               );
