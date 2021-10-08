@@ -13,7 +13,6 @@ import {
   Box,
   Input,
   Icon,
-  Center,
   InputGroup,
   InputLeftElement,
   InputRightElement,
@@ -69,8 +68,10 @@ function PageHeader() {
             fontSize="lg"
             variant="ghost"
             rounded="full"
+            color={isWalletConnected ? "white": "inherit"}
             onClick={toggleWalletConnect}
             bg={isWalletConnected ? 'titan' : bg}
+            _hover={{opacity: 0.9, bg: "titalLight"}}
           >
             <Icon as={RiWallet2Line} />
           </IconButton>
