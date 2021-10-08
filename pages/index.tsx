@@ -52,7 +52,7 @@ const Home: NextPage = () => {
   let logo = useColorModeValue('/titan-logo.png', '/titan-dark.png');
   return (
     <>
-    
+
 
       {/* <Hero
         title="Project Titan"
@@ -86,10 +86,10 @@ const Home: NextPage = () => {
 
 
         <Heading size="md" color="gray.500" fontWeight="400" textAlign="center" mb={6} >
-          Dominate with insights into the metaverse.
+          Dominate with insights into the metaverse
         </Heading>
       </Box>
-      
+
       <IndexTrend />
 
       <Box textAlign="center" pb={[10, 10, 16]}>
@@ -103,7 +103,7 @@ const Home: NextPage = () => {
       </Box>
 
   </Box>
-    
+
 
       <Box py={[10, 10, 20]} bg={ lightBg } >
 
@@ -114,9 +114,9 @@ const Home: NextPage = () => {
 
       <Heading fontWeight="300" size="md" mb={[10, 10, 16]} textAlign="center">
       Gain the edge in the biggest gaming worlds on <Image ml={2} display="inline-block" src={solanaImg} width="200px" objectFit="cover" />
-        
+
       </Heading>
-       
+
         <HStack
           align="center"
           justify={{ base: 'center', md: 'center', xl: 'center' }}
