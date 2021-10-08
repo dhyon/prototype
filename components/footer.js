@@ -73,7 +73,7 @@ export default function Footer() {
             <ListHeader>Product</ListHeader>
             <Link href={'#'}>Pricing</Link>
             <Link href={'#'}>Partners</Link>
-            <Link href={'#'}>Something</Link>
+            <Link href={'#'}>Trial</Link>
           </Stack>
 
         </SimpleGrid>
@@ -90,7 +90,7 @@ export default function Footer() {
           spacing={100}
           justify={{ md: 'space-between' }}
           align={{ md: 'center' }}>
-          <Text>© 2021 Project Titan</Text>
+          <Text >© 2021 Project Titan</Text>
           <Stack direction={'row'} spacing={5}>
             <SocialButton label={'Twitter'} href={'https://solana.com/ignition'}>
               <FaTwitter />
