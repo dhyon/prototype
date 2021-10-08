@@ -56,24 +56,24 @@ export default function Footer() {
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={250}>
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
-            <Link href={'#'}>About</Link>
-            <Link href={'#'}>Blog</Link>
-            <Link href={'#'}>Careers</Link>
-            <Link href={'#'}>Contact</Link>
+            <Link href={'https://solana.com'}>About</Link>
+            <Link href={'https://solana.com'}>Blog</Link>
+            <Link href={'https://solana.com'}>Careers</Link>
+            <Link href={'https://solana.com'}>Contact</Link>
           </Stack>
 
           <Stack align={'flex-start'}>
             <ListHeader>Support</ListHeader>
-            <Link href={'#'}>Tutorials</Link>
-            <Link href={'#'}>Documentation</Link>
-            <Link href={'#'}>Discord</Link>
+            <Link href={'https://solana.com'}>Tutorials</Link>
+            <Link href={'https://solana.com'}>Documentation</Link>
+            <Link href={'https://solana.com'}>Discord</Link>
           </Stack>
 
           <Stack align={'flex-start'}>
             <ListHeader>Product</ListHeader>
-            <Link href={'#'}>Pricing</Link>
-            <Link href={'#'}>Partners</Link>
-            <Link href={'#'}>Trials</Link>
+            <Link href={'https://solana.com'}>Pricing</Link>
+            <Link href={'https://solana.com'}>Partners</Link>
+            <Link href={'https://solana.com'}>Trials</Link>
           </Stack>
 
         </SimpleGrid>
