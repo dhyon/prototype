@@ -1,7 +1,10 @@
+import NextLink from "next/link"
 import {
   Box,
   Button,
   Flex,
+  Grid,
+  Center,
   Heading,
   HStack,
   Icon,
@@ -18,15 +21,15 @@ import {
 } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useState } from 'react';
 import { HiOutlineSun } from 'react-icons/hi';
 import Footer from '../components/footer';
-import HomeButton from '../components/home-button';
-import siteStore from '../stores/site';
+import IndexTrend from "../components/index-trend"
+import ToggleDarkMode from "../components/toggle-dark-mode"
 
 const Home: NextPage = () => {
   const { toggleColorMode } = useColorMode();
-  const solanaImg = useColorModeValue('/solanaLight.webp', '/solana.svg');
+  const solanaImg = useColorModeValue('/solana.svg', '/solana.svg');
+  const lightBg = useColorModeValue('gray.200', 'gray.700');
 
   // let axisColor = useColorModeValue('#0a0a0a', '#fafafa');
 
@@ -46,66 +49,96 @@ const Home: NextPage = () => {
   // function handleBrush(domain: any) {
   //   setZoomDomain(domain);
   // }
-
+  let logo = useColorModeValue('/titan-logo.png', '/titan-dark.png');
   return (
     <>
-      <Flex>
-        <Box px={5} py={5}>
-          <HomeButton />
-        </Box>
-        <Spacer />
-        <Box p={5}>
-          <IconButton
-            aria-label="colorscheme"
-            fontSize="lg"
-            variant="ghost"
-            onClick={toggleColorMode}
-          >
-            <Icon as={HiOutlineSun} />
-          </IconButton>
-        </Box>
-      </Flex>
+    
 
-      <Hero
+      {/* <Hero
         title="Project Titan"
         subtitle="Dominate with insights to the metaverse"
         image="/design-mock-splash.png"
         ctaLink="/dashboard"
         ctaText="Enter the App"
         bodyText="The NFT analytics portal for gamers and traders"
-      />
+      /> */}
+  <Box >
 
-      <HStack align="center" justify={{ base: 'center', md: 'center', xl: 'center' }} mb={10}>
-        <Heading as="h1" size="lg" color="primary.800" textAlign="center">
-          Gain the edge in the biggest gaming worlds on
-        </Heading>
-        <Box align="center">
-          <Image src={solanaImg} width="200px" objectFit="cover" />
+      <Box textAlign="center" pt={[10, 10, 16]} >
+        <Box display="inline-block">
+          <Link href="/">
+            <Grid templateColumns="80px 160px" gap="24px" cursor="pointer" p={4}>
+              <Box height="80px" width="80px" rounded="full" overflow="hidden">
+                <Image src={logo} objectFit="cover" alt="Titan Logo" />
+              </Box>
+
+              <Box>
+                <Center height="100%">
+                  <Heading fontWeight="900" fontSize="58px" letterSpacing={'4px'}>
+                    TITAN
+                  </Heading>
+                </Center>
+              </Box>
+            </Grid>
+          </Link>
         </Box>
-      </HStack>
 
-      <HStack
-        align="center"
-        justify={{ base: 'center', md: 'center', xl: 'center' }}
-        spacing="20px"
-        mb={10}
-      >
-        <ChakraLink href="https://staratlas.com/">
-          <Tooltip label="Star Atlas">
-            <Image src="/staratlas.png" boxSize="100px" objectFit="cover" />
-          </Tooltip>
-        </ChakraLink>
-        <ChakraLink href="https://defiland.app/en">
-          <Tooltip label="DeFi Land">
-            <Image src="/defiland.svg" height="100px" objectFit="cover" />
-          </Tooltip>
-        </ChakraLink>
-        <ChakraLink href="https://app.aurory.io/litepaper">
-          <Tooltip label="Aurory">
-            <Image src="/aurory.png" height="100px" objectFit="cover" />
-          </Tooltip>
-        </ChakraLink>
-      </HStack>
+
+
+        <Heading size="md" color="gray.500" fontWeight="400" textAlign="center" mb={6} >
+          Dominate with insights into the metaverse.
+        </Heading>
+      </Box>
+      
+      <IndexTrend />
+
+      <Box textAlign="center" pb={[10, 10, 16]}>
+        <NextLink href="/dashboard">
+        <Button colorScheme="gray" size="lg" textTransform="uppercase" mr={5}>
+          Enter
+        </Button>
+        </NextLink>
+
+        <ToggleDarkMode />
+      </Box>
+
+  </Box>
+    
+
+      <Box py={[10, 10, 20]} bg={ lightBg } >
+
+      <Heading as="h1" size="lg" color="primary.800" textAlign="center" mb={[5,]}>
+          The NFT analytics portal for gamers and traders.
+          </Heading>
+
+
+      <Heading fontWeight="300" size="md" mb={[10, 10, 16]} textAlign="center">
+      Gain the edge in the biggest gaming worlds on <Image ml={2} display="inline-block" src={solanaImg} width="200px" objectFit="cover" />
+        
+      </Heading>
+       
+        <HStack
+          align="center"
+          justify={{ base: 'center', md: 'center', xl: 'center' }}
+          spacing="20px"
+        >
+          <ChakraLink href="https://staratlas.com/">
+            <Tooltip label="Star Atlas">
+              <Image src="/staratlas.png" boxSize="100px" objectFit="cover" />
+            </Tooltip>
+          </ChakraLink>
+          <ChakraLink href="https://defiland.app/en">
+            <Tooltip label="DeFi Land">
+              <Image src="/defiland.svg" height="100px" objectFit="cover" />
+            </Tooltip>
+          </ChakraLink>
+          <ChakraLink href="https://app.aurory.io/litepaper">
+            <Tooltip label="Aurory">
+              <Image src="/aurory.png" height="100px" objectFit="cover" />
+            </Tooltip>
+          </ChakraLink>
+        </HStack>
+      </Box>
 
       <Footer />
     </>

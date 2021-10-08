@@ -2,10 +2,12 @@ import type { NextPage } from 'next';
 import { useTable, useSortBy } from 'react-table';
 import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
-import { Box, Image, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import useWalletStore from '../stores/wallet';
 
+import InventoryTrend from '../components/inventory-trend';
+import { HiChevronUp, HiChevronDown, } from 'react-icons/hi';
 interface HomeProps {
   items: Array<any>;
 }
@@ -20,10 +22,17 @@ const Home = ({ items }: HomeProps) => {
         Header: 'Name',
         accessor: 'name', // accessor is the "key" in the data
       },
+
+      // {
+      //   Header: 'Price',
+      //   accessor: 'price', // accessor is the "key" in the data
+      // },
+
       {
         Header: 'Image',
         accessor: 'image', // accessor is the "key" in the data
       },
+
       {
         Header: 'Rarity',
         accessor: 'attributes.rarity',
@@ -40,11 +49,7 @@ const Home = ({ items }: HomeProps) => {
 
   return (
     <Layout title="Inventory">
-      <Box p={[5, 5, 8]}>
-        <Heading fontWeight="bold" textTransform="uppercase" mb={4}>
-          Inventory
-        </Heading>
-
+      <Box p={[5, 5, 8]} pb={10}>
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, index) => (
@@ -55,7 +60,21 @@ const Home = ({ items }: HomeProps) => {
                   <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index}>
                     {column.render('Header')}
                     {/* Add a sort direction indicator */}
-                    <span>{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}</span>
+                    <span>
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <HiChevronDown
+                            style={{ display: 'inline-block', fontSize: 20, marginLeft: 5 }}
+                          />
+                        ) : (
+                          <HiChevronUp
+                            style={{ display: 'inline-block', fontSize: 20, marginLeft: 5 }}
+                          />
+                        )
+                      ) : (
+                        ''
+                      )}
+                    </span>
                   </th>
                 ))}
               </tr>
@@ -68,8 +87,21 @@ const Home = ({ items }: HomeProps) => {
                 <tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell) => {
                     switch (cell.column.Header) {
+                      // case 'Price':
+                      //   <td
+                      //     {...cell.getCellProps()}
+                      //     style={{
+                      //       padding: '10px',
+                      //       borderBottom: 'solid 1px gray',
+                      //     }}
+                      //   >
+                      //     <Box>
+                      //       { Math.random() * 100 } SOL
+                      //     </Box>
+                      //   </td>;
+                      //   return;
+                      //   break;
                       case 'Image':
-                        debugger;
                         return (
                           <td
                             {...cell.getCellProps()}
@@ -78,14 +110,8 @@ const Home = ({ items }: HomeProps) => {
                               borderBottom: 'solid 1px gray',
                             }}
                           >
-                            <Image
-                              imageResolution="10dpi"
-                              src={cell.value}
-                              width="40px"
-                              height="40px"
-                              rounded="md"
-                              objectFit="cover"
-                            />
+                            {/* <Image imageResolution="10dpi" src={cell.value} width="40px" height="40px" rounded="md" objectFit="cover" /> */}
+                            <InventoryTrend />
                           </td>
                         );
 

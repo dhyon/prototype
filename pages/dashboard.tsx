@@ -23,10 +23,9 @@ import {
   Flex,
   Text,
 } from '@chakra-ui/react';
-import { HiChevronRight } from 'react-icons/hi';
-import { Primary } from '../stories/Button.stories';
+import { HiChevronRight, HiOutlineArrowRight } from 'react-icons/hi';
 const Home: NextPage = () => {
-  let cardBackground = useColorModeValue('gray.100', 'gray.700');
+  let cardBackground = useColorModeValue('gray.50', 'gray.700');
   let normalBg = useColorModeValue('white', 'gray.800');
   let lightBg = useColorModeValue('gray.50', 'gray.700');
   let colorTitan = useColorModeValue('titan', 'titanLight');
@@ -37,6 +36,27 @@ const Home: NextPage = () => {
   let statsBg = useColorModeValue('gray.300', 'gray.600');
   let axisLabelColor = useColorModeValue('gray', 'white');
 
+  const sidebarItems = [
+    {
+      title: 'Calico Ship',
+      price: 29.73,
+    },
+
+    {
+      title: 'Ogrika Thripid',
+      price: 18.84,
+    },
+
+    {
+      title: 'Radium Defy',
+      price: 6.02,
+    },
+
+    {
+      title: 'Primordial Glo',
+      price: 4.3,
+    },
+  ];
   return (
     <Layout title="Dashboard">
       <Box>
@@ -60,45 +80,46 @@ const Home: NextPage = () => {
             'calc(100% - 256px) 256px',
           ]}
         >
-          <Box p={5}>
-            <SimpleGrid columns={[1, 2, 3]} spacing={[4, 4, 5]} mb={[4, 4, 5]}>
-              <Box height="120px" bg={cardBackground} rounded="md" p={1}>
-                <Center height="100%">
-                  <Box textAlign="center">
-                    <Heading fontSize={30}>483,167</Heading>
+          <Box>
+            <SimpleGrid columns={[1, 3, 3]} mb={5} borderBottomWidth={1}>
+              <Box p={[5, 5, 8]} borderRightWidth={[0, 1, 1]} borderBottomWidth={[1, 0, 0]}>
+                <Box textAlign="center">
+                  <Heading fontSize={30}>483,167</Heading>
 
-                    <Box color={colorTitan} fontWeight="500" fontSize="sm">
-                      Total volume / Solana
-                    </Box>
+                  <Box color={colorTitan} fontWeight="500" fontSize="sm">
+                    Total volume / Solana
                   </Box>
-                </Center>
+                </Box>
               </Box>
-              <Box height="120px" bg={cardBackground} rounded="md" p={1}>
-                <Center height="100%">
-                  <Box textAlign="center">
-                    <Heading fontSize={30}>Pearce X5</Heading>
+              <Box py={[5, 5, 8]} px={5} borderRightWidth={[0, 1, 1]} borderBottomWidth={[1, 0, 0]}>
+                <Box textAlign="center">
+                  <Heading fontSize={30}>Pearce X5</Heading>
 
-                    <Box color={colorTitan} fontWeight="500" fontSize="sm">
-                      Most sold item — 90d trailing
-                    </Box>
+                  <Box color={colorTitan} fontWeight="500" fontSize="sm">
+                    Most sold item — 90d trailing
                   </Box>
-                </Center>
+                </Box>
               </Box>
-              <Box height="120px" bg={cardBackground} rounded="md" p={1}>
-                <Center height="100%">
-                  <Box textAlign="center">
-                    <Heading fontSize={30}>21,589</Heading>
+              <Box p={[5, 5, 8]}>
+                <Box textAlign="center">
+                  <Heading fontSize={30}>21,589</Heading>
 
-                    <Box color={colorTitan} fontWeight="500" fontSize="sm">
-                      Yesterday’s volume / Solana
-                    </Box>
+                  <Box color={colorTitan} fontWeight="500" fontSize="sm">
+                    Yesterday’s volume / Solana
                   </Box>
-                </Center>
+                </Box>
               </Box>
             </SimpleGrid>
 
-            <Flex gridGap={[4, 4, 5]} mb={[4, 4, 5]}>
-              <Box flex={2} bg={cardBackground} rounded="md" p={5}>
+            <Box
+              display={['block', 'flex', 'flex']}
+              gridGap={[5, 5, 8]}
+              mb={[5]}
+              pb={5}
+              borderBottomWidth={1}
+              px={[5]}
+            >
+              <Box flex={2} mb={[5, 0]}>
                 <Box height="100%" overflow="hidden">
                   <Heading fontSize={'lg'}>Volume by Game</Heading>
 
@@ -110,14 +131,14 @@ const Home: NextPage = () => {
                 </Box>
               </Box>
 
-              <Box flex={1} bg={cardBackground} rounded="md" p={5}>
+              <Box flex={1}>
                 <Heading fontSize={'lg'}>Sales by DEX</Heading>
 
                 <Heading fontSize={'md'} color="gray.500" fontWeight="500" mb={4}>
-                  Monthly game sales/DEX
+                  Monthly game sales by DEX
                 </Heading>
 
-                <Box rounded="md" overflow="hidden" >
+                <Box rounded="md" overflow="hidden">
                   <Box
                     px={3}
                     py={2}
@@ -132,7 +153,9 @@ const Home: NextPage = () => {
                       77k
                     </Box>
 
-                    <Box alignSelf="flex-end">Serum</Box>
+                    <Box alignSelf="flex-end" fontWeight="500">
+                      Serum
+                    </Box>
                   </Box>
 
                   <Box
@@ -150,7 +173,9 @@ const Home: NextPage = () => {
                       60k
                     </Box>
 
-                    <Box alignSelf="flex-end">Orca</Box>
+                    <Box alignSelf="flex-end" fontWeight="500">
+                      Orca
+                    </Box>
                   </Box>
 
                   <Box
@@ -168,7 +193,9 @@ const Home: NextPage = () => {
                       42k
                     </Box>
 
-                    <Box alignSelf="flex-end">Terra</Box>
+                    <Box alignSelf="flex-end" fontWeight="500">
+                      Raydium
+                    </Box>
                   </Box>
 
                   <Box
@@ -194,7 +221,7 @@ const Home: NextPage = () => {
                     py={2}
                     height={50}
                     color="white"
-                    width="calc(100% - 75px)"
+                    width="calc(100% - 80px)"
                     fontSize="sm"
                     fontWeight="bold"
                     display="flex"
@@ -204,38 +231,45 @@ const Home: NextPage = () => {
                       30k
                     </Box>
 
-                    <Box alignSelf="flex-end">Raydium</Box>
+                    <Box alignSelf="flex-end">Terra</Box>
                   </Box>
                 </Box>
               </Box>
-            </Flex>
+            </Box>
 
-            <SimpleGrid columns={[1, 1, 2]} spacing={[4, 4, 5]}>
-              <Box bg={cardBackground} rounded="md">
-                <Heading fontSize={'lg'} p={5} pb={0}>
-                  Portfolio Value (USDC)
-                </Heading>
-                <Heading fontSize={'md'} color="gray.500" fontWeight="500" px={5} mb={-10}>
+            <SimpleGrid columns={[1, 1, 1]} spacing={[5, 5, 8]}>
+              <Box borderBottomWidth={1} px={5}>
+                <Heading size="md">Portfolio Value (USDC)</Heading>
+                <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
                   ↑ Upward trends detected
                 </Heading>
-                <Box p={5}>
-                  {/* <Center height="100%">
-                    <Heading mb={-10}>$1690</Heading>
-                  </Center> */}
-                  <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor}/>
-                  <Center height="100%">
-                    <Button>Go to portfolio trends →</Button>
-                  </Center>
+                <Box>
+                  <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
+                  <Box mb={[5, 5, 8]} textAlign="center">
+                    <Button size="lg" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
+                      Portfolio Trends
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
 
-              <Box bg={cardBackground} rounded="md">
-                <Heading fontSize={'lg'} p={5} pb={0} mb={-1}>
-                  Hot Inventory Items
-                </Heading>
-
-                <Box p={5}>
-                  <Box bg={normalBg} height="400px" rounded="md"></Box>
+              <Box>
+                <Box px={5} borderBottomWidth={[1, 1, 0]}>
+                  <Heading size="md" mb={[-5, -8, -12]}>
+                    Monthly Profit (USDC)
+                  </Heading>
+                  <Box>
+                    <MonthlyEarningsChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
+                    <Center height="100%" mb={[5, 5, 8]}>
+                      <Button
+                        size="lg"
+                        textTransform="uppercase"
+                        rightIcon={<HiOutlineArrowRight />}
+                      >
+                        Balance
+                      </Button>
+                    </Center>
+                  </Box>
                 </Box>
               </Box>
             </SimpleGrid>
@@ -246,10 +280,10 @@ const Home: NextPage = () => {
               Recently sold items
             </Heading>
 
-            {[1, 2, 3, 4, 6].map((el) => {
+            {sidebarItems.map((el) => {
               return (
                 <Box
-                  key={el}
+                  key={el.title}
                   cursor="pointer"
                   borderBottomWidth={1}
                   px={5}
@@ -262,10 +296,10 @@ const Home: NextPage = () => {
 
                     <Box pl={4}>
                       <Box>
-                        <Heading size="sm">Calico Guardian</Heading>
+                        <Heading size="sm">{el.title}</Heading>
 
                         <Box color="gray.500" fontSize="sm">
-                          Ship • 1000 USDC
+                          Ship • {el.price} USDC
                         </Box>
                       </Box>
                     </Box>
@@ -280,21 +314,45 @@ const Home: NextPage = () => {
               );
             })}
 
-            <Box p={4}>
-              <Box borderWidth={1} rounded="md">
-                <Box bg={cardBackground} rounded="md">
-                  <Heading fontSize={'lg'} p={5} pb={0} mb={-2}>
-                    Monthly Profit (USDC)
-                  </Heading>
-                  <Box rounded="md">
-                    <MonthlyEarningsChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor}/>
-                    <Center height="100%">
-                      <Button mt={3} mb={5}>Go to balance →</Button>
-                    </Center>
-                  </Box>
+            <Heading fontSize={'lg'} p={5} borderBottomWidth={1}>
+              Hot Inventory Items
+            </Heading>
+
+            {sidebarItems.map((el) => {
+              return (
+                <Box
+                  key={el.title + '2'}
+                  cursor="pointer"
+                  borderBottomWidth={1}
+                  px={5}
+                  py={3}
+                  _hover={{ bg: lightBg }}
+                  transition="background 0.2s ease"
+                >
+                  <Grid templateColumns="40px calc(100% - 55px) 15px">
+                    <Box height="40px" width="40px" rounded="md" bg="gray.200"></Box>
+
+                    <Box pl={4}>
+                      <Box>
+                        <Heading size="sm">{el.title}</Heading>
+
+                        <Box color="gray.500" fontSize="sm">
+                          Ship • {el.price} USDC
+                        </Box>
+                      </Box>
+                    </Box>
+
+                    <Box>
+                      <Center height="100%" color={colorTitan}>
+                        <HiChevronRight />
+                      </Center>
+                    </Box>
+                  </Grid>
                 </Box>
-              </Box>
-            </Box>
+              );
+            })}
+
+            <Box></Box>
           </Box>
         </Grid>
       </Box>
@@ -305,8 +363,8 @@ const Home: NextPage = () => {
 export default Home;
 
 interface ChartData {
-  areaColor: string,
-  axisLabelColor: string
+  areaColor: string;
+  axisLabelColor: string;
 }
 
 function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
@@ -326,21 +384,21 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
   return (
     <>
       <VictoryChart
-        height={450}
+        height={250}
         animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
         <VictoryAxis
           style={{
             tickLabels: { fill: axisLabelColor },
-            axis: {stroke: 'gray'},
+            axis: { stroke: 'gray' },
           }}
         />
         <VictoryAxis
           dependentAxis
           style={{
             tickLabels: { fill: axisLabelColor },
-            axis: {stroke: 'gray'},
+            axis: { stroke: 'gray' },
           }}
         />
         <VictoryArea
@@ -354,11 +412,11 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
   );
 }
 
-function MonthlyEarningsChart({ areaColor, axisLabelColor  }: ChartData) {
+function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
   const sampleData = [
-    // { x: 'Feb', y: 0 },
-    // { x: 'Mar', y: 100 },
-    // { x: 'Apr', y: 100 },
+    { x: 'Feb', y: 0 },
+    { x: 'Mar', y: 100 },
+    { x: 'Apr', y: 100 },
     { x: 'May', y: 0 },
     { x: 'Jun', y: 340 },
     { x: 'Jul', y: 200 },
@@ -368,9 +426,9 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor  }: ChartData) {
   ];
 
   return (
-    <>
+    <Box>
       <VictoryChart
-        height={450}
+        height={250}
         // theme={victoryTheme}
         animate={{ duration: 100, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
@@ -378,14 +436,14 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor  }: ChartData) {
         <VictoryAxis
           style={{
             tickLabels: { fill: axisLabelColor },
-            axis: {stroke: 'gray'},
+            axis: { stroke: 'gray' },
           }}
         />
         <VictoryAxis
           dependentAxis
           style={{
             tickLabels: { fill: axisLabelColor },
-            axis: {stroke: 'gray'},
+            axis: { stroke: 'gray' },
           }}
         />
         <VictoryLine
@@ -399,7 +457,7 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor  }: ChartData) {
           }}
         />
       </VictoryChart>
-    </>
+    </Box>
   );
 }
 
@@ -439,7 +497,9 @@ function VolumeByGame() {
             return (
               <Box bg={x.color} rounded="md">
                 <Center height="100%">
-                  <Text fontSize="xs">{x.value}</Text>
+                  <Text fontSize="xs" color="white">
+                    {x.value}
+                  </Text>
                 </Center>
               </Box>
             );
