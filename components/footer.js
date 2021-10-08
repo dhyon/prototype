@@ -73,7 +73,7 @@ export default function Footer() {
             <ListHeader>Product</ListHeader>
             <Link href={'#'}>Pricing</Link>
             <Link href={'#'}>Partners</Link>
-            <Link href={'#'}>Trial</Link>
+            <Link href={'#'}>Trials</Link>
           </Stack>
 
         </SimpleGrid>
