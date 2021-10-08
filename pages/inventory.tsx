@@ -4,6 +4,8 @@ import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
+import useWalletStore from '../stores/wallet';
+
 import InventoryTrend from '../components/inventory-trend';
 import { HiChevronUp, HiChevronDown, } from 'react-icons/hi';
 interface HomeProps {
@@ -11,7 +13,8 @@ interface HomeProps {
 }
 
 const Home = ({ items }: HomeProps) => {
-  const data = useMemo(() => items.slice(0, 10), []);
+  const inventoryItems = useWalletStore((state) => state.items);
+  const data = useMemo(() => inventoryItems.map((i) => items.find((item) => item._id === i)), []);
 
   const columns = useMemo(
     () => [

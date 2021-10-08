@@ -112,12 +112,13 @@ const Page = ({ game = {}, markets = [] }) => {
 
         <Box p={[5, 5, 8]}>
           <Box mb={4}>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Laoreet sociosqu tincidunt sagittis
-            curae mattis primis finibus congue. Placerat placerat habitant eu lacinia himenaeos sem
-            nec per pretium. Magna vel justo sem suscipit varius. Morbi gravida eu arcu congue
-            natoque pulvinar fames tempor. Efficitur sociosqu tellus mi malesuada semper. In
-            scelerisque dolor maximus ultricies commodo elementum habitasse elit hendrerit. Eu eu
-            ultrices dignissim sapien orci imperdiet elementum eros augue.
+            Star Atlas is a next-gen gaming metaverse emerging from the confluence of state of the
+            art blockchain, real-time graphics, multiplayer video game, and decentralized financial
+            technologies. Real-time graphics technology using Unreal Engine 5’s Nanite allows for
+            cinematic quality video game visuals. Blockchain technology using the Solana protocol
+            established a largely serverless and secured gameplay experience. Non-fungible tokens
+            obtained and traded within Star Atlas creates an economy that replicates the tangibility
+            of real world assets and ownership.
           </Box>
 
           <Box>
