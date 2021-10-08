@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import Trend from 'react-trend';
 function IndexTrend() {
   return (
-    <Box width="80px" margin="0 auto" height="60px">
+    <Box width="80px" margin="0 auto" height="50px">
       <Trend
         data={[
           Math.random(),
@@ -16,7 +16,7 @@ function IndexTrend() {
         strokeWidth={6}
         smooth
         autoDraw
-        height={80}
+        height={50}
         gradient={['#B399FF', '#B399FF', '#7956DD']}
       />
     </Box>
