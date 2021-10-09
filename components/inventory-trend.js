@@ -15,7 +15,6 @@ function IndexTrend() {
         radius={5}
         strokeWidth={6}
         smooth
-        autoDraw
         height={50}
         gradient={['#B399FF', '#B399FF', '#7956DD']}
       />

@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Center,
+  HStack, 
   Heading,
   Icon,
   IconButton,
@@ -102,14 +103,14 @@ const Home = ({ items }: HomeProps) => {
     return (
       <Layout title="Inventory">
         <Box p={[5, 5, 8]} pb={10}>
-          <table {...getTableProps()}>
-            <thead>
+          <table style={{border: "solid 1px darkgray"}} {...getTableProps()}>
+            <thead >
               {headerGroups.map((headerGroup, index) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={index}>
                   {headerGroup.headers.map((column) => (
                     // Add the sorting props to control sorting. For this example
                     // we can add them into the header props
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index}>
+                    <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index} style={{paddingTop: 8, paddingBottom: 8}} >
                       {column.render('Header')}
                       {/* Add a sort direction indicator */}
                       <span>
@@ -136,7 +137,7 @@ const Home = ({ items }: HomeProps) => {
               {rows.map((row, index) => {
                 prepareRow(row);
                 return (
-                  <tr {...row.getRowProps()} key={index}>
+                  <Box as="tr" fontSize="sm" {...row.getRowProps()} key={index} >
                     {row.cells.map((cell) => {
                       switch (cell.column.Header) {
                         case '': // the image
@@ -145,7 +146,8 @@ const Home = ({ items }: HomeProps) => {
                               {...cell.getCellProps()}
                               style={{
                                 padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                                borderBottom: 'solid 1px darkgray',
+                                
                               }}
                             >
                               <Image
@@ -166,11 +168,11 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                                padding: '5px',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
-                              <Box>{Math.round(Math.random() * 100)} USDC</Box>
+                              <Box fontSize="sm">{Math.round(Math.random() * 100)}</Box>
                             </td>
                           );
                           break;
@@ -180,8 +182,8 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                                padding: '5px',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
                               <Center>
@@ -196,11 +198,11 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                                padding: '5px',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
-                              <Box>{Math.round(Math.random() * 100)}%</Box>
+                              <Box px={2}>{Math.round(Math.random() * 100)}%</Box>
                             </td>
                           );
                           break;
@@ -211,7 +213,7 @@ const Home = ({ items }: HomeProps) => {
                               {...cell.getCellProps()}
                               style={{
                                 padding: '5px',
-                                borderBottom: 'solid 1px gray',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
                               <InventoryTrend />
@@ -224,11 +226,11 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                                padding: '5px',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
-                              <Box>{'<25'}</Box>
+                              <Box px={2}>{'<25'}</Box>
                             </td>
                           );
                           break;
@@ -238,11 +240,11 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                                padding: '5px',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
-                              <Box>{'Buys ↑27%'}</Box>
+                              <Box px={2}>{'Buys ↑27%'}</Box>
                             </td>
                           );
                           break;
@@ -252,24 +254,25 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                                padding: '5px',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
-                              <Box>
-                                <Button ml={1} mr={1}>
+                              <HStack spacing={1}>
+                                <Button ml={1} mr={1} size="xs">
                                   Buy
                                 </Button>
-                                <Button mr={1}>Sell</Button>
+                                <Button mr={1} size="xs">Sell</Button>
                                 <IconButton
-                                  fontSize="lg"
+                                  size="xs"
+                                  float="right"
                                   variant="ghost"
                                   rounded="full"
                                   aria-label="More Options"
                                 >
                                   <Icon as={HiDotsVertical} />
                                 </IconButton>
-                              </Box>
+                              </HStack>
                             </td>
                           );
                           break;
@@ -279,8 +282,8 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px gray',
+                              padding: '5px',
+                                borderBottom: 'solid 1px darkgray',
                               }}
                             >
                               {cell.render('Cell')}
@@ -289,7 +292,7 @@ const Home = ({ items }: HomeProps) => {
                           break;
                       }
                     })}
-                  </tr>
+                  </Box>
                 );
               })}
             </tbody>
