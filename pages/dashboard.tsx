@@ -34,6 +34,7 @@ const Home: NextPage = () => {
   let temperatureLight = useColorModeValue('.400', '.300');
   let temperatureDark = useColorModeValue('.600', '.600');
   let statsBg = useColorModeValue('gray.300', 'gray.600');
+  let axisLabelColor = useColorModeValue('gray', 'white');
 
   const sidebarItems = [
     {
@@ -134,13 +135,14 @@ const Home: NextPage = () => {
                 <Heading fontSize={'lg'}>Sales by DEX</Heading>
 
                 <Heading fontSize={'md'} color="gray.500" fontWeight="500" mb={4}>
-                  Monthly game sales/DEX
+                  Monthly game sales by DEX
                 </Heading>
 
                 <Box rounded="md" overflow="hidden">
                   <Box
                     px={3}
                     py={2}
+                    height={50}
                     color="white"
                     fontSize="sm"
                     fontWeight="bold"
@@ -161,6 +163,7 @@ const Home: NextPage = () => {
                     px={3}
                     py={2}
                     mb={1}
+                    height={50}
                     color="white"
                     width="calc(100% - 20px)"
                     fontSize="sm"
@@ -181,6 +184,7 @@ const Home: NextPage = () => {
                     px={3}
                     py={2}
                     mb={1}
+                    height={50}
                     color="white"
                     width="calc(100% - 40px)"
                     fontSize="sm"
@@ -193,14 +197,15 @@ const Home: NextPage = () => {
                     </Box>
 
                     <Box alignSelf="flex-end" fontWeight="bold">
-                      Terra
+                      Raydium
                     </Box>
                   </Box>
 
                   <Box
                     px={3}
                     py={2}
-                    
+                    mb={1}
+                    height={50}
                     color="white"
                     width="calc(100% - 60px)"
                     fontSize="sm"
@@ -213,8 +218,26 @@ const Home: NextPage = () => {
                     </Box>
 
                     <Box alignSelf="flex-end" fontWeight="bold">
-                      Luna
+                      Akash
                     </Box>
+                  </Box>
+
+                  <Box
+                    px={3}
+                    py={2}
+                    height={50}
+                    color="white"
+                    width="calc(100% - 80px)"
+                    fontSize="sm"
+                    fontWeight="bold"
+                    display="flex"
+                    bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
+                  >
+                    <Box flex={1} color="gray.900">
+                      30k
+                    </Box>
+
+                    <Box alignSelf="flex-end">Terra</Box>
                   </Box>
                 </Box>
               </Box>
@@ -223,23 +246,38 @@ const Home: NextPage = () => {
             <SimpleGrid columns={[1, 1, 1]} spacing={[5, 5, 8]}>
               <Box borderBottomWidth={1} pl={5}>
                 <Heading size="md">Portfolio Value (USDC)</Heading>
-                <Heading fontSize={'md'} color="gray.500" fontWeight="500" mb={[-5, -8, -12]}>
+                <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
                   ↑ Upward trends detected
                 </Heading>
                 <Box>
-                  <MonthlyBalanceChart areaColor={colorTitanVal} />
-                  
+                  <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
+                  <Box mb={[5, 5, 8]} textAlign="center">
+                    <Button size="lg" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
+                      Portfolio Trends
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
 
               <Box>
-                <Box pl={5} borderBottomWidth={[1, 1, 0]}>
-                  <Heading fontSize={'lg'} mb={[-5, -8, -12]}>
+                <Box px={5} borderBottomWidth={[1, 1, 0]}>
+                  <Heading size="md" mb={[-5, -8, -12]}>
                     Monthly Profit (USDC)
                   </Heading>
                   <Box>
-                    <MonthlyEarningsChart areaColor={colorTitanVal} />
-                   
+                    <MonthlyEarningsChart
+                      areaColor={colorTitanVal}
+                      axisLabelColor={axisLabelColor}
+                    />
+                    <Center height="100%" mb={[5, 5, 8]}>
+                      <Button
+                        size="lg"
+                        textTransform="uppercase"
+                        rightIcon={<HiOutlineArrowRight />}
+                      >
+                        Balance
+                      </Button>
+                    </Center>
                   </Box>
                 </Box>
               </Box>
@@ -248,7 +286,7 @@ const Home: NextPage = () => {
 
           <Box borderLeftWidth={1} gridRow={[2, 2, 2, 1]} gridColumn={[1, 1, 1, 2]} bg={sidebarBg}>
             <Heading fontSize={'lg'} p={5} borderBottomWidth={1}>
-              Recently sold items
+              Recently Sold Items
             </Heading>
 
             {sidebarItems.map((el) => {
@@ -292,7 +330,7 @@ const Home: NextPage = () => {
             {sidebarItems.map((el) => {
               return (
                 <Box
-                  key={el.title + "2"}
+                  key={el.title + '2'}
                   cursor="pointer"
                   borderBottomWidth={1}
                   px={5}
@@ -335,9 +373,10 @@ export default Home;
 
 interface ChartData {
   areaColor: string;
+  axisLabelColor: string;
 }
 
-function MonthlyBalanceChart({ areaColor }: ChartData) {
+function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
   const sampleData = [
     { x: 'Jan', y: 100 },
     { x: 'Feb', y: 100 },
@@ -364,7 +403,6 @@ function MonthlyBalanceChart({ areaColor }: ChartData) {
     { x: 'Oct', y: 1290 },
   ];
 
-  let axisColor = useColorModeValue(VictoryTheme.grayscale, VictoryTheme.victoryTheme ) 
   return (
     <>
       <VictoryChart
@@ -372,33 +410,46 @@ function MonthlyBalanceChart({ areaColor }: ChartData) {
         animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
-
-
-
-
         <VictoryArea
           data={sampleData}
           style={{
-            data: { fill: "#7956DD55" },
+            data: { fill: '#7956DD55' },
             labels: { fill: '#7956DD' },
           }}
         />
+        <VictoryAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: { stroke: 'gray' },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: { stroke: 'gray' },
+          }}
+        />
+        {/* <VictoryArea
+          data={sampleData}
+          style={{
+            data: { fill: areaColor, fillOpacity: 0.5 },
+          }}
+        /> */}
 
         <VictoryArea
           data={sampleData2}
           style={{
-            data: { fill: "#55555555" },
+            data: { fill: '#55555555' },
             labels: { fill: '#555555' },
           }}
         />
-
-
       </VictoryChart>
     </>
   );
 }
 
-function MonthlyEarningsChart({ areaColor }: ChartData) {
+function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
   const sampleData = [
     { x: 'Jan', y: 30 },
     { x: 'Feb', y: 0 },
@@ -430,25 +481,38 @@ function MonthlyEarningsChart({ areaColor }: ChartData) {
       <VictoryChart
         height={250}
         // theme={victoryTheme}
-        animate={{ duration: 400, easing: 'bounceIn' }}
+        animate={{ duration: 100, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
+        <VictoryAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: { stroke: 'gray' },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: { fill: axisLabelColor },
+            axis: { stroke: 'gray' },
+          }}
+        />
         <VictoryLine
           data={sampleData}
           style={{
             data: {
-              stroke: "#7956DD55",
+              stroke: '#7956DD55',
               width: 15,
               strokeWidth: 4,
             },
           }}
         />
 
-<VictoryLine
+        <VictoryLine
           data={sampleData2}
           style={{
             data: {
-              stroke: "#55555555",
+              stroke: '#55555555',
               width: 15,
               strokeWidth: 4,
             },

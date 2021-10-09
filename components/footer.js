@@ -10,7 +10,7 @@ import {
   chakra,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
+import { FaTwitter, FaYoutube, FaInstagram,FaDiscord,FaFacebook } from 'react-icons/fa';
 
 const ListHeader = ({ children }) => {
   return (
@@ -52,28 +52,28 @@ export default function Footer() {
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}>
-      <Container as={Stack} maxW={'4xl'} py={10}>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={150}>
+      <Container as={Stack} py={50}>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={250}>
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
-            <Link href={'#'}>About Us</Link>
-            <Link href={'#'}>Blog</Link>
-            <Link href={'#'}>Careers</Link>
-            <Link href={'#'}>Contact Us</Link>
+            <Link href={'https://solana.com'}>About</Link>
+            <Link href={'https://solana.com'}>Blog</Link>
+            <Link href={'https://solana.com'}>Careers</Link>
+            <Link href={'https://solana.com'}>Contact</Link>
           </Stack>
 
           <Stack align={'flex-start'}>
             <ListHeader>Support</ListHeader>
-            <Link href={'#'}>Tutorials</Link>
-            <Link href={'#'}>Documentation</Link>
-            <Link href={'#'}>Discord</Link>
+            <Link href={'https://solana.com'}>Tutorials</Link>
+            <Link href={'https://solana.com'}>Documentation</Link>
+            <Link href={'https://solana.com'}>Discord</Link>
           </Stack>
 
           <Stack align={'flex-start'}>
             <ListHeader>Product</ListHeader>
-            <Link href={'#'}>Pricing</Link>
-            <Link href={'#'}>Partners</Link>
-            <Link href={'#'}>Something</Link>
+            <Link href={'https://solana.com'}>Pricing</Link>
+            <Link href={'https://solana.com'}>Partners</Link>
+            <Link href={'https://solana.com'}>Trials</Link>
           </Stack>
 
         </SimpleGrid>
@@ -85,13 +85,12 @@ export default function Footer() {
         borderColor={useColorModeValue('gray.200', 'gray.700')}>
         <Container
           as={Stack}
-          maxW={'4xl'}
           py={4}
           direction={{ base: 'column', md: 'row' }}
-          spacing={1}
+          spacing={100}
           justify={{ md: 'space-between' }}
           align={{ md: 'center' }}>
-          <Text>© 2021 Project Titan. All rights reserved</Text>
+          <Text >© 2021 Project Titan</Text>
           <Stack direction={'row'} spacing={5}>
             <SocialButton label={'Twitter'} href={'https://solana.com/ignition'}>
               <FaTwitter />
@@ -101,6 +100,12 @@ export default function Footer() {
             </SocialButton>
             <SocialButton label={'Instagram'} href={'https://solana.com/ignition'}>
               <FaInstagram />
+            </SocialButton>
+            <SocialButton label={'Discord'} href={'https://solana.com/ignition'}>
+              <FaDiscord />
+            </SocialButton>
+            <SocialButton label={'Facebook'} href={'https://solana.com/ignition'}>
+              <FaFacebook />
             </SocialButton>
           </Stack>
         </Container>
