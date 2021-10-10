@@ -9,8 +9,10 @@ import {
   VisuallyHidden,
   chakra,
   useColorModeValue,
+  Spacer,
+  Flex
 } from '@chakra-ui/react';
-import { FaTwitter, FaYoutube, FaInstagram,FaDiscord,FaFacebook } from 'react-icons/fa';
+import { FaTwitter, FaYoutube, FaInstagram,FaDiscord,FaFacebook,FaGithub } from 'react-icons/fa';
 
 const ListHeader = ({ children }) => {
   return (
@@ -67,7 +69,7 @@ export default function Footer() {
             <Link href={'https://solana.com'}>Tutorials</Link>
             <Link href={'https://solana.com'}>Documentation</Link>
             <Link href={'https://solana.com'}>Discord</Link>
-          </Stack>
+          </Stack>  
 
           <Stack align={'flex-start'}>
             <ListHeader>Product</ListHeader>
@@ -83,6 +85,7 @@ export default function Footer() {
         borderTopWidth={1}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.700')}>
+          
         <Container
           as={Stack}
           py={4}
@@ -90,22 +93,23 @@ export default function Footer() {
           spacing={100}
           justify={{ md: 'space-between' }}
           align={{ md: 'center' }}>
+            
           <Text >© 2021 Project Titan</Text>
-          <Stack direction={'row'} spacing={5}>
-            <SocialButton label={'Twitter'} href={'https://solana.com/ignition'}>
-              <FaTwitter />
-            </SocialButton>
-            <SocialButton label={'YouTube'} href={'https://solana.com/ignition'}>
+          <Spacer />
+
+          <Stack direction={'row'} spacing={4}>
+
+            <SocialButton label={'YouTube'} href={'https://www.youtube.com/'}>
               <FaYoutube />
-            </SocialButton>
-            <SocialButton label={'Instagram'} href={'https://solana.com/ignition'}>
-              <FaInstagram />
             </SocialButton>
             <SocialButton label={'Discord'} href={'https://solana.com/ignition'}>
               <FaDiscord />
             </SocialButton>
-            <SocialButton label={'Facebook'} href={'https://solana.com/ignition'}>
-              <FaFacebook />
+            <SocialButton label={'Github'} href={'https://github.com/dhyon/prototype'}>
+              <FaGithub />
+            </SocialButton>
+            <SocialButton label={'Twitter'} href={'https://twitter.com/TitanAnalytics0'}>
+              <FaTwitter />
             </SocialButton>
           </Stack>
         </Container>
