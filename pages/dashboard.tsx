@@ -147,13 +147,14 @@ const Home: NextPage = () => {
                     fontSize="sm"
                     fontWeight="bold"
                     display="flex"
+                    mb={1}
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
                     <Box flex={1} color="gray.900">
                       77k
                     </Box>
 
-                    <Box alignSelf="flex-end" fontWeight="500">
+                    <Box alignSelf="flex-end" fontWeight="bold">
                       Serum
                     </Box>
                   </Box>
@@ -161,6 +162,7 @@ const Home: NextPage = () => {
                   <Box
                     px={3}
                     py={2}
+                    mb={1}
                     height={50}
                     color="white"
                     width="calc(100% - 20px)"
@@ -173,7 +175,7 @@ const Home: NextPage = () => {
                       60k
                     </Box>
 
-                    <Box alignSelf="flex-end" fontWeight="500">
+                    <Box alignSelf="flex-end" fontWeight="bold">
                       Orca
                     </Box>
                   </Box>
@@ -181,6 +183,7 @@ const Home: NextPage = () => {
                   <Box
                     px={3}
                     py={2}
+                    mb={1}
                     height={50}
                     color="white"
                     width="calc(100% - 40px)"
@@ -193,7 +196,7 @@ const Home: NextPage = () => {
                       42k
                     </Box>
 
-                    <Box alignSelf="flex-end" fontWeight="500">
+                    <Box alignSelf="flex-end" fontWeight="bold">
                       Raydium
                     </Box>
                   </Box>
@@ -201,6 +204,7 @@ const Home: NextPage = () => {
                   <Box
                     px={3}
                     py={2}
+                    mb={1}
                     height={50}
                     color="white"
                     width="calc(100% - 60px)"
@@ -213,7 +217,9 @@ const Home: NextPage = () => {
                       35k
                     </Box>
 
-                    <Box alignSelf="flex-end">Akash</Box>
+                    <Box alignSelf="flex-end" fontWeight="bold">
+                      Akash
+                    </Box>
                   </Box>
 
                   <Box
@@ -238,7 +244,7 @@ const Home: NextPage = () => {
             </Box>
 
             <SimpleGrid columns={[1, 1, 1]} spacing={[5, 5, 8]}>
-              <Box borderBottomWidth={1} px={5}>
+              <Box borderBottomWidth={1} pl={5}>
                 <Heading size="md">Portfolio Value (USDC)</Heading>
                 <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
                   ↑ Upward trends detected
@@ -259,7 +265,10 @@ const Home: NextPage = () => {
                     Monthly Profit (USDC)
                   </Heading>
                   <Box>
-                    <MonthlyEarningsChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
+                    <MonthlyEarningsChart
+                      areaColor={colorTitanVal}
+                      axisLabelColor={axisLabelColor}
+                    />
                     <Center height="100%" mb={[5, 5, 8]}>
                       <Button
                         size="lg"
@@ -277,7 +286,7 @@ const Home: NextPage = () => {
 
           <Box borderLeftWidth={1} gridRow={[2, 2, 2, 1]} gridColumn={[1, 1, 1, 2]} bg={sidebarBg}>
             <Heading fontSize={'lg'} p={5} borderBottomWidth={1}>
-              Recently sold items
+              Recently Sold Items
             </Heading>
 
             {sidebarItems.map((el) => {
@@ -381,6 +390,19 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
     { x: 'Oct', y: 1690 },
   ];
 
+  const sampleData2 = [
+    { x: 'Jan', y: 30 },
+    { x: 'Feb', y: 50 },
+    { x: 'Mar', y: 150 },
+    { x: 'Apr', y: 70 },
+    { x: 'May', y: 250 },
+    { x: 'Jun', y: 500 },
+    { x: 'Jul', y: 800 },
+    { x: 'Aug', y: 755 },
+    { x: 'Sep', y: 922 },
+    { x: 'Oct', y: 1290 },
+  ];
+
   return (
     <>
       <VictoryChart
@@ -388,6 +410,13 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
         animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
+        <VictoryArea
+          data={sampleData}
+          style={{
+            data: { fill: '#7956DD55' },
+            labels: { fill: '#7956DD' },
+          }}
+        />
         <VictoryAxis
           style={{
             tickLabels: { fill: axisLabelColor },
@@ -401,10 +430,18 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
             axis: { stroke: 'gray' },
           }}
         />
-        <VictoryArea
+        {/* <VictoryArea
           data={sampleData}
           style={{
             data: { fill: areaColor, fillOpacity: 0.5 },
+          }}
+        /> */}
+
+        <VictoryArea
+          data={sampleData2}
+          style={{
+            data: { fill: '#55555555' },
+            labels: { fill: '#555555' },
           }}
         />
       </VictoryChart>
@@ -414,6 +451,7 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
 
 function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
   const sampleData = [
+    { x: 'Jan', y: 30 },
     { x: 'Feb', y: 0 },
     { x: 'Mar', y: 100 },
     { x: 'Apr', y: 100 },
@@ -422,7 +460,20 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
     { x: 'Jul', y: 200 },
     { x: 'Aug', y: 255 },
     { x: 'Sep', y: 0 },
-    { x: 'Oct', y: 768 },
+    { x: 'Oct', y: 368 },
+  ];
+
+  const sampleData2 = [
+    { x: 'Jan', y: 30 },
+    { x: 'Feb', y: 30 },
+    { x: 'Mar', y: 50 },
+    { x: 'Apr', y: 70 },
+    { x: 'May', y: 80 },
+    { x: 'Jun', y: 60 },
+    { x: 'Jul', y: 65 },
+    { x: 'Aug', y: 45 },
+    { x: 'Sep', y: 95 },
+    { x: 'Oct', y: 105 },
   ];
 
   return (
@@ -450,9 +501,20 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
           data={sampleData}
           style={{
             data: {
-              stroke: areaColor,
+              stroke: '#7956DD55',
               width: 15,
-              strokeWidth: 5,
+              strokeWidth: 4,
+            },
+          }}
+        />
+
+        <VictoryLine
+          data={sampleData2}
+          style={{
+            data: {
+              stroke: '#55555555',
+              width: 15,
+              strokeWidth: 4,
             },
           }}
         />
@@ -497,7 +559,7 @@ function VolumeByGame() {
             return (
               <Box bg={x.color} rounded="md">
                 <Center height="100%">
-                  <Text fontSize="xs" color="white">
+                  <Text fontSize="xs" fontWeight="bold" color="white">
                     {x.value}
                   </Text>
                 </Center>
