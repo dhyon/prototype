@@ -15,6 +15,7 @@ import React from 'react';
 import { VictoryAxis, VictoryChart } from 'victory';
 import Rarity from './rarity';
 import { getMinMaxGradient } from './rarity-gradient';
+import { useRouter } from 'next/router';
 
 export default function ScatterPlot() {
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
@@ -121,24 +122,28 @@ function Bubble(props) {
   // const bg = useColorModeValue(color + '.400', color + '.200');
   const bg = color;
   return (
-    <Link href="/game/star-atlas">
-    <Tooltip rounded="lg" p={0} shadow="lg" bg="none" key={idx} label={<BubbleInfo {...props} />}>
-      <Box
-        bg={bg}
-        cursor="pointer"
-        border="2px"
-        boxSize={size * 3 + 'px'}
-        rounded="full"
-        opacity={0.85}
-        _hover={{ opacity: 1 }}
-        position="absolute"
-        left={left * 100 + '%'}
-        top={top * 100 + '%'}
-        zIndex={10}
-      >
-        <Center height="100%">{x > 0 && y > 0 ? '🔥' : ''}</Center>
-      </Box>
-    </Tooltip>
+    <Link
+      // href={{ pathname: '/game/star-atlas', query: { filterRarity: rarity } }}
+      // as={`/game/star-atlas?filterRarity=${rarity}`}
+      href={`/game/star-atlas?filterRarity=${rarity}`}
+    >
+      <Tooltip rounded="lg" p={0} shadow="lg" bg="none" key={idx} label={<BubbleInfo {...props} />}>
+        <Box
+          bg={bg}
+          cursor="pointer"
+          border="2px"
+          boxSize={size * 3 + 'px'}
+          rounded="full"
+          opacity={0.85}
+          _hover={{ opacity: 1 }}
+          position="absolute"
+          left={left * 100 + '%'}
+          top={top * 100 + '%'}
+          zIndex={10}
+        >
+          <Center height="100%">{x > 0 && y > 0 ? '🔥' : ''}</Center>
+        </Box>
+      </Tooltip>
     </Link>
   );
 }
@@ -147,31 +152,26 @@ function BubbleInfo(props) {
   const { rarity, color, left, top, x, y, size, idx } = props;
   const { min, max } = getMinMaxGradient(rarity);
   return (
-    <Box
-      p={3}
-      rounded="lg"
-      overflow="hidden"
-      bgGradient={`linear(to-r, ${min}, ${max})`}
-    >
-      <Center textTransform="uppercase" color={"white"} fontWeight="bold" fontSize="sm" mb={1}>
-        {rarity }
+    <Box p={3} rounded="lg" overflow="hidden" bgGradient={`linear(to-r, ${min}, ${max})`}>
+      <Center textTransform="uppercase" color={'white'} fontWeight="bold" fontSize="sm" mb={1}>
+        {rarity}
       </Center>
       <Text size="xs" color="gray.700">
         Trend Strength (ADX)
       </Text>
-      <Text  fontSize="lg" color="white" borderBottomWidth={1} mb={1} >
+      <Text fontSize="lg" color="white" borderBottomWidth={1} mb={1}>
         {x}
       </Text>
-      <Text size="xs" color="gray.700" >
+      <Text size="xs" color="gray.700">
         Price Direction (SMA)
       </Text>
-      <Text fontSize="lg" color="white" borderBottomWidth={1} mb={1} >
+      <Text fontSize="lg" color="white" borderBottomWidth={1} mb={1}>
         {y}
       </Text>
       <Text size="lg" color="gray.700">
         Daily Volume
       </Text>
-      <Text  fontSize="lg" color="white">
+      <Text fontSize="lg" color="white">
         {Math.round(Math.random() * 10000)}
       </Text>
     </Box>

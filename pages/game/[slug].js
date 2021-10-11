@@ -1,6 +1,7 @@
 import Layout from '../../components/layout';
 import PanelGrid from '../../components/panel-grid';
 import * as JsSearch from 'js-search';
+import { useRouter } from 'next/router';
 
 import {
   Center,
@@ -26,7 +27,18 @@ const Page = ({ game = {}, markets = [] }) => {
   const [items, setItems] = useState(markets);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [rarityFilters, setRarityFilters] = useState([]);
+
+  // infer param from path because the next.js way of sending params is broke af
+  function getParamValFromPath(path, paramName) {
+    let index = path.indexOf(paramName);
+    if (index == -1) return '';
+    return path.slice(index + paramName.length + 1);
+  }
+  const router = useRouter();
+  const rarityParam = getParamValFromPath(router.asPath, 'filterRarity');
+  const rarityFilterState = rarityParam ? [rarityParam] : [];
+
+  const [rarityFilters, setRarityFilters] = useState(rarityFilterState);
 
   const [itemTypeFilters, setItemTypeFilters] = useState([]);
 
@@ -153,9 +165,11 @@ const Page = ({ game = {}, markets = [] }) => {
             <Center>
               <Box mb={[2, 2, 3]}>
                 <Center>
-                  <Heading size="sm" color="gray.500" mb={[1, 1, 1]}>Item Rarity</Heading>
+                  <Heading size="sm" color="gray.500" mb={[1, 1, 1]}>
+                    Item Rarity
+                  </Heading>
                 </Center>
-                <CheckboxGroup onChange={updateRarityFilter.bind(this)}>
+                <CheckboxGroup onChange={updateRarityFilter.bind(this)} value={rarityFilters}>
                   <Checkbox mr={6} mb={2} value="epic">
                     Epic
                   </Checkbox>
@@ -181,7 +195,9 @@ const Page = ({ game = {}, markets = [] }) => {
             <Center>
               <Box mb={[2, 2, 3]}>
                 <Center>
-                <Heading size="sm" color="gray.500" mb={[1, 1, 1]}>Item Category</Heading>
+                  <Heading size="sm" color="gray.500" mb={[1, 1, 1]}>
+                    Item Type
+                  </Heading>
                 </Center>
                 <CheckboxGroup onChange={updateItemTypeFilter.bind(this)}>
                   <Checkbox mr={6} mb={2} value="collectible">
@@ -193,7 +209,6 @@ const Page = ({ game = {}, markets = [] }) => {
                   <Checkbox mr={6} mb={2} value="structure">
                     Structure
                   </Checkbox>
-
                   <Checkbox mr={6} mb={2} value="access">
                     Access
                   </Checkbox>
