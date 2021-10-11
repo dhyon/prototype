@@ -228,53 +228,19 @@ const Page = ({ game = {}, markets = [] }) => {
 
 export default Page;
 
-export async function getStaticPaths() {
-  const data = [
-    {
-      name: 'Star Atlas',
-      description: 'Lorem',
-      slug: 'star-atlas',
-      _id: 'foobar',
-      image: '/star-atlas.jpg',
-      symbol: 'SA',
-    },
-  ];
-
-  const paths = data.map((el, idx) => {
-    return {
-      params: {
-        slug: el['slug'],
-        data: el,
-        // handle: el["_id"],
-      },
-    };
-  });
-
-  return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params, locale, locales, preview }) {
-  const gamesData = [
-    {
-      name: 'Star Atlas',
-      description: 'Lorem',
-      slug: 'star-atlas',
-      _id: 'foobar',
-      image: '/star-atlas.jpg',
-      symbol: 'SA',
-    },
-  ];
-
+export async function getServerSideProps(context) {
   const markets = await getAllStarAtlasMarkets();
 
   return {
     props: {
-      game: gamesData.filter((el) => {
-        return el['slug'] === params.slug;
-      })[0],
+      game: {
+        name: 'Star Atlas',
+        description: 'Lorem',
+        slug: 'star-atlas',
+        _id: 'foobar',
+        image: '/star-atlas.jpg',
+        symbol: 'SA',
+      },
       markets: markets,
     },
   };
