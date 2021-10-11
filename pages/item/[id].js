@@ -1,6 +1,12 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
-import { VictoryChart, VictoryZoomContainer,VictoryLine, VictoryBrushContainer, VictoryAxis } from 'victory';
+import {
+  VictoryChart,
+  VictoryZoomContainer,
+  VictoryLine,
+  VictoryBrushContainer,
+  VictoryAxis,
+} from 'victory';
 import Rarity from '../../components/rarity';
 import RarityGradient from '../../components/rarity-gradient';
 
@@ -16,17 +22,18 @@ import {
 } from '@chakra-ui/react';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 import { getMarketData } from '../api/data/staratlas/markets/[marketId]';
-import { useState } from "react";
+import { useState } from 'react';
 
 const Page = ({ item = {}, marketData = {}, id }) => {
   // TODO: if item/marketData are undefined/null then we should gracefully display an error message
   // let bg = useColorModeValue('green.200', 'red.500')
 
-  const [zoomDomain, setZoomDomain] = useState({})
-  const [selectedDomain, setSelectedDomain] = useState({})
+  const [zoomDomain, setZoomDomain] = useState({});
+  const [selectedDomain, setSelectedDomain] = useState({});
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
   const lightBg = useColorModeValue('gray.200', 'gray.700');
   const strokeColor = useColorModeValue('#7956DD', '#B399FF');
+  const axisLabelColor = useColorModeValue('gray.800', 'gray.100');
   const selectedStrokeColor = useColorModeValue('tomato', 'tomato');
   const btnColor = useColorModeValue('titan', 'titanLight');
   const gridImage = useColorModeValue('/grid-light.jpg', '/dark-grid.jpg');
@@ -42,13 +49,12 @@ const Page = ({ item = {}, marketData = {}, id }) => {
     };
   });
 
-
   function handleZoom(domain) {
-    setSelectedDomain( domain );
+    setSelectedDomain(domain);
   }
 
   function handleBrush(domain) {
-    setZoomDomain( domain );
+    setZoomDomain(domain);
   }
 
   return (
@@ -82,14 +88,13 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               {item.name}
             </Heading>
 
-            <Box mb={4} fontSize="sm">{item.description}</Box>
-
-           
+            <Box mb={4} fontSize="sm">
+              {item.description}
+            </Box>
           </Box>
 
           <Box px={5}>
-
-          <Button colorScheme="purpe" bg={btnColor} width="100%" mb={2} size="lg" color="white">
+            <Button colorScheme="purpe" bg={btnColor} width="100%" mb={2} size="lg" color="white">
               Place a bid
             </Button>
 
@@ -98,76 +103,80 @@ const Page = ({ item = {}, marketData = {}, id }) => {
             </Button>
 
             <VictoryChart
-            width={500}
-            height={300}
-            scale={{x: "time"}}
-            containerComponent={
-              <VictoryZoomContainer responsive={false}
-                zoomDimension="x"
-                zoomDomain={zoomDomain}
-                onZoomDomainChange={handleZoom.bind(this)}
-              />
-            }
-          >
-            <VictoryLine
-              style={{
-                data: {stroke: strokeColor }
-              }}
-              data={[
-                {x: new Date(2020, 1, 1), y: 125},
-                {x: new Date(2020, 4, 1), y: 257},
-                {x: new Date(2020, 7, 1), y: 345},
-                {x: new Date(2020, 10, 1), y: 515},
-                {x: new Date(2021, 1, 1), y: 132},
-                {x: new Date(2021, 4, 1), y: 305},
-                {x: new Date(2021, 7, 1), y: 270},
-                {x: new Date(2021, 10, 1), y: 470}
-              ]}
-            />
+              width={500}
+              height={300}
+              scale={{ x: 'time' }}
+              containerComponent={
+                <VictoryZoomContainer
+                  responsive={false}
+                  zoomDimension="x"
+                  zoomDomain={zoomDomain}
+                  onZoomDomainChange={handleZoom.bind(this)}
+                />
+              }
+            >
+              <VictoryLine
+                style={{
+                  data: { stroke: strokeColor },
+                }}
 
-          </VictoryChart>
-
-          <VictoryChart
-            width={500}
-            height={90}
-            scale={{x: "time"}}
-            padding={{top: 0, left: 50, right: 50, bottom: 30}}
-            containerComponent={
-              <VictoryBrushContainer responsive={false}
-                brushDimension="x"
-                brushDomain={selectedDomain}
-                onBrushDomainChange={handleBrush.bind(this)}
+                data={[
+                  { x: new Date(2020, 1, 1), y: 125 },
+                  { x: new Date(2020, 4, 1), y: 257 },
+                  { x: new Date(2020, 7, 1), y: 345 },
+                  { x: new Date(2020, 10, 1), y: 515 },
+                  { x: new Date(2021, 1, 1), y: 132 },
+                  { x: new Date(2021, 4, 1), y: 305 },
+                  { x: new Date(2021, 7, 1), y: 270 },
+                  { x: new Date(2021, 10, 1), y: 470 },
+                ]}
               />
-            }
-          >
-            <VictoryAxis
-              tickValues={[
-                new Date(2020, 1, 1),
-                new Date(2020, 4, 1),
-                new Date(2020, 7, 1),
-                new Date(2020, 10, 1),
-                new Date(2021, 1, 1),
-                new Date(2021, 4, 1),
-                new Date(2021, 7, 1)
-              ]}
-              tickFormat={(x) => new Date(x).getFullYear()}
-            />
-            <VictoryLine
-              style={{
-                data: {stroke: selectedStrokeColor}
-              }}
-              data={[
-                {x: new Date(2020, 1, 1), y: 125},
-                {x: new Date(2020, 4, 1), y: 257},
-                {x: new Date(2020, 7, 1), y: 345},
-                {x: new Date(2020, 10, 1), y: 515},
-                {x: new Date(2021, 1, 1), y: 132},
-                {x: new Date(2021, 4, 1), y: 305},
-                {x: new Date(2021, 7, 1), y: 270},
-                {x: new Date(2021, 10, 1), y: 470}
-              ]}
-            />
-          </VictoryChart>
+            </VictoryChart>
+
+            <VictoryChart
+              width={500}
+              height={90}
+              scale={{ x: 'time' }}
+              padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
+              containerComponent={
+                <VictoryBrushContainer
+                  responsive={false}
+                  brushDimension="x"
+                  brushDomain={selectedDomain}
+                  onBrushDomainChange={handleBrush.bind(this)}
+                />
+              }
+            >
+              <VictoryAxis
+                tickValues={[
+                  new Date(2020, 1, 1),
+                  new Date(2020, 4, 1),
+                  new Date(2020, 7, 1),
+                  new Date(2020, 10, 1),
+                  new Date(2021, 1, 1),
+                  new Date(2021, 4, 1),
+                  new Date(2021, 7, 1),
+                ]}
+                tickFormat={(x) => new Date(x).getFullYear()}
+                
+
+              />
+              <VictoryLine
+                style={{
+                  data: { stroke: selectedStrokeColor },
+                }}
+                data={[
+                  { x: new Date(2020, 1, 1), y: 125 },
+                  { x: new Date(2020, 4, 1), y: 257 },
+                  { x: new Date(2020, 7, 1), y: 345 },
+                  { x: new Date(2020, 10, 1), y: 515 },
+                  { x: new Date(2021, 1, 1), y: 132 },
+                  { x: new Date(2021, 4, 1), y: 305 },
+                  { x: new Date(2021, 7, 1), y: 270 },
+                  { x: new Date(2021, 10, 1), y: 470 },
+                ]}
+              />
+            </VictoryChart>
           </Box>
         </SimpleGrid>
       </Box>
