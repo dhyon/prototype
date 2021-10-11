@@ -309,6 +309,7 @@ const Home: NextPage = () => {
                   _hover={{ bg: lightBg }}
                   transition="background 0.2s ease"
                 >
+                  <NextLink href={ el.link }>
                   <Grid templateColumns="40px calc(100% - 55px) 15px">
                     <Box height="40px" width="40px" rounded="md" bg="gray.200">
                     <Image src={ el.image } height="100%" width="100%" objectFit="cover" />
@@ -330,6 +331,7 @@ const Home: NextPage = () => {
                       </Center>
                     </Box>
                   </Grid>
+                  </NextLink>
                 </Box>
               );
             })}

@@ -29,11 +29,13 @@ import IndexTrend from '../components/index-trend';
 import ToggleDarkMode from '../components/toggle-dark-mode';
 import Wallet from "../stores/wallet";
 import { useRouter } from 'next/router';
+import { useState, useEffect } from "react";
 
 const Home: NextPage = () => {
   const router = useRouter()
+  const [ first, setFirst ] = useState( true  )
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {toggleWalletConnection, isConnected } = Wallet( state => state );
+  const {toggleWalletConnection, isConnected, setConnectedFalse } = Wallet( state => state );
   const { toggleColorMode } = useColorMode();
   const solanaImg = useColorModeValue('/solana.svg', '/solana.svg');
   const lightBg = useColorModeValue('gray.200', 'gray.700');
@@ -48,6 +50,11 @@ const Home: NextPage = () => {
   function goToDashboard () {
     router.push("/dashboard")
   }
+
+  useEffect(() => {
+    first && setConnectedFalse()
+    setFirst(false)
+  }, [])
   // let axisColor = useColorModeValue('#0a0a0a', '#fafafa');
 
   // let [selectedDomain, setSelectDomain] = useState({
