@@ -259,23 +259,34 @@ const Home: NextPage = () => {
                 <ScatterPlot />
               </Box>
 
-              <Box borderBottomWidth={1} pl={5}>
+              <Box borderBottomWidth={1} px={5}>
+
+              <Button  float="right" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
+                      Portfolio
+                    </Button>
+
+
                 <Heading size="md">Portfolio Value (USDC)</Heading>
                 <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
                   ↑ Upward trends detected
                 </Heading>
                 <Box>
                   <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
-                  <Box mb={[5, 5, 8]} textAlign="center">
-                    <Button size="lg" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
-                      Portfolio Trends
-                    </Button>
-                  </Box>
+                 
                 </Box>
               </Box>
 
               <Box>
                 <Box px={5} borderBottomWidth={[1, 1, 0]}>
+
+                <Button
+                        float="right"
+                        textTransform="uppercase"
+                        rightIcon={<HiOutlineArrowRight />}
+                      >
+                        Balance
+                      </Button>
+
                   <Heading size="md" mb={[-5, -8, -12]}>
                     Monthly Profit (USDC)
                   </Heading>
@@ -284,15 +295,7 @@ const Home: NextPage = () => {
                       areaColor={colorTitanVal}
                       axisLabelColor={axisLabelColor}
                     />
-                    <Center height="100%" mb={[5, 5, 8]}>
-                      <Button
-                        size="lg"
-                        textTransform="uppercase"
-                        rightIcon={<HiOutlineArrowRight />}
-                      >
-                        Balance
-                      </Button>
-                    </Center>
+                 
                   </Box>
                 </Box>
               </Box>
