@@ -22,9 +22,9 @@ export default function ScatterPlot() {
   const inputBg = useColorModeValue('white', 'gray.700');
 
   const scatterData = [
-    // colors should match up with rarity.js
-    // x and y fields are the coordinate values displayed in the tooltip
-    { rarity: 'legendary', color: 'pink.300', left: 0.8, top: 0.3, x: 3.4, y: 1.55, size: 17 },
+    // 'x' and 'y' fields are the coordinate values displayed in the tooltip. If you decide to change
+    // the 'left' and 'top' values, then you'll need to change the x and y values as well so the tooltip is believable
+    { rarity: 'legendary', color: 'pink.300', left: 0.8, top: 0.3, x: 3.4, y: 1.55, size: 20 },
     { rarity: 'epic', color: 'yellow.400', left: 0.6, top: 0.7, x: 1.55, y: -2.5, size: 21 },
     { rarity: 'rare', color: 'orange.400', left: 0.5, top: 0.2, x: 0.6, y: 2.4, size: 26 },
     { rarity: 'common', color: 'green.300', left: 0.3, top: 0.3, x: -1.7, y: 1.5, size: 16 },
@@ -53,7 +53,7 @@ export default function ScatterPlot() {
 
       <HStack mt={5} mb={-5} justify="center">
         {scatterData.map((x, idx) => (
-          <Rarity val={x.rarity} key={idx}/>
+          <Rarity val={x.rarity} key={idx} />
         ))}
       </HStack>
 
@@ -133,7 +133,9 @@ function Bubble(props) {
         left={left * 100 + '%'}
         top={top * 100 + '%'}
         zIndex={10}
-      ></Box>
+      >
+        <Center height="100%">{x > 0 && y > 0 ? '🔥' : ''}</Center>
+      </Box>
     </Tooltip>
   );
 }
