@@ -6,14 +6,14 @@ import RarityGradient from './rarity-gradient';
 
 function ItemCard({ el }) {
 
-  let usdcPrice = Math.random(-1, 1) * 1000;
+  let solPrice = Math.random(-1, 1) * 100;
 
-  let color = usdcPrice > 50 ? "red.500" : "green.500";
+  let color = solPrice > 50 ? "red.500" : "green.500";
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
+  
 
 
   return (
@@ -29,7 +29,7 @@ function ItemCard({ el }) {
         >
           <Box position="absolute" top={3} left={3} zIndex={5} >
             <Box rounded="full" bg="#222222aa" backdropFilter="blur(4px)" color={ color } fontSize="xs" fontWeight="bold" py={1} px={2}>
-              { usdcPrice.toFixed(2) } <Box color="white" display="inline-block">USDC</Box>
+              { solPrice.toFixed(2) } <Box color="white" display="inline-block">SOL</Box>
             </Box>
           </Box>
 

@@ -6,10 +6,10 @@ function PanelGrid({ items }) {
     <Grid
       gap={5}
       templateColumns={[
-        'repeat(auto-fit, minmax(100px, 100px))',
-        'repeat(auto-fit, minmax(180px, 180px))',
-        'repeat(auto-fit, minmax(200px, 200px))',
-        'repeat(auto-fit, minmax(220px, 220px))',
+        'repeat(auto-fit, minmax(100px, 1fr))',
+        'repeat(auto-fit, minmax(180px, 1fr))',
+        'repeat(auto-fit, minmax(200px, 1fr))',
+        'repeat(auto-fit, minmax(220px, 1fr))',
       ]}
     >
       {items.map((el) => {
