@@ -11,6 +11,7 @@ import {
   Line,
 } from 'victory';
 import Layout from '../components/layout';
+import ScatterPlot from '../components/scatterplot';
 import {
   Button,
   Center,
@@ -237,13 +238,18 @@ const Home: NextPage = () => {
                       30k
                     </Box>
 
-                    <Box alignSelf="flex-end">Terra</Box>
+                    <Box alignSelf="flex-end">Solanart</Box>
                   </Box>
                 </Box>
               </Box>
             </Box>
 
             <SimpleGrid columns={[1, 1, 1]} spacing={[5, 5, 8]}>
+              <Box borderBottomWidth={1}>
+                <Heading ml={5} mb={-5} size="md">Price vs Trend Analysis</Heading>
+                <ScatterPlot />
+              </Box>
+
               <Box borderBottomWidth={1} pl={5}>
                 <Heading size="md">Portfolio Value (USDC)</Heading>
                 <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
