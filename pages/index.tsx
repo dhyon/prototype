@@ -1,4 +1,4 @@
-import NextLink from "next/link"
+import NextLink from 'next/link';
 import {
   Box,
   Button,
@@ -7,30 +7,47 @@ import {
   Center,
   Heading,
   HStack,
-  Icon,
-  IconButton,
   Image,
   Link as ChakraLink,
-  LinkBox,
-  Spacer,
   Stack,
   Text,
   Tooltip,
   useColorMode,
   useColorModeValue,
+  Modal,
+  ModalOverlay,
+  ModalContent, 
+  useDisclosure, 
+  Spinner, 
+
 } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { HiOutlineSun } from 'react-icons/hi';
+import { RiWallet2Line } from 'react-icons/ri';
 import Footer from '../components/footer';
-import IndexTrend from "../components/index-trend"
-import ToggleDarkMode from "../components/toggle-dark-mode"
+import IndexTrend from '../components/index-trend';
+import ToggleDarkMode from '../components/toggle-dark-mode';
+import Wallet from "../stores/wallet";
+import { useRouter } from 'next/router';
 
 const Home: NextPage = () => {
+  const router = useRouter()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {toggleWalletConnection, isConnected } = Wallet( state => state );
   const { toggleColorMode } = useColorMode();
   const solanaImg = useColorModeValue('/solana.svg', '/solana.svg');
   const lightBg = useColorModeValue('gray.200', 'gray.700');
+  const bg = useColorModeValue('gray.50', 'gray.900');
 
+  function enterDashboard () {
+    toggleWalletConnection();
+    onOpen();
+    setTimeout(goToDashboard  , 2000)
+  }
+
+  function goToDashboard () {
+    router.push("/dashboard")
+  }
   // let axisColor = useColorModeValue('#0a0a0a', '#fafafa');
 
   // let [selectedDomain, setSelectDomain] = useState({
@@ -52,75 +69,72 @@ const Home: NextPage = () => {
   let logo = useColorModeValue('/titan-logo.png', '/titan-dark.png');
   return (
     <>
+      <Box minH="90vh">
+        <Center height="100%">
+          <Box>
+            <Box textAlign="center" pt={[10, 10, 16]}>
+              <Box display="inline-block">
+                <Link href="/">
+                  <Grid templateColumns="80px 160px" gap="24px" cursor="pointer" p={4}>
+                    <Box height="80px" width="80px" rounded="full" overflow="hidden">
+                      <Image src={logo} objectFit="cover" alt="Titan Logo" />
+                    </Box>
 
-
-      {/* <Hero
-        title="Project Titan"
-        subtitle="Dominate with insights to the metaverse"
-        image="/design-mock-splash.png"
-        ctaLink="/dashboard"
-        ctaText="Enter the App"
-        bodyText="The NFT analytics portal for gamers and traders"
-      /> */}
-  <Box >
-
-      <Box textAlign="center" pt={[10, 10, 16]} >
-        <Box display="inline-block">
-          <Link href="/">
-            <Grid templateColumns="80px 160px" gap="24px" cursor="pointer" p={4}>
-              <Box height="80px" width="80px" rounded="full" overflow="hidden">
-                <Image src={logo} objectFit="cover" alt="Titan Logo" />
+                    <Box>
+                      <Center height="100%">
+                        <Heading fontWeight="900" fontSize="58px" letterSpacing={'4px'}>
+                          TITAN
+                        </Heading>
+                      </Center>
+                    </Box>
+                  </Grid>
+                </Link>
               </Box>
 
-              <Box>
-                <Center height="100%">
-                  <Heading fontWeight="900" fontSize="58px" letterSpacing={'4px'}>
-                    TITAN
-                  </Heading>
-                </Center>
-              </Box>
-            </Grid>
-          </Link>
-        </Box>
+              <Heading size="md" color="gray.500" fontWeight="400" textAlign="center" mb={6}>
+                Dominate with insights into the metaverse
+              </Heading>
+            </Box>
 
+            <IndexTrend />
 
+            <Box textAlign="center">
+              
+                <Button
+                  onClick={enterDashboard}
+                  bg={isConnected ? 'titan' : bg}
+                  color={isConnected ? "white": "inherit"}
+                  rounded="full"
+                  size="lg"
+                  textTransform="uppercase"
+                  mr={5}
+                  _hover={{opacity: 0.9}}
+                  rightIcon={<RiWallet2Line />}
+                >
+                  Connect
+                </Button>
+                
 
-        <Heading size="md" color="gray.500" fontWeight="400" textAlign="center" mb={6} >
-          Dominate with insights into the metaverse
-        </Heading>
+              <ToggleDarkMode />
+            </Box>
+          </Box>
+        </Center>
       </Box>
 
-      <IndexTrend />
-
-      <Box textAlign="center" pb={[10, 10, 16]}>
-        <NextLink href="/dashboard">
-        <Button colorScheme="gray" size="lg" textTransform="uppercase" mr={5}>
-          Enter
-        </Button>
-        </NextLink>
-
-        <ToggleDarkMode />
-      </Box>
-
-  </Box>
-
-
-      <Box py={[10, 10, 20]} bg={ lightBg } >
-
-      <Heading as="h1" size="lg" color="primary.800" textAlign="center" mb={[5,]}>
+      <Box py={[10, 10, 20]} bg={lightBg}>
+        <Heading as="h1" size="lg" color="primary.800" textAlign="center" mb={[5]}>
           The NFT analytics portal for gamers and traders.
-          </Heading>
+        </Heading>
 
-
-      <Heading fontWeight="300" size="md" mb={[10, 10, 16]} textAlign="center">
-      Gain the edge in the biggest gaming worlds on <Image ml={2} display="inline-block" src={solanaImg} width="200px" objectFit="cover" />
-
-      </Heading>
+        <Heading fontWeight="300" size="md" mb={[10, 10, 16]} textAlign="center">
+          Gain the edge in the biggest gaming worlds on{' '}
+          <Image ml={2} display="inline-block" src={solanaImg} width="200px" objectFit="cover" />
+        </Heading>
 
         <HStack
           align="center"
           justify={{ base: 'center', md: 'center', xl: 'center' }}
-          spacing="20px"
+          spacing="60px"
         >
           <ChakraLink href="https://staratlas.com/">
             <Tooltip label="Star Atlas">
@@ -139,6 +153,15 @@ const Home: NextPage = () => {
           </ChakraLink>
         </HStack>
       </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+      
+        <ModalOverlay />
+        <ModalContent verticalAlign="center" pt="30vh" bg="none" shadow="none" zIndex="100000" textAlign="center">
+          <Spinner color="white" size="xl" fontWeight="bold" margin="0 auto" />
+        </ModalContent>
+        </Modal>
+
 
       <Footer />
     </>
