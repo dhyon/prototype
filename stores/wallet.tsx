@@ -2,6 +2,7 @@ import create from 'zustand';
 
 interface State {
   isConnected: boolean,
+  setConnectedFalse: () => void,
   toggleWalletConnection: () => void,
   items: Array<string>,
   getItems: () => Array<string>,
@@ -11,6 +12,7 @@ interface State {
 
 const useStore = create<State>((set, get) => ({
   isConnected: false,
+  setConnectedFalse: () => set(state => ({ isConnected: false })),
   toggleWalletConnection: () => set((state) => ({isConnected: !state.isConnected})),
 
   // this array of ids is the dummy user's inventory

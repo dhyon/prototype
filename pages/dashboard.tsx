@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import NextLink from "next/link";
 import {
   VictoryChart,
   VictoryAxis,
@@ -40,21 +41,29 @@ const Home: NextPage = () => {
   const sidebarItems = [
     {
       title: 'Calico Ship',
+      image: '/ship-1.png',
+      link: "/item/612e7223fee257a97be35343",
       price: 29.73,
     },
 
     {
       title: 'Ogrika Thripid',
+      link: "/item/612e7223fee257a97be3533e",
+      image: '/ship-2.png',
       price: 18.84,
     },
 
     {
       title: 'Radium Defy',
+      image: '/ship-3.png',
+      link: "/item/612e7223fee257a97be35354",
       price: 6.02,
     },
 
     {
       title: 'Primordial Glo',
+      image: '/ship-4.png',
+      link: "/item/6143e0ac92761eeee4bc18f4",
       price: 4.3,
     },
   ];
@@ -250,23 +259,34 @@ const Home: NextPage = () => {
                 <ScatterPlot />
               </Box>
 
-              <Box borderBottomWidth={1} pl={5}>
+              <Box borderBottomWidth={1} px={5}>
+
+              <Button  float="right" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
+                      Portfolio
+                    </Button>
+
+
                 <Heading size="md">Portfolio Value (USDC)</Heading>
                 <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
                   ↑ Upward trends detected
                 </Heading>
                 <Box>
                   <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
-                  <Box mb={[5, 5, 8]} textAlign="center">
-                    <Button size="lg" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
-                      Portfolio Trends
-                    </Button>
-                  </Box>
+                 
                 </Box>
               </Box>
 
               <Box>
                 <Box px={5} borderBottomWidth={[1, 1, 0]}>
+
+                <Button
+                        float="right"
+                        textTransform="uppercase"
+                        rightIcon={<HiOutlineArrowRight />}
+                      >
+                        Balance
+                      </Button>
+
                   <Heading size="md" mb={[-5, -8, -12]}>
                     Monthly Profit (USDC)
                   </Heading>
@@ -275,15 +295,7 @@ const Home: NextPage = () => {
                       areaColor={colorTitanVal}
                       axisLabelColor={axisLabelColor}
                     />
-                    <Center height="100%" mb={[5, 5, 8]}>
-                      <Button
-                        size="lg"
-                        textTransform="uppercase"
-                        rightIcon={<HiOutlineArrowRight />}
-                      >
-                        Balance
-                      </Button>
-                    </Center>
+                 
                   </Box>
                 </Box>
               </Box>
@@ -306,8 +318,11 @@ const Home: NextPage = () => {
                   _hover={{ bg: lightBg }}
                   transition="background 0.2s ease"
                 >
+                  <NextLink href={ el.link }>
                   <Grid templateColumns="40px calc(100% - 55px) 15px">
-                    <Box height="40px" width="40px" rounded="md" bg="gray.200"></Box>
+                    <Box height="40px" width="40px" rounded="md" bg="gray.200">
+                    <Image src={ el.image } height="100%" width="100%" objectFit="cover" />
+                    </Box>
 
                     <Box pl={4}>
                       <Box>
@@ -325,12 +340,13 @@ const Home: NextPage = () => {
                       </Center>
                     </Box>
                   </Grid>
+                  </NextLink>
                 </Box>
               );
             })}
 
             <Heading fontSize={'lg'} p={5} borderBottomWidth={1}>
-              Hot Inventory Items
+              Hot Inventory Items 🔥
             </Heading>
 
             {sidebarItems.map((el) => {
@@ -344,8 +360,11 @@ const Home: NextPage = () => {
                   _hover={{ bg: lightBg }}
                   transition="background 0.2s ease"
                 >
+                  <NextLink href={ el.link }>
                   <Grid templateColumns="40px calc(100% - 55px) 15px">
-                    <Box height="40px" width="40px" rounded="md" bg="gray.200"></Box>
+                    <Box height="40px" width="40px" rounded="md" bg="gray.200">
+                      <Image src={ el.image } height="100%" width="100%" objectFit="cover" />
+                    </Box>
 
                     <Box pl={4}>
                       <Box>
@@ -363,6 +382,7 @@ const Home: NextPage = () => {
                       </Center>
                     </Box>
                   </Grid>
+                  </NextLink>
                 </Box>
               );
             })}

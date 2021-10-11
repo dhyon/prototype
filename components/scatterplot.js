@@ -120,7 +120,7 @@ function Bubble(props) {
   // const bg = useColorModeValue(color + '.400', color + '.200');
   const bg = color;
   return (
-    <Tooltip bg="none" key={idx} label={<BubbleInfo {...props} />}>
+    <Tooltip rounded="lg" p={0} shadow="lg" bg="none" key={idx} label={<BubbleInfo {...props} />}>
       <Box
         bg={bg}
         cursor="pointer"
@@ -145,31 +145,30 @@ function BubbleInfo(props) {
   const { min, max } = getMinMaxGradient(rarity);
   return (
     <Box
-      border="1px"
-      height="170px"
-      width="170px"
-      rounded="md"
+      p={3}
+      rounded="lg"
+      overflow="hidden"
       bgGradient={`linear(to-r, ${min}, ${max})`}
     >
-      <Center mb={1}>
-        <Rarity val={rarity} />
+      <Center textTransform="uppercase" color={"white"} fontWeight="bold" fontSize="sm" mb={1}>
+        {rarity }
       </Center>
-      <Text mx={1} mb={-1} size="xs" color="gray.700">
+      <Text size="xs" color="gray.700">
         Trend Strength (ADX)
       </Text>
-      <Text mx={1} fontSize="lg" color="white" borderBottomWidth={1}>
+      <Text  fontSize="lg" color="white" borderBottomWidth={1} mb={1} >
         {x}
       </Text>
-      <Text mx={1} mb={-1} size="xs" color="gray.700">
+      <Text size="xs" color="gray.700" >
         Price Direction (SMA)
       </Text>
-      <Text mx={1} fontSize="lg" color="white" borderBottomWidth={1}>
+      <Text fontSize="lg" color="white" borderBottomWidth={1} mb={1} >
         {y}
       </Text>
-      <Text mx={1} mb={-1} size="xs" color="gray.700">
+      <Text size="lg" color="gray.700">
         Daily Volume
       </Text>
-      <Text mx={1} fontSize="lg" color="white">
+      <Text  fontSize="lg" color="white">
         {Math.round(Math.random() * 10000)}
       </Text>
     </Box>
