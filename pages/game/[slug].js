@@ -3,8 +3,10 @@ import PanelGrid from '../../components/panel-grid';
 import * as JsSearch from 'js-search';
 
 import {
+  Center,
   CheckboxGroup,
   Checkbox,
+  Divider,
   Input,
   FormLabel,
   InputGroup,
@@ -121,68 +123,85 @@ const Page = ({ game = {}, markets = [] }) => {
             of real world assets and ownership.
           </Box>
 
+          <Divider mb={4} />
+
           <Box>
-            <Heading size="sm" color="gray.500" mb={[2, 2, 3]}>
-              NFTs
-            </Heading>
+            <Center>
+              <InputGroup width="500px" mb={[2, 2, 3]}>
+                <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
+                  <HiSearch />
+                </InputLeftElement>
 
-            <InputGroup mb={[2, 2, 3]}>
-              <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
-                <HiSearch />
-              </InputLeftElement>
+                <Input
+                  value={searchTerm}
+                  onChange={changeSearchTerm.bind(this)}
+                  placeholder="Search items"
+                />
 
-              <Input value={searchTerm} onChange={changeSearchTerm.bind(this)} />
+                <InputRightElement
+                  onClick={clearSearch.bind(this)}
+                  cursor="pointer"
+                  _hover={{ color: 'gray.500' }}
+                  color="gray.300"
+                  fontSize="1.2em"
+                >
+                  <IoClose />
+                </InputRightElement>
+              </InputGroup>
+            </Center>
 
-              <InputRightElement
-                onClick={clearSearch.bind(this)}
-                cursor="pointer"
-                _hover={{ color: 'gray.500' }}
-                color="gray.300"
-                fontSize="1.2em"
-              >
-                <IoClose />
-              </InputRightElement>
-            </InputGroup>
+            <Center>
+              <Box mb={[2, 2, 3]}>
+                <Center>
+                  <Heading size="sm" color="gray.500" mb={[1, 1, 1]}>Item Rarity</Heading>
+                </Center>
+                <CheckboxGroup onChange={updateRarityFilter.bind(this)}>
+                  <Checkbox mr={6} mb={2} value="epic">
+                    Epic
+                  </Checkbox>
+                  <Checkbox mr={6} mb={2} value="legendary">
+                    Legendary
+                  </Checkbox>
+                  <Checkbox mr={6} mb={2} value="rare">
+                    Rare
+                  </Checkbox>
+                  <Checkbox mr={6} mb={2} value="common">
+                    Common
+                  </Checkbox>
+                  <Checkbox mr={6} mb={2} value="uncommon">
+                    Uncommon
+                  </Checkbox>
+                  <Checkbox mr={6} mb={2} value="anomaly">
+                    Anomaly
+                  </Checkbox>
+                </CheckboxGroup>
+              </Box>
+            </Center>
 
-            <Box mb={[2, 2, 3]}>
-              <FormLabel mb={1}>Rarity</FormLabel>
-              <CheckboxGroup onChange={updateRarityFilter.bind(this)}>
-                <Checkbox mr={6} mb={2} value="epic">
-                  Epic
-                </Checkbox>
-                <Checkbox mr={6} mb={2} value="legendary">
-                  Legendary
-                </Checkbox>
-                <Checkbox mr={6} mb={2} value="rare">
-                  Rare
-                </Checkbox>
-                <Checkbox mr={6} mb={2} value="common">
-                  Common
-                </Checkbox>
-                <Checkbox mr={6} mb={2} value="uncommon">
-                  Uncommon
-                </Checkbox>
-              </CheckboxGroup>
-            </Box>
+            <Center>
+              <Box mb={[2, 2, 3]}>
+                <Center>
+                <Heading size="sm" color="gray.500" mb={[1, 1, 1]}>Item Category</Heading>
+                </Center>
+                <CheckboxGroup onChange={updateItemTypeFilter.bind(this)}>
+                  <Checkbox mr={6} mb={2} value="collectible">
+                    Collectible
+                  </Checkbox>
+                  <Checkbox mr={6} mb={2} value="ship">
+                    Ship
+                  </Checkbox>
+                  <Checkbox mr={6} mb={2} value="structure">
+                    Structure
+                  </Checkbox>
 
-            <Box mb={[2, 2, 3]}>
-              <FormLabel mb={1}>Item Type</FormLabel>
-              <CheckboxGroup onChange={updateItemTypeFilter.bind(this)}>
-                <Checkbox mr={6} mb={2} value="collectible">
-                  Collectible
-                </Checkbox>
-                <Checkbox mr={6} mb={2} value="ship">
-                  Ship
-                </Checkbox>
-                <Checkbox mr={6} mb={2} value="structure">
-                  Structure
-                </Checkbox>
+                  <Checkbox mr={6} mb={2} value="access">
+                    Access
+                  </Checkbox>
+                </CheckboxGroup>
+              </Box>
+            </Center>
 
-                <Checkbox mr={6} mb={2} value="access">
-                  Access
-                </Checkbox>
-              </CheckboxGroup>
-            </Box>
+            <Divider mb={4} />
 
             <PanelGrid items={addFilters(items)} />
           </Box>

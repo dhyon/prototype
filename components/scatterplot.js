@@ -3,6 +3,7 @@ import {
   Center,
   Flex,
   HStack,
+  Link,
   Radio,
   RadioGroup,
   Stack,
@@ -120,6 +121,7 @@ function Bubble(props) {
   // const bg = useColorModeValue(color + '.400', color + '.200');
   const bg = color;
   return (
+    <Link href="/game/star-atlas">
     <Tooltip rounded="lg" p={0} shadow="lg" bg="none" key={idx} label={<BubbleInfo {...props} />}>
       <Box
         bg={bg}
@@ -137,6 +139,7 @@ function Bubble(props) {
         <Center height="100%">{x > 0 && y > 0 ? '🔥' : ''}</Center>
       </Box>
     </Tooltip>
+    </Link>
   );
 }
 
