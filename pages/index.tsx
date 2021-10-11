@@ -16,9 +16,9 @@ import {
   useColorModeValue,
   Modal,
   ModalOverlay,
-  ModalContent, 
-  useDisclosure, 
-  Spinner, 
+  ModalContent,
+  useDisclosure,
+  Spinner,
 
 } from '@chakra-ui/react';
 import type { NextPage } from 'next';
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
   function enterDashboard () {
     toggleWalletConnection();
     onOpen();
-    setTimeout(goToDashboard  , 2000)
+    setTimeout(goToDashboard, 750)
   }
 
   function goToDashboard () {
@@ -76,9 +76,8 @@ const Home: NextPage = () => {
   let logo = useColorModeValue('/titan-logo.png', '/titan-dark.png');
   return (
     <>
-      <Box minH="90vh">
         <Center height="100%">
-          <Box>
+          <Box py={[10,10,20]}>
             <Box textAlign="center" pt={[10, 10, 16]}>
               <Box display="inline-block">
                 <Link href="/">
@@ -106,8 +105,9 @@ const Home: NextPage = () => {
             <IndexTrend />
 
             <Box textAlign="center">
-              
+
                 <Button
+                  cursor="pointer"
                   onClick={enterDashboard}
                   bg={isConnected ? 'titan' : bg}
                   color={isConnected ? "white": "inherit"}
@@ -120,13 +120,11 @@ const Home: NextPage = () => {
                 >
                   Connect
                 </Button>
-                
 
               <ToggleDarkMode />
             </Box>
           </Box>
         </Center>
-      </Box>
 
       <Box py={[10, 10, 20]} bg={lightBg}>
         <Heading as="h1" size="lg" color="primary.800" textAlign="center" mb={[5]}>
@@ -162,7 +160,7 @@ const Home: NextPage = () => {
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>
-      
+
         <ModalOverlay />
         <ModalContent verticalAlign="center" pt="30vh" bg="none" shadow="none" zIndex="100000" textAlign="center">
           <Spinner color="white" size="xl" fontWeight="bold" margin="0 auto" />

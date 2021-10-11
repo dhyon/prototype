@@ -2,6 +2,7 @@ import create from 'zustand';
 
 interface State {
   isConnected: boolean,
+  setConnectedFalse: () => void,
   toggleWalletConnection: () => void,
   items: Array<string>,
   getItems: () => Array<string>,
