@@ -1,6 +1,6 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
-import NextLink from "next/link";
+import NextLink from 'next/link';
 import Countdown from 'react-countdown';
 
 import {
@@ -9,10 +9,11 @@ import {
   VictoryLine,
   VictoryBrushContainer,
   VictoryAxis,
+  VictoryVoronoiContainer,
 } from 'victory';
 import Rarity from '../../components/rarity';
 import RarityGradient from '../../components/rarity-gradient';
-
+import useWalletStore from '../../stores/wallet';
 import Layout from '../../components/layout';
 import {
   Button,
@@ -20,7 +21,7 @@ import {
   Divider,
   Stack,
   Image,
-  Link as ChakraLink, 
+  Link as ChakraLink,
   Heading,
   HStack,
   useColorModeValue,
@@ -31,7 +32,7 @@ import {
   ModalContent,
   useDisclosure,
   ModalBody,
-  ModalFooter, 
+  ModalFooter,
 } from '@chakra-ui/react';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 import { getMarketData } from '../api/data/staratlas/markets/[marketId]';
@@ -40,17 +41,21 @@ import { useState } from 'react';
 const Page = ({ item = {}, marketData = {}, id }) => {
   // TODO: if item/marketData are undefined/null then we should gracefully display an error message
   // let bg = useColorModeValue('green.200', 'red.500')
+  const [addItem, walletIsConnected, toggleWalletConnect] = useWalletStore((state) => [
+    state.addItem,
+    state.isConnected,
+  ]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [zoomDomain, setZoomDomain] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
   const [isBought, setIsBought] = useState(false);
-  const [price, setPrice] = useState((Math.random() * 100).toFixed(2));
+  const price = marketData.recentFills[0]?.price || 777
   const [selectedDomain, setSelectedDomain] = useState({});
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
   const lightBg = useColorModeValue('gray.200', 'gray.700');
   const strokeColor = useColorModeValue('#7956DD', '#B399FF');
-  const axisLabelColor = useColorModeValue('gray.800', 'gray.100');
+  const axisLabelColor = useColorModeValue('gray', 'white');
   const selectedStrokeColor = useColorModeValue('tomato', 'tomato');
   const btnColor = useColorModeValue('titan', 'titanLight');
   const gridImage = useColorModeValue('/grid-light.jpg', '/dark-grid.jpg');
@@ -74,80 +79,84 @@ const Page = ({ item = {}, marketData = {}, id }) => {
     setZoomDomain(domain);
   }
 
-  function buyNow () {
-    setIsDisabled(true )
-
-    setTimeout(setBought,  1000)
-  }
-  
-  function setBought () {
-    setIsDisabled(false )
-    setIsBought(true )
+  function buyNow() {
+    setIsDisabled(true);
+    addItem(id, price)
+    setTimeout(setBought, 1000);
   }
 
-  function modalContent () {
+  function setBought() {
+    setIsDisabled(false);
+    setIsBought(true);
+  }
+
+  function modalContent() {
     if (isBought) {
-      return <Box>
-        <Heading size="lg" my={2}>Congradulations!</Heading>
+      return (
+        <Box>
+          <Heading size="lg" my={2}>
+            Congradulations!
+          </Heading>
 
-        <Box mb={2}>
-          You have successfully purchased: <ChakraLink fontWeight="bold">{ item.name }</ChakraLink>.
-        </Box>
+          <Box mb={2}>
+            You have successfully purchased: <ChakraLink fontWeight="bold">{item.name}</ChakraLink>.
+          </Box>
 
-        <Box >
-          You can now find your item in your inventory. 
+          <Box>You can now find your item in your inventory.</Box>
         </Box>
-      </Box>
+      );
     } else {
-      return <Box>
-      <Heading size="lg" mb={2}>{item.name}</Heading>
-      <Box mb={2}>
-        { item.description }
-      </Box>
+      return (
+        <Box>
+          <Heading size="lg" mb={2}>
+            {item.name}
+          </Heading>
+          <Box mb={2}>{item.description}</Box>
 
-
-      <Heading size="md">
-        {price} USDC
-      </Heading>
-      </Box>
+          <Heading size="md">{price} USDC</Heading>
+        </Box>
+      );
     }
   }
 
-  function modalButtons () {
-    if ( isBought ) {
-      return <HStack>
-        
-            <Button colorScheme="gray" variant="outline" size="sm" onClick={ onClose } >
-              CLOSE
+  function modalButtons() {
+    if (isBought) {
+      return (
+        <HStack>
+          <Button colorScheme="gray" variant="outline" size="sm" onClick={onClose}>
+            CLOSE
+          </Button>
 
-            </Button>
-
-
-            <NextLink href="/inventory">
-            <Button  colorScheme="orange" variant="outline" size="sm" >
+          <NextLink href="/inventory">
+            <Button colorScheme="orange" variant="outline" size="sm">
               GO TO INVENTORY
             </Button>
-            </NextLink>
-
-            </HStack>
+          </NextLink>
+        </HStack>
+      );
     } else {
-      return <HStack>
-          <Button colorScheme="orange" variant="outline" size="sm"  onClick={ onClose } isLoading={isDisabled}>
-              CANCEL
+      return (
+        <HStack>
+          <Button
+            colorScheme="orange"
+            variant="outline"
+            size="sm"
+            onClick={onClose}
+            isLoading={isDisabled}
+          >
+            CANCEL
+          </Button>
 
-            </Button>
+          <Button colorScheme="blue" size="sm" variant="outline" isLoading={isDisabled}>
+            PLACE BID
+          </Button>
 
-            <Button colorScheme="blue" size="sm" variant="outline" isLoading={ isDisabled }>
-              PLACE BID
-            </Button>
-
-
-            <Button colorScheme="green" size="sm" onClick={ buyNow } isLoading={ isDisabled }>
-              BUY NOW
-            </Button>
-      </HStack>
+          <Button colorScheme="green" size="sm" onClick={buyNow} isLoading={isDisabled}>
+            BUY NOW
+          </Button>
+        </HStack>
+      );
     }
-    
   }
 
   return (
@@ -202,11 +211,11 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 
               <Box width="33%" textAlign="center">
                 <Heading size="sm" color="gray.500">
-                  Instant price
+                  Last Traded Price
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                  { price } USDC
+                  {price || 20} USDC
                 </Box>
               </Box>
 
@@ -248,36 +257,49 @@ const Page = ({ item = {}, marketData = {}, id }) => {
             </Button>
 
             <Heading size="md" mb={-5}>
-              Price v. Time
+              Daily Price Chart (USDC)
             </Heading>
 
             <VictoryChart
               width={500}
               height={300}
               scale={{ x: 'time' }}
-              containerComponent={
-                <VictoryZoomContainer
-                  responsive={false}
-                  zoomDimension="x"
-                  zoomDomain={zoomDomain}
-                  onZoomDomainChange={handleZoom.bind(this)}
-                />
-              }
+              // containerComponent={
+              //   <VictoryZoomContainer
+              //     responsive={false}
+              //     zoomDimension="x"
+              //     zoomDomain={zoomDomain}
+              //     onZoomDomainChange={handleZoom.bind(this)}
+              //   />
+              // }
+              containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
             >
+              <VictoryAxis
+                tickFormat={(x) => {
+                  const dateObj = new Date(x)
+                  return `${dateObj.getMonth()}/${dateObj.getDate()}`
+                }}
+                style={{
+                  tickLabels: { fill: axisLabelColor },
+                  axis: { stroke: 'gray' },
+                  grid: { stroke: 'gray', strokeWidth: 0.5 },
+                }}
+              />
+
+              <VictoryAxis
+                dependentAxis
+                style={{
+                  tickLabels: { fill: axisLabelColor },
+                  axis: { stroke: 'gray' },
+                  grid: { stroke: 'gray', strokeWidth: 0.5 },
+                }}
+              />
+
               <VictoryLine
                 style={{
                   data: { stroke: strokeColor },
                 }}
-                data={[
-                  { x: new Date(2020, 1, 1), y: 125 },
-                  { x: new Date(2020, 4, 1), y: 257 },
-                  { x: new Date(2020, 7, 1), y: 345 },
-                  { x: new Date(2020, 10, 1), y: 515 },
-                  { x: new Date(2021, 1, 1), y: 132 },
-                  { x: new Date(2021, 4, 1), y: 305 },
-                  { x: new Date(2021, 7, 1), y: 270 },
-                  { x: new Date(2021, 10, 1), y: 470 },
-                ]}
+                data={marketData.recentFills.map((fill) => ({ x: fill.timestamp, y: fill.price }))}
               />
             </VictoryChart>
 
@@ -306,6 +328,10 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                   new Date(2021, 7, 1),
                 ]}
                 tickFormat={(x) => new Date(x).getFullYear()}
+                style={{
+                  tickLabels: { fill: axisLabelColor },
+                  axis: { stroke: 'gray' },
+                }}
               />
               <VictoryLine
                 style={{
@@ -330,18 +356,9 @@ const Page = ({ item = {}, marketData = {}, id }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalBody>
+          <ModalBody>{modalContent()}</ModalBody>
 
-            { modalContent() }
-        
-          
-          </ModalBody>
-
-          <ModalFooter>
-
-            { modalButtons() }
-        
-          </ModalFooter>
+          <ModalFooter>{modalButtons()}</ModalFooter>
         </ModalContent>
       </Modal>
     </Layout>

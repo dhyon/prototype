@@ -4,9 +4,9 @@ interface State {
   isConnected: boolean,
   setConnectedFalse: () => void,
   toggleWalletConnection: () => void,
-  items: Array<string>,
-  getItems: () => Array<string>,
-  addItem: (itemId: string) => void,
+  items: Array<any>,
+  getItems: () => Array<any>,
+  addItem: (itemId: string, price: number) => void,
   removeItem: (itemId: string) => void,
 }
 
@@ -15,22 +15,22 @@ const useStore = create<State>((set, get) => ({
   setConnectedFalse: () => set(state => ({ isConnected: false })),
   toggleWalletConnection: () => set((state) => ({isConnected: !state.isConnected})),
 
-  // this array of ids is the dummy user's inventory
+  // this array of objs is the dummy user's inventory
   items: [
-    '6143e0ac92761eeee4bc18f4',
-    '6143e0ac92761eeee4bc18f5',
-    '612e7223fee257a97be35343',
-    '6143e0ac92761eeee4bc18f6',
-    '6143e0ac92761eeee4bc18f7',
-    '612e7223fee257a97be3532f',
-    '612e7223fee257a97be3531c',
-    '612e7223fee257a97be35324',
-    '612e7223fee257a97be35326',
-    '612e7223fee257a97be35321',
-    '612e7223fee257a97be35344',
+    {id: '6143e0ac92761eeee4bc18f4', price: 599},
+    // {id: '6143e0ac92761eeee4bc18f5', price: 13},
+    // {id: '612e7223fee257a97be35343', price: 13},
+    // {id: '6143e0ac92761eeee4bc18f6', price: 13},
+    // {id: '6143e0ac92761eeee4bc18f7', price: 13},
+    // {id: '612e7223fee257a97be3532f', price: 13},
+    {id: '612e7223fee257a97be3531c', price: 20},
+    {id: '612e7223fee257a97be35324', price: 145},
+    {id: '612e7223fee257a97be35326', price: 377.31},
+    {id: '612e7223fee257a97be35321', price: 65.99},
+    {id: '612e7223fee257a97be35344', price: 20},
   ],
   getItems: () => (get().isConnected ? get().items : [] ),
-  addItem: (itemId) => set((state) => ({ items: [itemId, ...state.items] })),
+  addItem: (itemId, itemPrice) => set((state) => ({ items: [{id: itemId, price: itemPrice}, ...state.items] })),
   removeItem: (itemId) => set((state) => ({ items: state.items.filter((i) => i !== itemId) })),
 }));
 
