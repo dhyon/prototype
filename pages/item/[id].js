@@ -52,6 +52,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
   const lightBg = useColorModeValue('gray.200', 'gray.700');
   const strokeColor = useColorModeValue('#7956DD', '#B399FF');
   const axisLabelColor = useColorModeValue('gray.800', 'gray.100');
+  const titanColor = useColorModeValue('titan', 'titanLight');
   const selectedStrokeColor = useColorModeValue('tomato', 'tomato');
   const btnColor = useColorModeValue('titan', 'titanLight');
   const gridImage = useColorModeValue('/grid-light.jpg', '/dark-grid.jpg');
@@ -178,24 +179,23 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               <RarityGradient size="8px" val={item.attributes.rarity} />
             </Box>
 
-            <Box mb={2}></Box>
 
-            <Heading size="xl" mb={2}>
+            <Heading size="xl" mt={3} mb={1}>
               {item.name}
             </Heading>
 
-            <Box mb={5} fontSize="sm">
+            <Box mb={6} fontSize="sm">
               {item.description}
             </Box>
 
-            <HStack height={8} mb={3}>
+            <HStack height={8} mb={4}>
               <Box width="33%" textAlign="center">
 
               <Heading size="sm" color="gray.500">
                   Instant price
                 </Heading>
 
-                <Box fontSize="lg" fontWeight="bold">
+                <Box fontSize="lg" fontWeight="bold" color={ titanColor }>
                   { price } USDC
                 </Box>
 
@@ -232,11 +232,11 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               </Box>
             </HStack>
 
-            <Divider mb={4} />
+            <Divider mb={5} />
 
 
 
-            <HStack height={8} >
+            <HStack height={8} mb={4}>
               <Box width="33%" textAlign="center">
 
               <Heading size="sm" color="gray.500">
@@ -285,11 +285,9 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                   <Countdown zeroPadDays={0} date={Date.now() + 59000} />
                 </Box>
 
-              <Heading size="md" color="gray.500" mb={5}>
-                  Aunction ends:
-                </Heading>
-
-              
+              <Box fontSize="2xl" fontWeight="bold" color="gray.500" mb={2}>
+                  Aunction ending:
+                </Box>
 
 
             <Button
