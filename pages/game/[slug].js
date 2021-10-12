@@ -28,14 +28,8 @@ const Page = ({ game = {}, markets = [] }) => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  // infer param from path because the next.js way of sending params is broke af
-  function getParamValFromPath(path, paramName) {
-    let index = path.indexOf(paramName);
-    if (index == -1) return '';
-    return path.slice(index + paramName.length + 1);
-  }
   const router = useRouter();
-  const rarityParam = getParamValFromPath(router.asPath, 'filterRarity');
+  const rarityParam = router.query.filterRarity
   const rarityFilterState = rarityParam ? [rarityParam] : [];
 
   const [rarityFilters, setRarityFilters] = useState(rarityFilterState);

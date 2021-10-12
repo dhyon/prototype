@@ -3,7 +3,8 @@ import {
   Center,
   Flex,
   HStack,
-  Link,
+  LinkBox,
+  LinkOverlay,
   Radio,
   RadioGroup,
   Stack,
@@ -16,6 +17,7 @@ import { VictoryAxis, VictoryChart } from 'victory';
 import Rarity from './rarity';
 import { getMinMaxGradient } from './rarity-gradient';
 import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 
 export default function ScatterPlot() {
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
@@ -118,33 +120,38 @@ export default function ScatterPlot() {
 }
 
 function Bubble(props) {
-  const { rarity, color, left, top, x, y, size, idx } = props;
-  // const bg = useColorModeValue(color + '.400', color + '.200');
-  const bg = color;
+  const { rarity, color: bg, left, top, x, y, size, idx } = props;
+
   return (
-    <Link
-      // href={{ pathname: '/game/star-atlas', query: { filterRarity: rarity } }}
-      // as={`/game/star-atlas?filterRarity=${rarity}`}
-      href={`/game/star-atlas?filterRarity=${rarity}`}
-    >
-      <Tooltip rounded="lg" p={0} shadow="lg" bg="none" key={idx} label={<BubbleInfo {...props} />}>
-        <Box
-          bg={bg}
-          cursor="pointer"
-          border="2px"
-          boxSize={size * 3 + 'px'}
-          rounded="full"
-          opacity={0.85}
-          _hover={{ opacity: 1 }}
-          position="absolute"
-          left={left * 100 + '%'}
-          top={top * 100 + '%'}
-          zIndex={10}
+    <Tooltip rounded="lg" p={0} shadow="lg" bg="none" key={idx} label={<BubbleInfo {...props} />}>
+      <LinkBox
+        bg={bg}
+        cursor="pointer"
+        border="2px"
+        boxSize={size * 3 + 'px'}
+        rounded="full"
+        opacity={0.85}
+        _hover={{ opacity: 1 }}
+        position="absolute"
+        left={left * 100 + '%'}
+        top={top * 100 + '%'}
+        zIndex={10}
+      >
+        <NextLink
+          passHref={true}
+          href={{
+            pathname: 'game/[slug]',
+            query: { slug: 'star-atlas', filterRarity: rarity },
+          }}
         >
-          <Center height="100%">{x > 0 && y > 0 ? '🔥' : ''}</Center>
-        </Box>
-      </Tooltip>
-    </Link>
+          <LinkOverlay>
+              <Center p={0} height="100%">
+                {x > 0 && y > 0 ? '🔥' : ''}
+              </Center>
+          </LinkOverlay>
+        </NextLink>
+      </LinkBox>
+    </Tooltip>
   );
 }
 
