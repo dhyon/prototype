@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import NextLink from "next/link";
+import NextLink from 'next/link';
 import {
   VictoryChart,
   VictoryAxis,
@@ -22,6 +22,7 @@ import {
   Image,
   Heading,
   SimpleGrid,
+  Spacer,
   Flex,
   Text,
 } from '@chakra-ui/react';
@@ -42,13 +43,13 @@ const Home: NextPage = () => {
     {
       title: 'Calico Ship',
       image: '/ship-1.png',
-      link: "/item/612e7223fee257a97be35343",
+      link: '/item/612e7223fee257a97be35343',
       price: 29.73,
     },
 
     {
       title: 'Ogrika Thripid',
-      link: "/item/612e7223fee257a97be3533e",
+      link: '/item/612e7223fee257a97be3533e',
       image: '/ship-2.png',
       price: 18.84,
     },
@@ -56,14 +57,14 @@ const Home: NextPage = () => {
     {
       title: 'Radium Defy',
       image: '/ship-3.png',
-      link: "/item/612e7223fee257a97be35354",
+      link: '/item/612e7223fee257a97be35354',
       price: 6.02,
     },
 
     {
       title: 'Primordial Glo',
       image: '/ship-4.png',
-      link: "/item/6143e0ac92761eeee4bc18f4",
+      link: '/item/6143e0ac92761eeee4bc18f4',
       price: 4.3,
     },
   ];
@@ -149,7 +150,7 @@ const Home: NextPage = () => {
                 </Heading>
 
                 <Box rounded="md" overflow="hidden">
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     height={50}
@@ -160,16 +161,12 @@ const Home: NextPage = () => {
                     mb={1}
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      77k
-                    </Box>
+                    <Box color="gray.900">Serum</Box>
+                    <Spacer />
+                    <Box>77k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Serum
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     mb={1}
@@ -181,16 +178,12 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      60k
-                    </Box>
+                    <Box color="gray.900">Orca</Box>
+                    <Spacer />
+                    <Box>60k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Orca
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     mb={1}
@@ -202,16 +195,12 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      42k
-                    </Box>
+                    <Box color="gray.900">Raydium</Box>
+                    <Spacer />
+                    <Box>42k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Raydium
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     mb={1}
@@ -223,16 +212,12 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      35k
-                    </Box>
+                    <Box color="gray.900">Akash</Box>
+                    <Spacer />
+                    <Box>35k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Akash
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     height={50}
@@ -243,59 +228,61 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      30k
-                    </Box>
-
-                    <Box alignSelf="flex-end">Solanart</Box>
-                  </Box>
+                    <Box color="gray.900">Solanart</Box>
+                    <Spacer />
+                    <Box>31k</Box>
+                  </Flex>
                 </Box>
               </Box>
             </Box>
 
             <SimpleGrid columns={[1, 1, 1]} spacing={[5, 5, 8]}>
               <Box borderBottomWidth={1}>
-                <Heading ml={5} mb={-5} size="md">Price vs Trend Analysis</Heading>
+                <Heading ml={5} mb={-5} size="md">
+                  Price vs Trend Analysis
+                </Heading>
                 <ScatterPlot />
               </Box>
 
               <Box borderBottomWidth={1} px={5}>
-
-              <Button  float="right" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
-                      Portfolio
-                    </Button>
-
+                <Button float="right" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
+                  Portfolio
+                </Button>
 
                 <Heading size="md">Portfolio Value (USDC)</Heading>
                 <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
-                  ↑ Upward trends detected
+                  ↑ Upward trends detected over last 12 months
                 </Heading>
                 <Box>
                   <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
-                 
                 </Box>
               </Box>
 
               <Box>
                 <Box px={5} borderBottomWidth={[1, 1, 0]}>
+                  <Button
+                    float="right"
+                    textTransform="uppercase"
+                    rightIcon={<HiOutlineArrowRight />}
+                  >
+                    Balance
+                  </Button>
 
-                <Button
-                        float="right"
-                        textTransform="uppercase"
-                        rightIcon={<HiOutlineArrowRight />}
-                      >
-                        Balance
-                      </Button>
-
-                  <Heading size="md" mb={[-5, -8, -12]}>
-                    Monthly Profit (USDC)
+                  <Heading size="md">Monthly Profit (USDC)</Heading>
+                  <Heading
+                    fontSize="lg"
+                    color="gray.500"
+                    fontWeight="500"
+                    mt={2}
+                    mb={[-5, -8, -12]}
+                  >
+                    Profit and loss month/month
                   </Heading>
                   <Box>
                     <MonthlyEarningsChart
                       areaColor={colorTitanVal}
                       axisLabelColor={axisLabelColor}
                     />
-                 
                   </Box>
                 </Box>
               </Box>
@@ -318,28 +305,28 @@ const Home: NextPage = () => {
                   _hover={{ bg: lightBg }}
                   transition="background 0.2s ease"
                 >
-                  <NextLink href={ el.link }>
-                  <Grid templateColumns="40px calc(100% - 55px) 15px">
-                    <Box height="40px" width="40px" rounded="md" bg="gray.200">
-                    <Image src={ el.image } height="100%" width="100%" objectFit="cover" />
-                    </Box>
+                  <NextLink href={el.link}>
+                    <Grid templateColumns="40px calc(100% - 55px) 15px">
+                      <Box height="40px" width="40px" rounded="md" bg="gray.200">
+                        <Image src={el.image} height="100%" width="100%" objectFit="cover" />
+                      </Box>
 
-                    <Box pl={4}>
-                      <Box>
-                        <Heading size="sm">{el.title}</Heading>
+                      <Box pl={4}>
+                        <Box>
+                          <Heading size="sm">{el.title}</Heading>
 
-                        <Box color="gray.500" fontSize="sm">
-                          Ship • {el.price} USDC
+                          <Box color="gray.500" fontSize="sm">
+                            Ship • {el.price} USDC
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
 
-                    <Box>
-                      <Center height="100%" color={colorTitan}>
-                        <HiChevronRight />
-                      </Center>
-                    </Box>
-                  </Grid>
+                      <Box>
+                        <Center height="100%" color={colorTitan}>
+                          <HiChevronRight />
+                        </Center>
+                      </Box>
+                    </Grid>
                   </NextLink>
                 </Box>
               );
@@ -360,28 +347,28 @@ const Home: NextPage = () => {
                   _hover={{ bg: lightBg }}
                   transition="background 0.2s ease"
                 >
-                  <NextLink href={ el.link }>
-                  <Grid templateColumns="40px calc(100% - 55px) 15px">
-                    <Box height="40px" width="40px" rounded="md" bg="gray.200">
-                      <Image src={ el.image } height="100%" width="100%" objectFit="cover" />
-                    </Box>
+                  <NextLink href={el.link}>
+                    <Grid templateColumns="40px calc(100% - 55px) 15px">
+                      <Box height="40px" width="40px" rounded="md" bg="gray.200">
+                        <Image src={el.image} height="100%" width="100%" objectFit="cover" />
+                      </Box>
 
-                    <Box pl={4}>
-                      <Box>
-                        <Heading size="sm">{el.title}</Heading>
+                      <Box pl={4}>
+                        <Box>
+                          <Heading size="sm">{el.title}</Heading>
 
-                        <Box color="gray.500" fontSize="sm">
-                          Ship • {el.price} USDC
+                          <Box color="gray.500" fontSize="sm">
+                            Ship • {el.price} USDC
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
 
-                    <Box>
-                      <Center height="100%" color={colorTitan}>
-                        <HiChevronRight />
-                      </Center>
-                    </Box>
-                  </Grid>
+                      <Box>
+                        <Center height="100%" color={colorTitan}>
+                          <HiChevronRight />
+                        </Center>
+                      </Box>
+                    </Grid>
                   </NextLink>
                 </Box>
               );
@@ -402,33 +389,30 @@ interface ChartData {
   axisLabelColor: string;
 }
 
+const sampleUserData = [
+  { x: 'Nov', y: 4000 },
+  { x: 'Dec', y: 4000 },
+  { x: 'Jan', y: 5000 },
+  { x: 'Feb', y: 3500 },
+  { x: 'Mar', y: 3000 },
+  { x: 'Apr', y: 5000 },
+  { x: 'May', y: 5600 },
+  { x: 'Jun', y: 6000 },
+  { x: 'Jul', y: 7000 },
+  { x: 'Aug', y: 6550 },
+  { x: 'Sep', y: 7000 },
+  { x: 'Oct', y: 8000 },
+];
+const sampleUserData2 = sampleUserData.map((thing) => ({
+  x: thing.x,
+  y: Math.round(0.7 * thing.y),
+}));
+const sampleUserData3 = sampleUserData2.map((thing) => ({
+  x: thing.x,
+  y: Math.round(0.5 * thing.y),
+}));
+
 function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
-  const sampleData = [
-    { x: 'Jan', y: 100 },
-    { x: 'Feb', y: 100 },
-    { x: 'Mar', y: 200 },
-    { x: 'Apr', y: 300 },
-    { x: 'May', y: 260 },
-    { x: 'Jun', y: 600 },
-    { x: 'Jul', y: 800 },
-    { x: 'Aug', y: 1055 },
-    { x: 'Sep', y: 922 },
-    { x: 'Oct', y: 1690 },
-  ];
-
-  const sampleData2 = [
-    { x: 'Jan', y: 30 },
-    { x: 'Feb', y: 50 },
-    { x: 'Mar', y: 150 },
-    { x: 'Apr', y: 70 },
-    { x: 'May', y: 250 },
-    { x: 'Jun', y: 500 },
-    { x: 'Jul', y: 800 },
-    { x: 'Aug', y: 755 },
-    { x: 'Sep', y: 922 },
-    { x: 'Oct', y: 1290 },
-  ];
-
   return (
     <>
       <VictoryChart
@@ -436,13 +420,30 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
         animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
-        <VictoryArea
-          data={sampleData}
+        <VictoryBar
+          data={sampleUserData}
           style={{
             data: { fill: '#7956DD55' },
+            labels: { fill: '#7956DD55' },
+          }}
+        />
+
+        <VictoryBar
+          data={sampleUserData2}
+          style={{
+            data: { fill: '#7956DD' },
             labels: { fill: '#7956DD' },
           }}
         />
+
+        <VictoryBar
+          data={sampleUserData3}
+          style={{
+            data: { fill: '#B399FF' },
+            labels: { fill: '#B399FF' },
+          }}
+        />
+
         <VictoryAxis
           style={{
             tickLabels: { fill: axisLabelColor },
@@ -456,58 +457,38 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
             axis: { stroke: 'gray' },
           }}
         />
-        {/* <VictoryArea
-          data={sampleData}
-          style={{
-            data: { fill: areaColor, fillOpacity: 0.5 },
-          }}
-        /> */}
-
-        <VictoryArea
-          data={sampleData2}
-          style={{
-            data: { fill: '#55555555' },
-            labels: { fill: '#555555' },
-          }}
-        />
       </VictoryChart>
     </>
   );
 }
 
 function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
-  const sampleData = [
-    { x: 'Jan', y: 30 },
-    { x: 'Feb', y: 0 },
-    { x: 'Mar', y: 100 },
-    { x: 'Apr', y: 100 },
-    { x: 'May', y: 0 },
-    { x: 'Jun', y: 340 },
-    { x: 'Jul', y: 200 },
-    { x: 'Aug', y: 255 },
-    { x: 'Sep', y: 0 },
-    { x: 'Oct', y: 368 },
-  ];
-
-  const sampleData2 = [
-    { x: 'Jan', y: 30 },
-    { x: 'Feb', y: 30 },
-    { x: 'Mar', y: 50 },
-    { x: 'Apr', y: 70 },
-    { x: 'May', y: 80 },
-    { x: 'Jun', y: 60 },
-    { x: 'Jul', y: 65 },
-    { x: 'Aug', y: 45 },
-    { x: 'Sep', y: 95 },
-    { x: 'Oct', y: 105 },
-  ];
+  function getMonthlyDiffData(data: any): Array<any> {
+    let lastMonth = '';
+    let lastVal = 0;
+    return data.map((thing: any) => {
+      if (!lastMonth) {
+        lastMonth = thing.x;
+        lastVal = thing.y;
+        return { x: thing.x, y: 0 };
+      } else {
+        lastMonth = thing.x;
+        let tmp = lastVal;
+        lastVal = thing.y;
+        return { x: thing.x, y: thing.y - tmp };
+      }
+    });
+  }
+  const sampleData = getMonthlyDiffData(sampleUserData);
+  const sampleData2 = getMonthlyDiffData(sampleUserData2);
+  const sampleData3 = getMonthlyDiffData(sampleUserData3);
 
   return (
     <Box>
       <VictoryChart
-        height={250}
+        height={350}
         // theme={victoryTheme}
-        animate={{ duration: 100, easing: 'bounceIn' }}
+        animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
         <VictoryAxis
@@ -529,18 +510,27 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
             data: {
               stroke: '#7956DD55',
               width: 15,
-              strokeWidth: 4,
+              strokeWidth: 3,
             },
           }}
         />
-
         <VictoryLine
           data={sampleData2}
           style={{
             data: {
-              stroke: '#55555555',
+              stroke: '#7956DD',
               width: 15,
-              strokeWidth: 4,
+              strokeWidth: 3,
+            },
+          }}
+        />
+        <VictoryLine
+          data={sampleData3}
+          style={{
+            data: {
+              stroke: '#B399FF',
+              width: 15,
+              strokeWidth: 3,
             },
           }}
         />
@@ -585,25 +575,26 @@ function VolumeByGame() {
             return (
               <Box bg={x.color} rounded="md">
                 <Center height="100%">
-                  <Text fontSize="xs" fontWeight="bold" color="white">
+                  <Text fontSize="md" fontWeight="bold" color="white">
                     {x.value}
                   </Text>
                 </Center>
               </Box>
             );
-          if (x.gameImagePath)
+          else if (x.gameImagePath)
             return (
               <Center height="100%">
                 <Image src={x.gameImagePath} objectFit="cover" />
               </Center>
             );
-          if (x.blank) return <Box></Box>;
-          if (x.label)
+          else if (x.blank) return <Box></Box>;
+          else if (x.label)
             return (
               <Center height="100%">
                 <Text color="gray.500">{x.label}</Text>
               </Center>
             );
+          else return <></>;
         })}
       </Grid>
     </>

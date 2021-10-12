@@ -6,7 +6,7 @@ import {
   Box,
   Button,
   Center,
-  HStack, 
+  HStack,
   Heading,
   Icon,
   IconButton,
@@ -103,7 +103,7 @@ const Home = ({ items }: HomeProps) => {
     return (
       <Layout title="Inventory">
         <Box p={[5, 5, 8]} pb={10}>
-          <table style={{border: "solid 1px darkgray"}} {...getTableProps()}>
+          <table {...getTableProps()}>
             <thead >
               {headerGroups.map((headerGroup, index) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={index}>
@@ -147,7 +147,7 @@ const Home = ({ items }: HomeProps) => {
                               style={{
                                 padding: '10px',
                                 borderBottom: 'solid 1px darkgray',
-                                
+
                               }}
                             >
                               <Image
