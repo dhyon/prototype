@@ -286,7 +286,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 </Box>
 
               <Box fontSize="2xl" fontWeight="bold" color="gray.500" mb={2}>
-                  Aunction ending:
+                  Auction ending:
                 </Box>
 
 
