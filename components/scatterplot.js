@@ -159,9 +159,14 @@ function BubbleInfo(props) {
   const { rarity, color, left, top, x, y, size, idx } = props;
   const { min, max } = getMinMaxGradient(rarity);
   return (
-    <Box p={3} rounded="lg" overflow="hidden" bgGradient={`linear(to-r, ${min}, ${max})`}>
-      <Center textTransform="uppercase" color={'white'} fontWeight="bold" fontSize="sm" mb={1}>
-        {rarity}
+    <Box
+      p={3}
+      rounded="lg"
+      overflow="hidden"
+      bgGradient={`linear(to-r, ${min}, ${max})`}
+    >
+      <Center textTransform="uppercase" color={"white"} fontWeight="bold" fontSize="sm" mb={1}>
+        {rarity }
       </Center>
       <Text size="xs" color="gray.700">
         Trend Strength (ADX)

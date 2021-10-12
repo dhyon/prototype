@@ -49,14 +49,14 @@ const SocialButton = ({
   );
 };
 
-export default function Footer() {
+export default function Footer({align}) {
   return (
     <Box
       borderTopWidth={1}
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}>
         
-      <Container as={Stack} py={50}>
+      <Container as={Stack} py={[20, 20, 50]}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={250}>
           <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>

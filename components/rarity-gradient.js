@@ -36,12 +36,12 @@ export function getMinMaxGradient(val) {
   return {min, max}
 }
 
-function RarityGradient({ val }) {
+function RarityGradient({ val, size }) {
   // let color, gradient, min, max;
   let heat = useColorModeValue('.400', '.300');
   let borderHeat = useColorModeValue('.300', '.400');
 
   let {min, max} = getMinMaxGradient(val)
-  return <Box bgGradient={`linear(to-r, ${min}, ${max})`} height="5px"></Box>;
+  return <Box bgGradient={`linear(to-r, ${min}, ${max})`} height={ size || "5px"}></Box>;
 }
 export default RarityGradient;

@@ -1,5 +1,8 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
+import NextLink from "next/link";
+import Countdown from 'react-countdown';
+
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -14,11 +17,21 @@ import Layout from '../../components/layout';
 import {
   Button,
   Box,
+  Divider,
+  Stack,
   Image,
+  Link as ChakraLink, 
   Heading,
+  HStack,
   useColorModeValue,
   Tooltip,
   SimpleGrid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  useDisclosure,
+  ModalBody,
+  ModalFooter, 
 } from '@chakra-ui/react';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 import { getMarketData } from '../api/data/staratlas/markets/[marketId]';
@@ -28,7 +41,11 @@ const Page = ({ item = {}, marketData = {}, id }) => {
   // TODO: if item/marketData are undefined/null then we should gracefully display an error message
   // let bg = useColorModeValue('green.200', 'red.500')
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [zoomDomain, setZoomDomain] = useState({});
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isBought, setIsBought] = useState(false);
+  const [price, setPrice] = useState((Math.random() * 100).toFixed(2));
   const [selectedDomain, setSelectedDomain] = useState({});
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
   const lightBg = useColorModeValue('gray.200', 'gray.700');
@@ -57,50 +74,182 @@ const Page = ({ item = {}, marketData = {}, id }) => {
     setZoomDomain(domain);
   }
 
+  function buyNow () {
+    setIsDisabled(true )
+
+    setTimeout(setBought,  1000)
+  }
+  
+  function setBought () {
+    setIsDisabled(false )
+    setIsBought(true )
+  }
+
+  function modalContent () {
+    if (isBought) {
+      return <Box>
+        <Heading size="lg" my={2}>Congradulations!</Heading>
+
+        <Box mb={2}>
+          You have successfully purchased: <ChakraLink fontWeight="bold">{ item.name }</ChakraLink>.
+        </Box>
+
+        <Box >
+          You can now find your item in your inventory. 
+        </Box>
+      </Box>
+    } else {
+      return <Box>
+      <Heading size="lg" mb={2}>{item.name}</Heading>
+      <Box mb={2}>
+        { item.description }
+      </Box>
+
+
+      <Heading size="md">
+        {price} USDC
+      </Heading>
+      </Box>
+    }
+  }
+
+  function modalButtons () {
+    if ( isBought ) {
+      return <HStack>
+        
+            <Button colorScheme="gray" variant="outline" size="sm" onClick={ onClose } >
+              CLOSE
+
+            </Button>
+
+
+            <NextLink href="/inventory">
+            <Button  colorScheme="orange" variant="outline" size="sm" >
+              GO TO INVENTORY
+            </Button>
+            </NextLink>
+
+            </HStack>
+    } else {
+      return <HStack>
+          <Button colorScheme="orange" variant="outline" size="sm"  onClick={ onClose } isLoading={isDisabled}>
+              CANCEL
+
+            </Button>
+
+            <Button colorScheme="blue" size="sm" variant="outline" isLoading={ isDisabled }>
+              PLACE BID
+            </Button>
+
+
+            <Button colorScheme="green" size="sm" onClick={ buyNow } isLoading={ isDisabled }>
+              BUY NOW
+            </Button>
+      </HStack>
+    }
+    
+  }
+
   return (
     <Layout title={item.name}>
       <Box p={5}>
         <SimpleGrid columns={[1, 1, 2]}>
           <Box>
-            <Box position="relative" height="300px" roundedTop="lg" overflow="hidden">
-              <Box position="absolute" p={[5, 5, 10]} px={[5, 5, 5]} bottom={0}>
-                <Heading color="gray.300" size="lg" mb={2}>
-                  {item.symbol}
-                </Heading>
+            <Box rounded="lg" overflow="hidden">
+              <Box position="relative" height="300px">
+                <Box position="absolute" p={[5, 5, 8]} px={[5, 5, 5]} bottom={0}>
+                  <Heading color="gray.300" size="lg" mb={2}>
+                    {item.symbol}
+                  </Heading>
 
-                <Rarity val={item.attributes.rarity} />
+                  <Rarity val={item.attributes.rarity} />
+                </Box>
+
+                <Image
+                  src={item.image || '#'}
+                  width="100%"
+                  height={['100%']}
+                  loading="lazy"
+                  objectFit="cover"
+                />
               </Box>
 
-              <Image
-                src={item.image || '#'}
-                width="100%"
-                height={['100%']}
-                loading="lazy"
-                objectFit="cover"
-              />
+              <RarityGradient size="8px" val={item.attributes.rarity} />
             </Box>
 
-            <Box mb={2}>
-              <RarityGradient val={item.attributes.rarity} />
-            </Box>
+            <Box mb={2}></Box>
 
             <Heading size="xl" mb={2}>
               {item.name}
             </Heading>
 
-            <Box mb={4} fontSize="sm">
+            <Box mb={5} fontSize="sm">
               {item.description}
             </Box>
+
+            <HStack height={8} mb={8}>
+              <Box width="33%" textAlign="center">
+                <Heading size="sm" color="gray.500">
+                  Last sold by
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                  Dr.Doctorstein
+                </Box>
+              </Box>
+
+              <Divider orientation="vertical" />
+
+              <Box width="33%" textAlign="center">
+                <Heading size="sm" color="gray.500">
+                  Instant price
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                  { price } USDC
+                </Box>
+              </Box>
+
+              <Divider orientation="vertical" />
+              <Box width="33%" textAlign="center">
+                <Heading size="sm" color="gray.500">
+                  Aunction ends:
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                  <Countdown zeroPadDays={0} date={Date.now() + 59000} />
+                </Box>
+              </Box>
+            </HStack>
           </Box>
 
           <Box px={5}>
-            <Button colorScheme="purpe" bg={btnColor} width="100%" mb={2} size="lg" color="white">
+            <Button
+              colorScheme="purpe"
+              bg={btnColor}
+              width="100%"
+              mb={2}
+              size="lg"
+              color="white"
+              onClick={onOpen}
+            >
               Place a bid
             </Button>
 
-            <Button colorScheme="purpe" variant="outline" width="100%" size="lg" mb={2}>
+            <Button
+              colorScheme="purpe"
+              variant="outline"
+              width="100%"
+              size="lg"
+              mb={4}
+              onClick={onOpen}
+            >
               Buy it now
             </Button>
+
+            <Heading size="md" mb={-5}>
+              Price v. Time
+            </Heading>
 
             <VictoryChart
               width={500}
@@ -119,7 +268,6 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 style={{
                   data: { stroke: strokeColor },
                 }}
-
                 data={[
                   { x: new Date(2020, 1, 1), y: 125 },
                   { x: new Date(2020, 4, 1), y: 257 },
@@ -158,8 +306,6 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                   new Date(2021, 7, 1),
                 ]}
                 tickFormat={(x) => new Date(x).getFullYear()}
-                
-
               />
               <VictoryLine
                 style={{
@@ -180,6 +326,24 @@ const Page = ({ item = {}, marketData = {}, id }) => {
           </Box>
         </SimpleGrid>
       </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalBody>
+
+            { modalContent() }
+        
+          
+          </ModalBody>
+
+          <ModalFooter>
+
+            { modalButtons() }
+        
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Layout>
   );
 };
@@ -201,26 +365,3 @@ export async function getServerSideProps(context) {
 }
 
 export default Page;
-
-function Bubble({ el, idx }) {
-  const bg = useColorModeValue(el + '.400', el + '.200');
-  const size = Math.random() * 100 + idx;
-  return (
-    <Tooltip label={<Box height="200px" width="200px"></Box>}>
-      <Box
-        bg={bg}
-        cursor="pointer"
-        width={size}
-        height={size}
-        rounded="full"
-        opacity={0.8}
-        _hover={{ opacity: 0.98 }}
-        borderWidth={2}
-        position="absolute"
-        left={Math.random() * 80 + '%'}
-        top={Math.random() * 80 + '%'}
-        zIndex={10}
-      ></Box>
-    </Tooltip>
-  );
-}
