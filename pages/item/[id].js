@@ -21,12 +21,15 @@ import {
   Box,
   Divider,
   Stack,
+  Center,
   Image,
   Link as ChakraLink,
   Heading,
   HStack,
   useColorModeValue,
   Tooltip,
+  Flex,
+  Spacer,
   SimpleGrid,
   Modal,
   ModalOverlay,
@@ -35,6 +38,7 @@ import {
   ModalBody,
   ModalFooter,
   VStack,
+  Text,
 } from '@chakra-ui/react';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 import { getMarketData } from '../api/data/staratlas/markets/[marketId]';
@@ -302,13 +306,24 @@ const Page = ({ item = {}, marketData = {}, id }) => {
             </Button>
 
             <Box my={3}>
-              <Heading size="md" mb={-5}>
-                Daily Price Chart (USDC)
-              </Heading>
+              <Heading size="md">Daily Price Chart (USDC)</Heading>
+
+              <HStack mb={-5}>
+                <Text color="gray">Powered By Serum</Text>
+                <Image
+                  ml={1}
+                  src="/logo-serum.png"
+                  boxSize="20px"
+                  loading="lazy"
+                  objectFit="cover"
+                />
+              </HStack>
+
               <VictoryChart
                 width={500}
                 height={300}
                 scale={{ x: 'time' }}
+                animate={{ duration: 400, easing: 'bounceIn' }}
                 // containerComponent={
                 //   <VictoryZoomContainer
                 //     responsive={false}
@@ -355,12 +370,15 @@ const Page = ({ item = {}, marketData = {}, id }) => {
             </Box>
 
             <Box>
-              <Heading size="md" mb={-5}>Monthly Titan Activity Index</Heading>
+              <Heading size="md" mb={-5}>
+                Monthly Titan Activity Index
+              </Heading>
 
               <VictoryChart
                 width={450}
                 height={180}
                 scale={{ x: 'time' }}
+                animate={{ duration: 500, easing: 'bounceIn' }}
                 // padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
                 // containerComponent={
                 //   <VictoryBrushContainer
@@ -392,19 +410,18 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                     data: { stroke: selectedStrokeColor },
                   }}
                   data={[
-                    { x: "Mar", y: 125 },
-                    { x: "Apr", y: 257 },
-                    { x: "May", y: 345 },
-                    { x: "Jun", y: 615 },
-                    { x: "Jul", y: 132 },
-                    { x: "Aug", y: 305 },
-                    { x: "Sep", y: 270 },
-                    { x: "Oct", y: 450 },
+                    { x: 'Mar', y: 125 },
+                    { x: 'Apr', y: 257 },
+                    { x: 'May', y: 345 },
+                    { x: 'Jun', y: 615 },
+                    { x: 'Jul', y: 132 },
+                    { x: 'Aug', y: 305 },
+                    { x: 'Sep', y: 270 },
+                    { x: 'Oct', y: 450 },
                   ]}
                 />
               </VictoryChart>
             </Box>
-
           </Box>
         </SimpleGrid>
       </Box>
