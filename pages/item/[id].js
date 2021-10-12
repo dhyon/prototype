@@ -15,6 +15,7 @@ import Rarity from '../../components/rarity';
 import RarityGradient from '../../components/rarity-gradient';
 import useWalletStore from '../../stores/wallet';
 import Layout from '../../components/layout';
+import NextImage from 'next/image';
 import {
   Button,
   Box,
@@ -33,6 +34,7 @@ import {
   useDisclosure,
   ModalBody,
   ModalFooter,
+  VStack,
 } from '@chakra-ui/react';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 import { getMarketData } from '../api/data/staratlas/markets/[marketId]';
@@ -41,7 +43,7 @@ import { useState } from 'react';
 const Page = ({ item = {}, marketData = {}, id }) => {
   // TODO: if item/marketData are undefined/null then we should gracefully display an error message
   // let bg = useColorModeValue('green.200', 'red.500')
-  const [addItem, walletIsConnected, toggleWalletConnect] = useWalletStore((state) => [
+  const [addItem, walletIsConnected] = useWalletStore((state) => [
     state.addItem,
     state.isConnected,
   ]);
@@ -50,12 +52,12 @@ const Page = ({ item = {}, marketData = {}, id }) => {
   const [zoomDomain, setZoomDomain] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
   const [isBought, setIsBought] = useState(false);
-  const price = marketData.recentFills[0]?.price || 777
+  const price = marketData.recentFills[0]?.price || 777;
   const [selectedDomain, setSelectedDomain] = useState({});
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
   const lightBg = useColorModeValue('gray.200', 'gray.700');
   const strokeColor = useColorModeValue('#7956DD', '#B399FF');
-  const axisLabelColor = useColorModeValue('gray.800', 'gray.100');
+  const axisLabelColor = useColorModeValue('black', 'white');
   const titanColor = useColorModeValue('titan', 'titanLight');
   const selectedStrokeColor = useColorModeValue('tomato', 'tomato');
   const btnColor = useColorModeValue('titan', 'titanLight');
@@ -82,7 +84,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 
   function buyNow() {
     setIsDisabled(true);
-    addItem(id, price)
+    addItem(id, price);
     setTimeout(setBought, 1000);
   }
 
@@ -96,7 +98,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
       return (
         <Box>
           <Heading size="lg" my={2}>
-            Congradulations!
+            Congratulations!
           </Heading>
 
           <Box mb={2}>
@@ -166,7 +168,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
         <SimpleGrid columns={[1, 1, 2]}>
           <Box>
             <Box rounded="lg" overflow="hidden">
-              <Box position="relative" height="300px">
+              <Box rounded="md" position="relative" height="300px">
                 <Box position="absolute" p={[5, 5, 8]} px={[5, 5, 5]} bottom={0}>
                   <Heading color="gray.300" size="lg" mb={2}>
                     {item.symbol}
@@ -174,7 +176,6 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 
                   <Rarity val={item.attributes.rarity} />
                 </Box>
-
                 <Image
                   src={item.image || '#'}
                   width="100%"
@@ -187,7 +188,6 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               <RarityGradient size="8px" val={item.attributes.rarity} />
             </Box>
 
-
             <Heading size="xl" mt={3} mb={1}>
               {item.name}
             </Heading>
@@ -198,108 +198,88 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 
             <HStack height={8} mb={4}>
               <Box width="33%" textAlign="center">
-
-              <Heading size="sm" color="gray.500">
-                  Instant price
+                <Heading size="sm" color="gray.500">
+                  All-time Price Low
                 </Heading>
 
-                <Box fontSize="lg" fontWeight="bold" color={ titanColor }>
-                  { price } USDC
+                <Box fontSize="lg" fontWeight="bold">
+                  {marketData.allTimeLow} USDC
                 </Box>
-
-
-
-
-
               </Box>
 
               <Divider orientation="vertical" />
 
               <Box width="33%" textAlign="center">
-              <Heading size="sm" color="gray.500">
-                  Price high
+                <Heading size="sm" color="gray.500">
+                  All-time Price High
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                { marketData.allTimeHigh } USDC
+                  {marketData.allTimeHigh} USDC
                 </Box>
-
               </Box>
 
               <Divider orientation="vertical" />
               <Box width="33%" textAlign="center">
-
-              <Heading size="sm" color="gray.500">
-                  Price low
+                <Heading size="sm" color="gray.500">
+                  Instant Price
                 </Heading>
 
-                <Box fontSize="lg" fontWeight="bold">
-                  { marketData.allTimeLow } USDC
+                <Box fontSize="lg" fontWeight="bold" color={titanColor}>
+                  {price} USDC
                 </Box>
-
               </Box>
             </HStack>
 
             <Divider mb={5} />
 
-
-
             <HStack height={8} mb={4}>
               <Box width="33%" textAlign="center">
-
-              <Heading size="sm" color="gray.500">
-                  Last sold by
+                <Heading size="sm" color="gray.500">
+                  Last Sold By
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                  Dr.Doctorstein
+                  DrDoctorstein7
                 </Box>
-
-
-
-
               </Box>
 
               <Divider orientation="vertical" />
 
               <Box width="33%" textAlign="center">
-              <Heading size="sm" color="gray.500">
-                  Total volume
+                <Heading size="sm" color="gray.500">
+                  Total Volume
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                { marketData.totalVolume }
+                  {marketData.totalVolume}
                 </Box>
-
               </Box>
 
               <Divider orientation="vertical" />
               <Box width="33%" textAlign="center">
-
-              <Heading size="sm" color="gray.500">
-              Unique holders
+                <Heading size="sm" color="gray.500">
+                  Unique Holders
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                  { marketData.uniqueHolders }
+                  {marketData.uniqueHolders}
                 </Box>
-
               </Box>
             </HStack>
           </Box>
 
           <Box px={[0, 0, 5]}>
-          <Box fontSize="2xl" fontWeight="bold" display="inline-block" float="right">
-                  <Countdown zeroPadDays={0} date={Date.now() + 59000} />
-                </Box>
+            <Box fontSize="2xl" fontWeight="bold" display="inline-block" float="right">
+              <Countdown zeroPadDays={0} date={Date.now() + 59000} />
+            </Box>
 
-              <Box fontSize="2xl" fontWeight="bold" color="gray.500" mb={2}>
-                  Auction ending:
-                </Box>
-
+            <Box fontSize="2xl" fontWeight="bold" color="gray.500" mb={2}>
+              Auction Ending:
+            </Box>
 
             <Button
-              colorScheme="purpe"
+              colorScheme="purple"
               bg={btnColor}
               width="100%"
               mb={2}
@@ -311,7 +291,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
             </Button>
 
             <Button
-              colorScheme="purpe"
+              colorScheme="purple"
               variant="outline"
               width="100%"
               size="lg"
@@ -321,99 +301,110 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               Buy it now
             </Button>
 
-            <Heading size="md" mb={-5}>
-              Daily Price Chart (USDC)
-            </Heading>
-
-            <VictoryChart
-              width={500}
-              height={300}
-              scale={{ x: 'time' }}
-              // containerComponent={
-              //   <VictoryZoomContainer
-              //     responsive={false}
-              //     zoomDimension="x"
-              //     zoomDomain={zoomDomain}
-              //     onZoomDomainChange={handleZoom.bind(this)}
-              //   />
-              // }
-              containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
-            >
-              <VictoryAxis
-                tickFormat={(x) => {
-                  const dateObj = new Date(x)
-                  return `${dateObj.getMonth()}/${dateObj.getDate()}`
-                }}
-                style={{
-                  tickLabels: { fill: axisLabelColor },
-                  axis: { stroke: 'gray' },
-                  grid: { stroke: 'gray', strokeWidth: 0.5 },
-                }}
-              />
-
-              <VictoryAxis
-                dependentAxis
-                style={{
-                  tickLabels: { fill: axisLabelColor },
-                  axis: { stroke: 'gray' },
-                  grid: { stroke: 'gray', strokeWidth: 0.5 },
-                }}
-              />
-
-              <VictoryLine
-                style={{
-                  data: { stroke: strokeColor },
-                }}
-                data={marketData.recentFills.map((fill) => ({ x: fill.timestamp, y: fill.price }))}
-              />
-            </VictoryChart>
-
-            <VictoryChart
-              width={500}
-              height={90}
-              scale={{ x: 'time' }}
-              padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-              containerComponent={
-                <VictoryBrushContainer
-                  responsive={false}
-                  brushDimension="x"
-                  brushDomain={selectedDomain}
-                  onBrushDomainChange={handleBrush.bind(this)}
+            <Box my={3}>
+              <Heading size="md" mb={-5}>
+                Daily Price Chart (USDC)
+              </Heading>
+              <VictoryChart
+                width={500}
+                height={300}
+                scale={{ x: 'time' }}
+                // containerComponent={
+                //   <VictoryZoomContainer
+                //     responsive={false}
+                //     zoomDimension="x"
+                //     zoomDomain={zoomDomain}
+                //     onZoomDomainChange={handleZoom.bind(this)}
+                //   />
+                // }
+                containerComponent={
+                  <VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />
+                }
+              >
+                <VictoryAxis
+                  tickFormat={(x) => {
+                    const dateObj = new Date(x);
+                    return `${dateObj.getMonth()}/${dateObj.getDate()}`;
+                  }}
+                  style={{
+                    tickLabels: { fill: axisLabelColor },
+                    axis: { stroke: 'gray' },
+                    // grid: { stroke: 'gray', strokeWidth: 0.5 },
+                  }}
                 />
-              }
-            >
-              <VictoryAxis
-                tickValues={[
-                  new Date(2020, 1, 1),
-                  new Date(2020, 4, 1),
-                  new Date(2020, 7, 1),
-                  new Date(2020, 10, 1),
-                  new Date(2021, 1, 1),
-                  new Date(2021, 4, 1),
-                  new Date(2021, 7, 1),
-                ]}
-                tickFormat={(x) => new Date(x).getFullYear()}
-                style={{
-                  tickLabels: { fill: axisLabelColor },
-                  axis: { stroke: 'gray' },
-                }}
-              />
-              <VictoryLine
-                style={{
-                  data: { stroke: selectedStrokeColor },
-                }}
-                data={[
-                  { x: new Date(2020, 1, 1), y: 125 },
-                  { x: new Date(2020, 4, 1), y: 257 },
-                  { x: new Date(2020, 7, 1), y: 345 },
-                  { x: new Date(2020, 10, 1), y: 515 },
-                  { x: new Date(2021, 1, 1), y: 132 },
-                  { x: new Date(2021, 4, 1), y: 305 },
-                  { x: new Date(2021, 7, 1), y: 270 },
-                  { x: new Date(2021, 10, 1), y: 470 },
-                ]}
-              />
-            </VictoryChart>
+
+                <VictoryAxis
+                  dependentAxis
+                  style={{
+                    tickLabels: { fill: axisLabelColor },
+                    axis: { stroke: 'gray' },
+                    // grid: { stroke: 'gray', strokeWidth: 0.5 },
+                  }}
+                />
+
+                <VictoryLine
+                  style={{
+                    data: { stroke: strokeColor },
+                  }}
+                  data={marketData.recentFills.map((fill) => ({
+                    x: fill.timestamp,
+                    y: fill.price,
+                  }))}
+                />
+              </VictoryChart>
+            </Box>
+
+            <Box>
+              <Heading size="md" mb={-5}>Monthly Titan Activity Index</Heading>
+
+              <VictoryChart
+                width={450}
+                height={180}
+                scale={{ x: 'time' }}
+                // padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
+                // containerComponent={
+                //   <VictoryBrushContainer
+                //     responsive={false}
+                //     brushDimension="x"
+                //     brushDomain={selectedDomain}
+                //     onBrushDomainChange={handleBrush.bind(this)}
+                //   />
+                // }
+                containerComponent={
+                  <VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />
+                }
+              >
+                <VictoryAxis
+                  style={{
+                    tickLabels: { fill: axisLabelColor },
+                    axis: { stroke: 'gray' },
+                  }}
+                />
+                <VictoryAxis
+                  dependentAxis
+                  style={{
+                    tickLabels: { fill: axisLabelColor },
+                    axis: { stroke: 'gray' },
+                  }}
+                />
+                <VictoryLine
+                  style={{
+                    data: { stroke: selectedStrokeColor },
+                  }}
+                  data={[
+                    { x: "Mar", y: 125 },
+                    { x: "Apr", y: 257 },
+                    { x: "May", y: 345 },
+                    { x: "Jun", y: 615 },
+                    { x: "Jul", y: 132 },
+                    { x: "Aug", y: 305 },
+                    { x: "Sep", y: 270 },
+                    { x: "Oct", y: 450 },
+                  ]}
+                />
+              </VictoryChart>
+            </Box>
+
           </Box>
         </SimpleGrid>
       </Box>
@@ -433,9 +424,9 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 export async function getServerSideProps(context) {
   const { id } = context.params;
   const markets = await getAllStarAtlasMarkets();
-  const item = markets.filter((item) => item._id === id)[0];
+  const item = markets.find((item) => item._id === id);
   if (!item) return { props: { id: id } };
-  const marketData = await getMarketData(item.markets[0].id);
+  const marketData = await getMarketData(item.markets[0]?.id);
 
   return {
     props: {
