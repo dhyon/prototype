@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import NextLink from "next/link";
+import NextLink from 'next/link';
 import {
   VictoryChart,
   VictoryAxis,
@@ -22,6 +22,7 @@ import {
   Image,
   Heading,
   SimpleGrid,
+  Spacer,
   Flex,
   Text,
 } from '@chakra-ui/react';
@@ -42,13 +43,13 @@ const Home: NextPage = () => {
     {
       title: 'Calico Ship',
       image: '/ship-1.png',
-      link: "/item/612e7223fee257a97be35343",
+      link: '/item/612e7223fee257a97be35343',
       price: 29.73,
     },
 
     {
       title: 'Ogrika Thripid',
-      link: "/item/612e7223fee257a97be3533e",
+      link: '/item/612e7223fee257a97be3533e',
       image: '/ship-2.png',
       price: 18.84,
     },
@@ -56,14 +57,14 @@ const Home: NextPage = () => {
     {
       title: 'Radium Defy',
       image: '/ship-3.png',
-      link: "/item/612e7223fee257a97be35354",
+      link: '/item/612e7223fee257a97be35354',
       price: 6.02,
     },
 
     {
       title: 'Primordial Glo',
       image: '/ship-4.png',
-      link: "/item/6143e0ac92761eeee4bc18f4",
+      link: '/item/6143e0ac92761eeee4bc18f4',
       price: 4.3,
     },
   ];
@@ -149,7 +150,7 @@ const Home: NextPage = () => {
                 </Heading>
 
                 <Box rounded="md" overflow="hidden">
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     height={50}
@@ -160,16 +161,12 @@ const Home: NextPage = () => {
                     mb={1}
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      77k
-                    </Box>
+                    <Box color="gray.900">Serum</Box>
+                    <Spacer />
+                    <Box>77k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Serum
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     mb={1}
@@ -181,16 +178,12 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      60k
-                    </Box>
+                    <Box color="gray.900">Orca</Box>
+                    <Spacer />
+                    <Box>60k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Orca
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     mb={1}
@@ -202,16 +195,12 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      42k
-                    </Box>
+                    <Box color="gray.900">Raydium</Box>
+                    <Spacer />
+                    <Box>42k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Raydium
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     mb={1}
@@ -223,16 +212,12 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      35k
-                    </Box>
+                    <Box color="gray.900">Akash</Box>
+                    <Spacer />
+                    <Box>35k</Box>
+                  </Flex>
 
-                    <Box alignSelf="flex-end" fontWeight="bold">
-                      Akash
-                    </Box>
-                  </Box>
-
-                  <Box
+                  <Flex
                     px={3}
                     py={2}
                     height={50}
@@ -243,28 +228,26 @@ const Home: NextPage = () => {
                     display="flex"
                     bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
                   >
-                    <Box flex={1} color="gray.900">
-                      30k
-                    </Box>
-
-                    <Box alignSelf="flex-end">Solanart</Box>
-                  </Box>
+                    <Box color="gray.900">Solanart</Box>
+                    <Spacer />
+                    <Box>31k</Box>
+                  </Flex>
                 </Box>
               </Box>
             </Box>
 
             <SimpleGrid columns={[1, 1, 1]} spacing={[5, 5, 8]}>
               <Box borderBottomWidth={1}>
-                <Heading ml={5} mb={-5} size="md">Price vs Trend Analysis</Heading>
+                <Heading ml={5} mb={-5} size="md">
+                  Price vs Trend Analysis
+                </Heading>
                 <ScatterPlot />
               </Box>
 
               <Box borderBottomWidth={1} px={5}>
-
-              <Button  float="right" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
-                      Portfolio
-                    </Button>
-
+                <Button float="right" textTransform="uppercase" rightIcon={<HiOutlineArrowRight />}>
+                  Portfolio
+                </Button>
 
                 <Heading size="md">Portfolio Value (USDC)</Heading>
                 <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
@@ -272,20 +255,18 @@ const Home: NextPage = () => {
                 </Heading>
                 <Box>
                   <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
-                 
                 </Box>
               </Box>
 
               <Box>
                 <Box px={5} borderBottomWidth={[1, 1, 0]}>
-
-                <Button
-                        float="right"
-                        textTransform="uppercase"
-                        rightIcon={<HiOutlineArrowRight />}
-                      >
-                        Balance
-                      </Button>
+                  <Button
+                    float="right"
+                    textTransform="uppercase"
+                    rightIcon={<HiOutlineArrowRight />}
+                  >
+                    Balance
+                  </Button>
 
                   <Heading size="md" mb={[-5, -8, -12]}>
                     Monthly Profit (USDC)
@@ -295,7 +276,6 @@ const Home: NextPage = () => {
                       areaColor={colorTitanVal}
                       axisLabelColor={axisLabelColor}
                     />
-                 
                   </Box>
                 </Box>
               </Box>
@@ -318,28 +298,28 @@ const Home: NextPage = () => {
                   _hover={{ bg: lightBg }}
                   transition="background 0.2s ease"
                 >
-                  <NextLink href={ el.link }>
-                  <Grid templateColumns="40px calc(100% - 55px) 15px">
-                    <Box height="40px" width="40px" rounded="md" bg="gray.200">
-                    <Image src={ el.image } height="100%" width="100%" objectFit="cover" />
-                    </Box>
+                  <NextLink href={el.link}>
+                    <Grid templateColumns="40px calc(100% - 55px) 15px">
+                      <Box height="40px" width="40px" rounded="md" bg="gray.200">
+                        <Image src={el.image} height="100%" width="100%" objectFit="cover" />
+                      </Box>
 
-                    <Box pl={4}>
-                      <Box>
-                        <Heading size="sm">{el.title}</Heading>
+                      <Box pl={4}>
+                        <Box>
+                          <Heading size="sm">{el.title}</Heading>
 
-                        <Box color="gray.500" fontSize="sm">
-                          Ship • {el.price} USDC
+                          <Box color="gray.500" fontSize="sm">
+                            Ship • {el.price} USDC
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
 
-                    <Box>
-                      <Center height="100%" color={colorTitan}>
-                        <HiChevronRight />
-                      </Center>
-                    </Box>
-                  </Grid>
+                      <Box>
+                        <Center height="100%" color={colorTitan}>
+                          <HiChevronRight />
+                        </Center>
+                      </Box>
+                    </Grid>
                   </NextLink>
                 </Box>
               );
@@ -360,28 +340,28 @@ const Home: NextPage = () => {
                   _hover={{ bg: lightBg }}
                   transition="background 0.2s ease"
                 >
-                  <NextLink href={ el.link }>
-                  <Grid templateColumns="40px calc(100% - 55px) 15px">
-                    <Box height="40px" width="40px" rounded="md" bg="gray.200">
-                      <Image src={ el.image } height="100%" width="100%" objectFit="cover" />
-                    </Box>
+                  <NextLink href={el.link}>
+                    <Grid templateColumns="40px calc(100% - 55px) 15px">
+                      <Box height="40px" width="40px" rounded="md" bg="gray.200">
+                        <Image src={el.image} height="100%" width="100%" objectFit="cover" />
+                      </Box>
 
-                    <Box pl={4}>
-                      <Box>
-                        <Heading size="sm">{el.title}</Heading>
+                      <Box pl={4}>
+                        <Box>
+                          <Heading size="sm">{el.title}</Heading>
 
-                        <Box color="gray.500" fontSize="sm">
-                          Ship • {el.price} USDC
+                          <Box color="gray.500" fontSize="sm">
+                            Ship • {el.price} USDC
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
 
-                    <Box>
-                      <Center height="100%" color={colorTitan}>
-                        <HiChevronRight />
-                      </Center>
-                    </Box>
-                  </Grid>
+                      <Box>
+                        <Center height="100%" color={colorTitan}>
+                          <HiChevronRight />
+                        </Center>
+                      </Box>
+                    </Grid>
                   </NextLink>
                 </Box>
               );
