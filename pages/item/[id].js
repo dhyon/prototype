@@ -1,5 +1,7 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
+import Countdown from 'react-countdown';
+
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -14,8 +16,11 @@ import Layout from '../../components/layout';
 import {
   Button,
   Box,
+  Divider,
+  Stack,
   Image,
   Heading,
+  HStack,
   useColorModeValue,
   Tooltip,
   SimpleGrid,
@@ -62,35 +67,74 @@ const Page = ({ item = {}, marketData = {}, id }) => {
       <Box p={5}>
         <SimpleGrid columns={[1, 1, 2]}>
           <Box>
-            <Box position="relative" height="300px" roundedTop="lg" overflow="hidden">
-              <Box position="absolute" p={[5, 5, 10]} px={[5, 5, 5]} bottom={0}>
-                <Heading color="gray.300" size="lg" mb={2}>
-                  {item.symbol}
-                </Heading>
+            <Box rounded="lg" overflow="hidden">
+              <Box position="relative" height="300px">
+                <Box position="absolute" p={[5, 5, 8]} px={[5, 5, 5]} bottom={0}>
+                  <Heading color="gray.300" size="lg" mb={2}>
+                    {item.symbol}
+                  </Heading>
 
-                <Rarity val={item.attributes.rarity} />
+                  <Rarity val={item.attributes.rarity} />
+                </Box>
+
+                <Image
+                  src={item.image || '#'}
+                  width="100%"
+                  height={['100%']}
+                  loading="lazy"
+                  objectFit="cover"
+                />
               </Box>
 
-              <Image
-                src={item.image || '#'}
-                width="100%"
-                height={['100%']}
-                loading="lazy"
-                objectFit="cover"
-              />
+              <RarityGradient size="8px" val={item.attributes.rarity} />
             </Box>
 
-            <Box mb={2}>
-              <RarityGradient val={item.attributes.rarity} />
-            </Box>
+            <Box mb={2}></Box>
 
             <Heading size="xl" mb={2}>
               {item.name}
             </Heading>
 
-            <Box mb={4} fontSize="sm">
+            <Box mb={5} fontSize="sm">
               {item.description}
             </Box>
+
+            <HStack height={8}>
+              <Box width="33%" textAlign="center">
+                <Heading size="sm" color="gray.500">
+                  Last sold by
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                  Dr.Doctorstein
+                </Box>
+              </Box>
+
+              <Divider orientation="vertical" />
+
+              <Box width="33%" textAlign="center">
+                <Heading size="sm" color="gray.500">
+                  Instant price
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                  {(Math.random() * 100).toFixed(2)} USDC
+                </Box>
+              </Box>
+
+              <Divider orientation="vertical" />
+              <Box width="33%" textAlign="center">
+                <Heading size="sm" color="gray.500">
+                  Aunction ends:
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                <Countdown     zeroPadDays={0} 
+ date={Date.now() + 59000} />
+
+                </Box>
+              </Box>
+            </HStack>
           </Box>
 
           <Box px={5}>
@@ -98,9 +142,13 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               Place a bid
             </Button>
 
-            <Button colorScheme="purpe" variant="outline" width="100%" size="lg" mb={2}>
+            <Button colorScheme="purpe" variant="outline" width="100%" size="lg" mb={4}>
               Buy it now
             </Button>
+
+            <Heading size="md" mb={-5}>
+              Price v. Time
+            </Heading>
 
             <VictoryChart
               width={500}
@@ -119,7 +167,6 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 style={{
                   data: { stroke: strokeColor },
                 }}
-
                 data={[
                   { x: new Date(2020, 1, 1), y: 125 },
                   { x: new Date(2020, 4, 1), y: 257 },
@@ -158,8 +205,6 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                   new Date(2021, 7, 1),
                 ]}
                 tickFormat={(x) => new Date(x).getFullYear()}
-                
-
               />
               <VictoryLine
                 style={{
