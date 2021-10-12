@@ -1,5 +1,6 @@
 // import type { NextPage } from 'next';
 // import Image from 'next/image'
+import NextLink from "next/link";
 import Countdown from 'react-countdown';
 
 import {
@@ -19,11 +20,18 @@ import {
   Divider,
   Stack,
   Image,
+  Link as ChakraLink, 
   Heading,
   HStack,
   useColorModeValue,
   Tooltip,
   SimpleGrid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  useDisclosure,
+  ModalBody,
+  ModalFooter, 
 } from '@chakra-ui/react';
 import { getAllStarAtlasMarkets } from '../api/data/staratlas/markets';
 import { getMarketData } from '../api/data/staratlas/markets/[marketId]';
@@ -33,7 +41,11 @@ const Page = ({ item = {}, marketData = {}, id }) => {
   // TODO: if item/marketData are undefined/null then we should gracefully display an error message
   // let bg = useColorModeValue('green.200', 'red.500')
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [zoomDomain, setZoomDomain] = useState({});
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isBought, setIsBought] = useState(false);
+  const [price, setPrice] = useState((Math.random() * 100).toFixed(2));
   const [selectedDomain, setSelectedDomain] = useState({});
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
   const lightBg = useColorModeValue('gray.200', 'gray.700');
@@ -60,6 +72,82 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 
   function handleBrush(domain) {
     setZoomDomain(domain);
+  }
+
+  function buyNow () {
+    setIsDisabled(true )
+
+    setTimeout(setBought,  1000)
+  }
+  
+  function setBought () {
+    setIsDisabled(false )
+    setIsBought(true )
+  }
+
+  function modalContent () {
+    if (isBought) {
+      return <Box>
+        <Heading size="lg" my={2}>Congradulations!</Heading>
+
+        <Box mb={2}>
+          You have successfully purchased: <ChakraLink fontWeight="bold">{ item.name }</ChakraLink>.
+        </Box>
+
+        <Box >
+          You can now find your item in your inventory. 
+        </Box>
+      </Box>
+    } else {
+      return <Box>
+      <Heading size="lg" mb={2}>{item.name}</Heading>
+      <Box mb={2}>
+        { item.description }
+      </Box>
+
+
+      <Heading size="md">
+        {price} USDC
+      </Heading>
+      </Box>
+    }
+  }
+
+  function modalButtons () {
+    if ( isBought ) {
+      return <HStack>
+        
+            <Button colorScheme="gray" variant="outline" size="sm" onClick={ onClose } >
+              CLOSE
+
+            </Button>
+
+
+            <NextLink href="/inventory">
+            <Button  colorScheme="orange" variant="outline" size="sm" >
+              GO TO INVENTORY
+            </Button>
+            </NextLink>
+
+            </HStack>
+    } else {
+      return <HStack>
+          <Button colorScheme="orange" variant="outline" size="sm"  onClick={ onClose } isLoading={isDisabled}>
+              CANCEL
+
+            </Button>
+
+            <Button colorScheme="blue" size="sm" variant="outline" isLoading={ isDisabled }>
+              PLACE BID
+            </Button>
+
+
+            <Button colorScheme="green" size="sm" onClick={ buyNow } isLoading={ isDisabled }>
+              BUY NOW
+            </Button>
+      </HStack>
+    }
+    
   }
 
   return (
@@ -99,7 +187,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               {item.description}
             </Box>
 
-            <HStack height={8}>
+            <HStack height={8} mb={8}>
               <Box width="33%" textAlign="center">
                 <Heading size="sm" color="gray.500">
                   Last sold by
@@ -118,7 +206,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                  {(Math.random() * 100).toFixed(2)} USDC
+                  { price } USDC
                 </Box>
               </Box>
 
@@ -129,20 +217,33 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                <Countdown     zeroPadDays={0} 
- date={Date.now() + 59000} />
-
+                  <Countdown zeroPadDays={0} date={Date.now() + 59000} />
                 </Box>
               </Box>
             </HStack>
           </Box>
 
           <Box px={5}>
-            <Button colorScheme="purpe" bg={btnColor} width="100%" mb={2} size="lg" color="white">
+            <Button
+              colorScheme="purpe"
+              bg={btnColor}
+              width="100%"
+              mb={2}
+              size="lg"
+              color="white"
+              onClick={onOpen}
+            >
               Place a bid
             </Button>
 
-            <Button colorScheme="purpe" variant="outline" width="100%" size="lg" mb={4}>
+            <Button
+              colorScheme="purpe"
+              variant="outline"
+              width="100%"
+              size="lg"
+              mb={4}
+              onClick={onOpen}
+            >
               Buy it now
             </Button>
 
@@ -225,6 +326,24 @@ const Page = ({ item = {}, marketData = {}, id }) => {
           </Box>
         </SimpleGrid>
       </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalBody>
+
+            { modalContent() }
+        
+          
+          </ModalBody>
+
+          <ModalFooter>
+
+            { modalButtons() }
+        
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Layout>
   );
 };
@@ -246,26 +365,3 @@ export async function getServerSideProps(context) {
 }
 
 export default Page;
-
-function Bubble({ el, idx }) {
-  const bg = useColorModeValue(el + '.400', el + '.200');
-  const size = Math.random() * 100 + idx;
-  return (
-    <Tooltip label={<Box height="200px" width="200px"></Box>}>
-      <Box
-        bg={bg}
-        cursor="pointer"
-        width={size}
-        height={size}
-        rounded="full"
-        opacity={0.8}
-        _hover={{ opacity: 0.98 }}
-        borderWidth={2}
-        position="absolute"
-        left={Math.random() * 80 + '%'}
-        top={Math.random() * 80 + '%'}
-        zIndex={10}
-      ></Box>
-    </Tooltip>
-  );
-}

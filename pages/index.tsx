@@ -168,7 +168,7 @@ const Home: NextPage = () => {
         </Modal>
 
 
-      <Footer />
+      <Footer align="center" />
     </>
   );
 };
