@@ -565,25 +565,26 @@ function VolumeByGame() {
             return (
               <Box bg={x.color} rounded="md">
                 <Center height="100%">
-                  <Text fontSize="xs" fontWeight="bold" color="white">
+                  <Text fontSize="md" fontWeight="bold" color="white">
                     {x.value}
                   </Text>
                 </Center>
               </Box>
             );
-          if (x.gameImagePath)
+          else if (x.gameImagePath)
             return (
               <Center height="100%">
                 <Image src={x.gameImagePath} objectFit="cover" />
               </Center>
             );
-          if (x.blank) return <Box></Box>;
-          if (x.label)
+          else if (x.blank) return <Box></Box>;
+          else if (x.label)
             return (
               <Center height="100%">
                 <Text color="gray.500">{x.label}</Text>
               </Center>
             );
+          else return (<></>);
         })}
       </Grid>
     </>
