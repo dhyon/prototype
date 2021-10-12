@@ -40,6 +40,7 @@ import { useState } from 'react';
 const Page = ({ item = {}, marketData = {}, id }) => {
   // TODO: if item/marketData are undefined/null then we should gracefully display an error message
   // let bg = useColorModeValue('green.200', 'red.500')
+  console.log( marketData );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [zoomDomain, setZoomDomain] = useState({});
@@ -187,43 +188,110 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               {item.description}
             </Box>
 
-            <HStack height={8} mb={8}>
+            <HStack height={8} mb={3}>
               <Box width="33%" textAlign="center">
-                <Heading size="sm" color="gray.500">
-                  Last sold by
-                </Heading>
 
-                <Box fontSize="lg" fontWeight="bold">
-                  Dr.Doctorstein
-                </Box>
-              </Box>
-
-              <Divider orientation="vertical" />
-
-              <Box width="33%" textAlign="center">
-                <Heading size="sm" color="gray.500">
+              <Heading size="sm" color="gray.500">
                   Instant price
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
                   { price } USDC
                 </Box>
+
+
+            
+
+                
+              </Box>
+
+              <Divider orientation="vertical" />
+
+              <Box width="33%" textAlign="center">
+              <Heading size="sm" color="gray.500">
+                  Price high
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                { marketData.allTimeHigh } USDC
+                </Box>
+
               </Box>
 
               <Divider orientation="vertical" />
               <Box width="33%" textAlign="center">
-                <Heading size="sm" color="gray.500">
-                  Aunction ends:
+
+              <Heading size="sm" color="gray.500">
+                  Price low
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                  <Countdown zeroPadDays={0} date={Date.now() + 59000} />
+                  { marketData.allTimeLow } USDC
                 </Box>
+               
+              </Box>
+            </HStack>
+
+            <Divider mb={4} />
+
+
+
+            <HStack height={8} >
+              <Box width="33%" textAlign="center">
+
+              <Heading size="sm" color="gray.500">
+                  Last sold by
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                  Dr.Doctorstein
+                </Box>
+
+            
+
+                
+              </Box>
+
+              <Divider orientation="vertical" />
+
+              <Box width="33%" textAlign="center">
+              <Heading size="sm" color="gray.500">
+                  Total volume
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                { marketData.totalVolume }
+                </Box>
+
+              </Box>
+
+              <Divider orientation="vertical" />
+              <Box width="33%" textAlign="center">
+
+              <Heading size="sm" color="gray.500">
+              Unique holders
+                </Heading>
+
+                <Box fontSize="lg" fontWeight="bold">
+                  { marketData.uniqueHolders }
+                </Box>
+               
               </Box>
             </HStack>
           </Box>
 
-          <Box px={5}>
+          <Box px={[0, 0, 5]}>
+          <Box fontSize="2xl" fontWeight="bold" display="inline-block" float="right">
+                  <Countdown zeroPadDays={0} date={Date.now() + 59000} />
+                </Box>
+
+              <Heading size="md" color="gray.500" mb={5}>
+                  Aunction ends:
+                </Heading>
+
+              
+
+
             <Button
               colorScheme="purpe"
               bg={btnColor}
