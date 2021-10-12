@@ -251,7 +251,7 @@ const Home: NextPage = () => {
 
                 <Heading size="md">Portfolio Value (USDC)</Heading>
                 <Heading fontSize="lg" color="gray.500" fontWeight="500" mt={2} mb={[-5, -8, -12]}>
-                  ↑ Upward trends detected
+                  ↑ Upward trends detected over last 12 months
                 </Heading>
                 <Box>
                   <MonthlyBalanceChart areaColor={colorTitanVal} axisLabelColor={axisLabelColor} />
@@ -268,8 +268,15 @@ const Home: NextPage = () => {
                     Balance
                   </Button>
 
-                  <Heading size="md" mb={[-5, -8, -12]}>
-                    Monthly Profit (USDC)
+                  <Heading size="md">Monthly Profit (USDC)</Heading>
+                  <Heading
+                    fontSize="lg"
+                    color="gray.500"
+                    fontWeight="500"
+                    mt={2}
+                    mb={[-5, -8, -12]}
+                  >
+                    Profit and loss month/month
                   </Heading>
                   <Box>
                     <MonthlyEarningsChart
@@ -382,33 +389,30 @@ interface ChartData {
   axisLabelColor: string;
 }
 
+const sampleUserData = [
+  { x: 'Nov', y: 4000 },
+  { x: 'Dec', y: 4000 },
+  { x: 'Jan', y: 5000 },
+  { x: 'Feb', y: 3500 },
+  { x: 'Mar', y: 3000 },
+  { x: 'Apr', y: 5000 },
+  { x: 'May', y: 5600 },
+  { x: 'Jun', y: 6000 },
+  { x: 'Jul', y: 7000 },
+  { x: 'Aug', y: 6550 },
+  { x: 'Sep', y: 7000 },
+  { x: 'Oct', y: 8000 },
+];
+const sampleUserData2 = sampleUserData.map((thing) => ({
+  x: thing.x,
+  y: Math.round(0.7 * thing.y),
+}));
+const sampleUserData3 = sampleUserData2.map((thing) => ({
+  x: thing.x,
+  y: Math.round(0.5 * thing.y),
+}));
+
 function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
-  const sampleData = [
-    { x: 'Jan', y: 100 },
-    { x: 'Feb', y: 100 },
-    { x: 'Mar', y: 200 },
-    { x: 'Apr', y: 300 },
-    { x: 'May', y: 260 },
-    { x: 'Jun', y: 600 },
-    { x: 'Jul', y: 800 },
-    { x: 'Aug', y: 1055 },
-    { x: 'Sep', y: 922 },
-    { x: 'Oct', y: 1690 },
-  ];
-
-  const sampleData2 = [
-    { x: 'Jan', y: 30 },
-    { x: 'Feb', y: 50 },
-    { x: 'Mar', y: 150 },
-    { x: 'Apr', y: 70 },
-    { x: 'May', y: 250 },
-    { x: 'Jun', y: 500 },
-    { x: 'Jul', y: 800 },
-    { x: 'Aug', y: 755 },
-    { x: 'Sep', y: 922 },
-    { x: 'Oct', y: 1290 },
-  ];
-
   return (
     <>
       <VictoryChart
@@ -416,13 +420,30 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
         animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
-        <VictoryArea
-          data={sampleData}
+        <VictoryBar
+          data={sampleUserData}
           style={{
             data: { fill: '#7956DD55' },
+            labels: { fill: '#7956DD55' },
+          }}
+        />
+
+        <VictoryBar
+          data={sampleUserData2}
+          style={{
+            data: { fill: '#7956DD' },
             labels: { fill: '#7956DD' },
           }}
         />
+
+        <VictoryBar
+          data={sampleUserData3}
+          style={{
+            data: { fill: '#B399FF' },
+            labels: { fill: '#B399FF' },
+          }}
+        />
+
         <VictoryAxis
           style={{
             tickLabels: { fill: axisLabelColor },
@@ -436,58 +457,38 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
             axis: { stroke: 'gray' },
           }}
         />
-        {/* <VictoryArea
-          data={sampleData}
-          style={{
-            data: { fill: areaColor, fillOpacity: 0.5 },
-          }}
-        /> */}
-
-        <VictoryArea
-          data={sampleData2}
-          style={{
-            data: { fill: '#55555555' },
-            labels: { fill: '#555555' },
-          }}
-        />
       </VictoryChart>
     </>
   );
 }
 
 function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
-  const sampleData = [
-    { x: 'Jan', y: 30 },
-    { x: 'Feb', y: 0 },
-    { x: 'Mar', y: 100 },
-    { x: 'Apr', y: 100 },
-    { x: 'May', y: 0 },
-    { x: 'Jun', y: 340 },
-    { x: 'Jul', y: 200 },
-    { x: 'Aug', y: 255 },
-    { x: 'Sep', y: 0 },
-    { x: 'Oct', y: 368 },
-  ];
-
-  const sampleData2 = [
-    { x: 'Jan', y: 30 },
-    { x: 'Feb', y: 30 },
-    { x: 'Mar', y: 50 },
-    { x: 'Apr', y: 70 },
-    { x: 'May', y: 80 },
-    { x: 'Jun', y: 60 },
-    { x: 'Jul', y: 65 },
-    { x: 'Aug', y: 45 },
-    { x: 'Sep', y: 95 },
-    { x: 'Oct', y: 105 },
-  ];
+  function getMonthlyDiffData(data: any): Array<any> {
+    let lastMonth = '';
+    let lastVal = 0;
+    return data.map((thing: any) => {
+      if (!lastMonth) {
+        lastMonth = thing.x;
+        lastVal = thing.y;
+        return { x: thing.x, y: 0 };
+      } else {
+        lastMonth = thing.x;
+        let tmp = lastVal;
+        lastVal = thing.y;
+        return { x: thing.x, y: thing.y - tmp };
+      }
+    });
+  }
+  const sampleData = getMonthlyDiffData(sampleUserData);
+  const sampleData2 = getMonthlyDiffData(sampleUserData2);
+  const sampleData3 = getMonthlyDiffData(sampleUserData3);
 
   return (
     <Box>
       <VictoryChart
-        height={250}
+        height={350}
         // theme={victoryTheme}
-        animate={{ duration: 100, easing: 'bounceIn' }}
+        animate={{ duration: 400, easing: 'bounceIn' }}
         containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
       >
         <VictoryAxis
@@ -509,18 +510,27 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
             data: {
               stroke: '#7956DD55',
               width: 15,
-              strokeWidth: 4,
+              strokeWidth: 3,
             },
           }}
         />
-
         <VictoryLine
           data={sampleData2}
           style={{
             data: {
-              stroke: '#55555555',
+              stroke: '#7956DD',
               width: 15,
-              strokeWidth: 4,
+              strokeWidth: 3,
+            },
+          }}
+        />
+        <VictoryLine
+          data={sampleData3}
+          style={{
+            data: {
+              stroke: '#B399FF',
+              width: 15,
+              strokeWidth: 3,
             },
           }}
         />
@@ -584,7 +594,7 @@ function VolumeByGame() {
                 <Text color="gray.500">{x.label}</Text>
               </Center>
             );
-          else return (<></>);
+          else return <></>;
         })}
       </Grid>
     </>
