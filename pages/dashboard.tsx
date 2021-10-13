@@ -206,23 +206,7 @@ const Home: NextPage = () => {
                     mb={1}
                     height={50}
                     color="white"
-                    width="calc(100% - 60px)"
-                    fontSize="sm"
-                    fontWeight="bold"
-                    display="flex"
-                    bgGradient={`linear(to-r, purple${temperatureLight}, purple${temperatureDark})`}
-                  >
-                    <Box color="gray.900">Akash</Box>
-                    <Spacer />
-                    <Box>35k</Box>
-                  </Flex>
-
-                  <Flex
-                    px={3}
-                    py={2}
-                    height={50}
-                    color="white"
-                    width="calc(100% - 80px)"
+                    width="calc(100% - 65px)"
                     fontSize="sm"
                     fontWeight="bold"
                     display="flex"
@@ -230,7 +214,7 @@ const Home: NextPage = () => {
                   >
                     <Box color="gray.900">Solanart</Box>
                     <Spacer />
-                    <Box>31k</Box>
+                    <Box>33k</Box>
                   </Flex>
                 </Box>
               </Box>
