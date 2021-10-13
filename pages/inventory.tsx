@@ -34,7 +34,11 @@ const Home = ({ items }: HomeProps) => {
   ]);
 
   const data = useMemo(
-    () => inventoryItems.map((i) => items.find((item) => item._id === i)),
+    () => inventoryItems.map(({id, price}) => {
+      let newItem = items.find((itemData) => itemData._id === id);
+      newItem['price'] = price
+      return newItem
+    }),
     [walletIsConnected], // data is recalculated if hook is triggered
   );
 
@@ -54,6 +58,7 @@ const Home = ({ items }: HomeProps) => {
       },
       {
         Header: 'Price',
+        accessor: 'price', // accessor is the "key" in the data
       },
       {
         Header: 'Trend',
@@ -172,7 +177,7 @@ const Home = ({ items }: HomeProps) => {
                                 borderBottom: 'solid 1px darkgray',
                               }}
                             >
-                              <Box fontSize="sm">{Math.round(Math.random() * 100)}</Box>
+                              <Box fontSize="sm">{cell.value}</Box>
                             </td>
                           );
                           break;
@@ -244,7 +249,7 @@ const Home = ({ items }: HomeProps) => {
                                 borderBottom: 'solid 1px darkgray',
                               }}
                             >
-                              <Box px={2}>{'Buys ↑27%'}</Box>
+                              <Box px={2}>Buys ↑{Math.round(Math.random() * 100)}%</Box>
                             </td>
                           );
                           break;

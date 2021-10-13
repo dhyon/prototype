@@ -64,9 +64,9 @@ export async function getMarketData(marketId: string): Promise<any> {
                 }
                 return myData
             })
-    totalCalculatedVolume = totalSize / marketData.length
+    totalCalculatedVolume = totalSize
     sortedPrices.sort()
-    let currUniqueHolders = randomIntFromInterval(totalCalculatedVolume, totalSize)
+    let currUniqueHolders = randomIntFromInterval(1, totalSize)
     return {
         marketId: marketId,
         totalFillSize : marketData.length,
