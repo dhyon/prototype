@@ -322,7 +322,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               <VictoryChart
                 width={500}
                 height={300}
-                scale={{ x: 'time' }}
+                scale={{ x: 'linear' }}
                 animate={{ duration: 400, easing: 'bounceIn' }}
                 // containerComponent={
                 //   <VictoryZoomContainer
@@ -338,8 +338,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               >
                 <VictoryAxis
                   tickFormat={(x) => {
-                    const dateObj = new Date(x);
-                    return `${dateObj.getMonth()}/${dateObj.getDate()}`;
+                    return `${new Date(x).getMonth() + 1}/${new Date(x).getDate() + 1}`;
                   }}
                   style={{
                     tickLabels: { fill: axisLabelColor },
@@ -361,10 +360,9 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                   style={{
                     data: { stroke: strokeColor },
                   }}
-                  data={marketData.recentFills.map((fill) => ({
-                    x: fill.timestamp,
-                    y: fill.price,
-                  }))}
+                  data={marketData.recentFills.map((fill) => {
+                    return { x: new Date(fill.timestamp), y: fill.price };
+                  })}
                 />
               </VictoryChart>
             </Box>
