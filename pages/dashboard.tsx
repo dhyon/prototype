@@ -135,7 +135,7 @@ const Home: NextPage = () => {
                   <Heading fontSize={'lg'}>Volume by Game</Heading>
 
                   <Heading fontSize={'md'} color="gray.500" fontWeight="500" mb={4}>
-                    Leading sales volume per game week/week
+                    Leading sales volume per game week-over-week
                   </Heading>
 
                   <VolumeByGame />
@@ -223,7 +223,7 @@ const Home: NextPage = () => {
             <SimpleGrid columns={[1, 1, 1]} spacing={[5, 5, 8]}>
               <Box borderBottomWidth={1}>
                 <Heading ml={5} mb={-5} size="md">
-                  Price vs Trend Analysis
+                  Price vs Trend Analysis (24h)
                 </Heading>
                 <ScatterPlot />
               </Box>
@@ -260,7 +260,7 @@ const Home: NextPage = () => {
                     mt={2}
                     mb={[-5, -8, -12]}
                   >
-                    Profit and loss month/month
+                    Portfolio profit and loss month-to-month
                   </Heading>
                   <Box>
                     <MonthlyEarningsChart
@@ -275,7 +275,7 @@ const Home: NextPage = () => {
 
           <Box borderLeftWidth={1} gridRow={[2, 2, 2, 1]} gridColumn={[1, 1, 1, 2]} bg={sidebarBg}>
             <Heading fontSize={'lg'} p={5} borderBottomWidth={1}>
-              Recently Sold Items
+              Top Gainers (24h)
             </Heading>
 
             {sidebarItems.map((el) => {
@@ -374,7 +374,7 @@ interface ChartData {
 }
 
 const sampleUserData = [
-  { x: 'Nov', y: 4000 },
+  { x: 'Nov', y: 4000,  },
   { x: 'Dec', y: 4000 },
   { x: 'Jan', y: 5000 },
   { x: 'Feb', y: 3500 },
@@ -407,16 +407,16 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
         <VictoryBar
           data={sampleUserData}
           style={{
-            data: { fill: '#7956DD55' },
-            labels: { fill: '#7956DD55' },
+            data: { fill: '#7956DD' },
+            labels: { fill: '#7956DD' },
           }}
         />
 
-        <VictoryBar
+        {/* <VictoryBar
           data={sampleUserData2}
           style={{
-            data: { fill: '#7956DD' },
-            labels: { fill: '#7956DD' },
+            data: { fill: '#7956DD55' },
+            labels: { fill: '#7956DD55' },
           }}
         />
 
@@ -426,7 +426,7 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
             data: { fill: '#B399FF' },
             labels: { fill: '#B399FF' },
           }}
-        />
+        /> */}
 
         <VictoryAxis
           style={{
@@ -492,17 +492,17 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
           data={sampleData}
           style={{
             data: {
-              stroke: '#7956DD55',
+              stroke: '#7956DD',
               width: 15,
               strokeWidth: 3,
             },
           }}
         />
-        <VictoryLine
+        {/* <VictoryLine
           data={sampleData2}
           style={{
             data: {
-              stroke: '#7956DD',
+              stroke: '#7956DD55',
               width: 15,
               strokeWidth: 3,
             },
@@ -517,7 +517,7 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
               strokeWidth: 3,
             },
           }}
-        />
+        /> */}
       </VictoryChart>
     </Box>
   );
