@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     <Layout title="History">
       <Box p={[5, 5, 8]}>
         <Heading fontWeight="bold" textTransform="uppercase">
-          History coming soon
+          History
         </Heading>
       </Box>
     </Layout>

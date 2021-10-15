@@ -2,14 +2,12 @@ import { Heading, Box, Image, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 
 function GameCard({ el }) {
-  debugger;
   return (
     <Link href={'/game/' + el.slug}>
       <Box cursor="pointer" borderWidth={1} rounded="lg" display="inline-block" position="relative">
         <Image
           src="/star-atlas.jpg"
           height="400px"
-          maxWidth="800px"
           rounded="lg"
           objectFit="cover"
           width="100%"

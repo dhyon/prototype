@@ -7,7 +7,7 @@ const Home: NextPage = () => {
     <Layout title="Settings">
       <Box p={[5, 5, 8]}>
         <Heading fontWeight="bold" textTransform="uppercase">
-          Settings coming soon
+          Settings
         </Heading>
       </Box>
     </Layout>
