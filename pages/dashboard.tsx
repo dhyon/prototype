@@ -48,24 +48,24 @@ const Home: NextPage = () => {
     },
 
     {
-      title: 'Ogrika Thripid',
+      title: 'Ogrika Thripid II',
       link: '/item/612e7223fee257a97be3533e',
       image: '/ship-2.png',
       price: 18.84,
     },
 
     {
-      title: 'Radium Defy',
+      title: 'Radium Defy II',
       image: '/ship-3.png',
       link: '/item/612e7223fee257a97be35354',
       price: 6.02,
     },
 
     {
-      title: 'Primordial Glo',
+      title: 'Primordial Vessel',
       image: '/ship-4.png',
       link: '/item/6143e0ac92761eeee4bc18f4',
-      price: 4.3,
+      price: 14.3,
     },
   ];
   return (

@@ -40,41 +40,37 @@ export async function getMarketData(marketId: string): Promise<any> {
 
     let lowest = Number.MAX_SAFE_INTEGER
     let highest = 0
-    let totalCalculatedVolume = 0
     let totalSize = 0
     let sortedPrices: string[] = []
-    let fakeDate = new Date()
+    let date = new Date()
 
     const marketData = fills
         .filter(f => f.side === 'buy')
             .map(f => {
-                fakeDate.setDate(fakeDate.getDate()-1)
-                if(lowest > f.price)
-                    lowest = f.price
-                if(highest < f.price)
-                    highest = f.price
+                date.setDate(date.getDate()-1)
+                if (lowest > f.price) lowest = f.price
+                if (highest < f.price) highest = f.price
                 totalSize += f.size
-                totalCalculatedVolume+= f.price
                 sortedPrices.push(f.price)
                 let myData = {
                     'orderId': f.orderId.toString(),
                     'price': f.price,
                     'size': f.size,
-                    'timestamp': fakeDate.valueOf()
+                    'timestamp': date.valueOf()
                 }
                 return myData
             })
-    totalCalculatedVolume = totalSize
+
     sortedPrices.sort()
-    let currUniqueHolders = randomIntFromInterval(1, totalSize)
+
     return {
         marketId: marketId,
         totalFillSize : marketData.length,
-        totalVolume : totalCalculatedVolume,
+        totalVolume : totalSize,
         recentFills : marketData,
         sortedPriceFills : sortedPrices,
         allTimeHigh : highest,
-        allTimeLow : lowest,
-        uniqueHolders : currUniqueHolders
+        allTimeLow : (lowest === Number.MAX_SAFE_INTEGER) ? 0 : lowest,
+        uniqueHolders : randomIntFromInterval(1, totalSize)
     }
 }
