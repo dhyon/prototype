@@ -56,7 +56,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
   const [zoomDomain, setZoomDomain] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
   const [isBought, setIsBought] = useState(false);
-  const price = marketData.recentFills[0]?.price || 777;
+  const price = marketData.recentFills[0]?.price;
   const [selectedDomain, setSelectedDomain] = useState({});
   const colors = ['blue', 'red', 'green', 'orange', 'purple', 'teal', 'yellow'];
   const lightBg = useColorModeValue('gray.200', 'gray.700');
@@ -230,7 +230,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold" color={titanColor}>
-                  {price} USDC
+                  {price ? `${price} USDC` : "No Trade Data"}
                 </Box>
               </Box>
             </HStack>
@@ -244,7 +244,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                  DrDoctorstein7
+                  {price ? "DrDoctorstein7" : ""}
                 </Box>
               </Box>
 
@@ -267,7 +267,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                 </Heading>
 
                 <Box fontSize="lg" fontWeight="bold">
-                  {marketData.uniqueHolders}
+                  {price ? marketData.uniqueHolders: 0}
                 </Box>
               </Box>
             </HStack>
