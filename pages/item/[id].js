@@ -321,7 +321,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
 
               <VictoryChart
                 width={500}
-                height={300}
+                height={400}
                 scale={{ x: 'linear' }}
                 animate={{ duration: 400, easing: 'bounceIn' }}
                 // containerComponent={
@@ -367,7 +367,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
               </VictoryChart>
             </Box>
 
-            <Box>
+            {/* <Box>
               <Heading size="md" mb={-5}>
                 Monthly Titan Activity Index
               </Heading>
@@ -419,7 +419,7 @@ const Page = ({ item = {}, marketData = {}, id }) => {
                   ]}
                 />
               </VictoryChart>
-            </Box>
+            </Box> */}
           </Box>
         </SimpleGrid>
       </Box>
