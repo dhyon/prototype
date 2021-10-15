@@ -70,26 +70,28 @@ const Page = ({ game = {}, markets = [] }) => {
   }
 
   function addFilters(items) {
-    let filteredItems = [];
+    let rarityResult = [];
+    let itemTypeResult = [];
 
     if (rarityFilters.length) {
       let rarityFiltered = items.filter((item) => {
         return rarityFilters.includes(item.attributes.rarity);
       });
-
-      filteredItems = filteredItems.concat(rarityFiltered);
+      rarityResult = rarityResult.concat(rarityFiltered);
     }
 
     if (itemTypeFilters.length) {
       let typeFilters = items.filter((item) => {
         return itemTypeFilters.includes(item.attributes.itemType);
       });
-
-      filteredItems = filteredItems.concat(typeFilters);
+      itemTypeResult = itemTypeResult.concat(typeFilters);
     }
 
-    if (rarityFilters.length || itemTypeFilters.length) {
-      return filteredItems;
+    if (rarityFilters.length && itemTypeFilters.length) {
+      return rarityResult.filter(value => itemTypeResult.includes(value));
+    }
+    else if (rarityFilters.length || itemTypeFilters.length) {
+      return rarityResult.concat(itemTypeResult);
     } else {
       return items;
     }
