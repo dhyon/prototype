@@ -34,11 +34,12 @@ const Home = ({ items }: HomeProps) => {
   ]);
 
   const data = useMemo(
-    () => inventoryItems.map(({id, price}) => {
-      let newItem = items.find((itemData) => itemData._id === id);
-      newItem['price'] = price
-      return newItem
-    }),
+    () =>
+      inventoryItems.map(({ id, price }) => {
+        let newItem = items.find((itemData) => itemData._id === id);
+        newItem['price'] = price;
+        return newItem;
+      }),
     [walletIsConnected], // data is recalculated if hook is triggered
   );
 
@@ -108,14 +109,18 @@ const Home = ({ items }: HomeProps) => {
     return (
       <Layout title="Inventory">
         <Box p={[5, 5, 8]} pb={10}>
-          <table {...getTableProps()}>
-            <thead >
+          <table width="100%" {...getTableProps()}>
+            <thead>
               {headerGroups.map((headerGroup, index) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={index}>
                   {headerGroup.headers.map((column) => (
                     // Add the sorting props to control sorting. For this example
                     // we can add them into the header props
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index} style={{paddingTop: 8, paddingBottom: 8}} >
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      key={index}
+                      style={{ paddingTop: 8, paddingBottom: 8 }}
+                    >
                       {column.render('Header')}
                       {/* Add a sort direction indicator */}
                       <span>
@@ -142,7 +147,7 @@ const Home = ({ items }: HomeProps) => {
               {rows.map((row, index) => {
                 prepareRow(row);
                 return (
-                  <Box as="tr" fontSize="sm" {...row.getRowProps()} key={index} >
+                  <Box as="tr" fontSize="sm" {...row.getRowProps()} key={index}>
                     {row.cells.map((cell) => {
                       switch (cell.column.Header) {
                         case '': // the image
@@ -152,7 +157,6 @@ const Home = ({ items }: HomeProps) => {
                               style={{
                                 padding: '10px',
                                 borderBottom: 'solid 1px darkgray',
-
                               }}
                             >
                               <Image
@@ -267,7 +271,9 @@ const Home = ({ items }: HomeProps) => {
                                 <Button ml={1} mr={1} size="xs">
                                   Buy
                                 </Button>
-                                <Button mr={1} size="xs">Sell</Button>
+                                <Button mr={1} size="xs">
+                                  Sell
+                                </Button>
                                 <IconButton
                                   size="xs"
                                   float="right"
@@ -287,7 +293,7 @@ const Home = ({ items }: HomeProps) => {
                             <td
                               {...cell.getCellProps()}
                               style={{
-                              padding: '5px',
+                                padding: '5px',
                                 borderBottom: 'solid 1px darkgray',
                               }}
                             >
