@@ -10,6 +10,8 @@ import {
   VictoryBar,
   VictoryVoronoiContainer,
   Line,
+  Curve,
+  VictoryTooltip,
 } from 'victory';
 import Layout from '../components/layout';
 import ScatterPlot from '../components/scatterplot';
@@ -374,18 +376,18 @@ interface ChartData {
 }
 
 const sampleUserData = [
-  { x: 'Nov', y: 4000,  },
+  { x: 'Nov', y: 4000 },
   { x: 'Dec', y: 4000 },
-  { x: 'Jan', y: 5000 },
-  { x: 'Feb', y: 3500 },
-  { x: 'Mar', y: 3000 },
-  { x: 'Apr', y: 5000 },
-  { x: 'May', y: 5600 },
-  { x: 'Jun', y: 6000 },
-  { x: 'Jul', y: 7000 },
-  { x: 'Aug', y: 6550 },
-  { x: 'Sep', y: 7000 },
-  { x: 'Oct', y: 8000 },
+  { x: 'Jan', y: 4100 },
+  { x: 'Feb', y: 4200 },
+  { x: 'Mar', y: 4000 },
+  { x: 'Apr', y: 4200 },
+  { x: 'May', y: 4300 },
+  { x: 'Jun', y: 4000 },
+  { x: 'Jul', y: 3800 },
+  { x: 'Aug', y: 3600 },
+  { x: 'Sep', y: 3700 },
+  { x: 'Oct', y: 4000 },
 ];
 const sampleUserData2 = sampleUserData.map((thing) => ({
   x: thing.x,
@@ -402,14 +404,23 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
       <VictoryChart
         height={250}
         animate={{ duration: 400, easing: 'bounceIn' }}
-        containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
+        containerComponent={<VictoryVoronoiContainer />}
       >
         <VictoryBar
           data={sampleUserData}
           style={{
             data: { fill: '#7956DD' },
-            labels: { fill: '#7956DD' },
           }}
+          labels={({ datum }) => datum.y}
+          labelComponent={
+            <VictoryTooltip
+              flyoutStyle={{ strokeWidth: 0 }}
+              style={{
+                fontFamily: 'Titillium Web',
+                fontSize: 10,
+              }}
+            />
+          }
         />
 
         {/* <VictoryBar
@@ -430,14 +441,14 @@ function MonthlyBalanceChart({ areaColor, axisLabelColor }: ChartData) {
 
         <VictoryAxis
           style={{
-            tickLabels: { fill: axisLabelColor },
+            tickLabels: { fill: axisLabelColor, fontFamily: 'Titillium Web', fontSize: 10 },
             axis: { stroke: 'gray' },
           }}
         />
         <VictoryAxis
           dependentAxis
           style={{
-            tickLabels: { fill: axisLabelColor },
+            tickLabels: { fill: axisLabelColor, fontFamily: 'Titillium Web', fontSize: 10 },
             axis: { stroke: 'gray' },
           }}
         />
@@ -471,25 +482,34 @@ function MonthlyEarningsChart({ areaColor, axisLabelColor }: ChartData) {
     <Box>
       <VictoryChart
         height={350}
-        // theme={victoryTheme}
         animate={{ duration: 400, easing: 'bounceIn' }}
-        containerComponent={<VictoryVoronoiContainer labels={({ datum }) => `${datum.y}`} />}
+        containerComponent={<VictoryVoronoiContainer />}
       >
         <VictoryAxis
           style={{
-            tickLabels: { fill: axisLabelColor },
+            tickLabels: { fill: axisLabelColor, fontFamily: 'Titillium Web', fontSize: 10 },
             axis: { stroke: 'gray' },
           }}
         />
         <VictoryAxis
           dependentAxis
           style={{
-            tickLabels: { fill: axisLabelColor },
+            tickLabels: { fill: axisLabelColor, fontFamily: 'Titillium Web', fontSize: 10 },
             axis: { stroke: 'gray' },
           }}
         />
         <VictoryLine
           data={sampleData}
+          labels={({ datum }) => datum.y}
+          labelComponent={
+            <VictoryTooltip
+              flyoutStyle={{ strokeWidth: 0 }}
+              style={{
+                fontFamily: 'Titillium Web',
+                fontSize: 10,
+              }}
+            />
+          }
           style={{
             data: {
               stroke: '#7956DD',
