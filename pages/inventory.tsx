@@ -58,14 +58,14 @@ const Home = ({ items }: HomeProps) => {
         accessor: 'name', // accessor is the "key" in the data
       },
       {
-        Header: 'Price',
+        Header: 'Current Price',
         accessor: 'price', // accessor is the "key" in the data
       },
       {
-        Header: 'Trend',
+        Header: 'Price Trend',
       },
       {
-        Header: 'Rarity',
+        Header: 'Object Rarity',
         accessor: 'attributes.rarity',
       },
       {
@@ -86,7 +86,7 @@ const Home = ({ items }: HomeProps) => {
 
   const tableInstance = useTable({ columns, data }, useSortBy);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
-
+  console.log(tableInstance);
   const tableBorderColor = useColorModeValue('#eaeaea', '#1a1a1a');
   const tableColor = useColorModeValue('#1a1a1a', '#eaeaea');
 
@@ -186,7 +186,7 @@ const Home = ({ items }: HomeProps) => {
                           );
                           break;
 
-                        case 'Rarity':
+                        case 'Object Rarity':
                           return (
                             <td
                               {...cell.getCellProps()}
@@ -216,7 +216,7 @@ const Home = ({ items }: HomeProps) => {
                           );
                           break;
 
-                        case 'Trend':
+                        case 'Price Trend':
                           return (
                             <td
                               {...cell.getCellProps()}
