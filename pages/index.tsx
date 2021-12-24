@@ -12,12 +12,16 @@ import {
   useDisclosure,
   Spinner,
   Flex,
+  Stack,
+  Link,
+  chakra,
 } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
 import { GiTrade, GiConwayLifeGlider } from 'react-icons/gi';
 import { MdInsights } from 'react-icons/md';
 import Wallet from '../stores/wallet';
+import { FaTwitter, FaYoutube, FaInstagram, FaFacebook, FaGithub } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
@@ -36,11 +40,19 @@ const features = [
   },
 ];
 
+const socialIcons = [
+  { Icon: FaTwitter, href: '' },
+  { Icon: FaYoutube, href: '' },
+  { Icon: FaInstagram, href: '' },
+  { Icon: FaFacebook, href: '' },
+  { Icon: FaGithub, href: 'https://github.com/dhyon/prototype' },
+];
+
 const Home: NextPage = () => {
   const router = useRouter();
   const [first, setFirst] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { toggleWalletConnection, isConnected, setConnectedFalse } = Wallet((state) => state);
+  const { toggleWalletConnection, setConnectedFalse } = Wallet((state) => state);
 
   function enterDashboard() {
     toggleWalletConnection();
@@ -107,6 +119,8 @@ const Home: NextPage = () => {
           <Spinner color="white" size="xl" fontWeight="bold" margin="0 auto" />
         </ModalContent>
       </Modal>
+
+      <SocialLinks />
     </Flex>
   );
 };
@@ -124,15 +138,27 @@ function Features() {
               borderRadius="50%"
               padding="10px"
             >
-              <Icon size="30px" />
+              <Icon size="30px" color="white" />
             </Center>
-            <Text fontSize="32px" marginLeft="20px">
+            <Text fontSize="32px" marginLeft="20px" color="#ededed">
               {label}
             </Text>
           </Flex>
         );
       })}
     </Box>
+  );
+}
+
+function SocialLinks() {
+  return (
+    <Stack direction={'row'} spacing={4} alignSelf="flex-end" margin="0 10px 10px 0">
+      {socialIcons.map(({ Icon, href }, index) => (
+        <chakra.button key={index} href={href} as="a">
+          <Icon size="30px" color="#ffffff63" />
+        </chakra.button>
+      ))}
+    </Stack>
   );
 }
 
