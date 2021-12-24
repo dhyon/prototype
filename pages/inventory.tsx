@@ -1,18 +1,8 @@
-import NextImage from 'next/image';
+import NextLink from 'next/link';
 import { useTable, useSortBy } from 'react-table';
 import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
-import {
-  Box,
-  Button,
-  Center,
-  HStack,
-  Heading,
-  Icon,
-  IconButton,
-  Image,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, Button, Center, HStack, Icon, IconButton, Image } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import useWalletStore from '../stores/wallet';
 
@@ -20,7 +10,6 @@ import InventoryTrend from '../components/inventory-trend';
 import { HiChevronUp, HiChevronDown, HiDotsVertical } from 'react-icons/hi';
 import { RiWallet2Line } from 'react-icons/ri';
 import Rarity from '../components/rarity';
-import RarityGradient from '../components/rarity-gradient';
 
 interface HomeProps {
   items: Array<any>;
@@ -75,7 +64,7 @@ const Home = ({ items }: HomeProps) => {
         Header: 'ADX',
       },
       {
-        Header: 'Activity',
+        Header: 'Volume',
       },
       {
         Header: 'Actions',
@@ -86,9 +75,6 @@ const Home = ({ items }: HomeProps) => {
 
   const tableInstance = useTable({ columns, data }, useSortBy);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
-  console.log(tableInstance);
-  const tableBorderColor = useColorModeValue('#eaeaea', '#1a1a1a');
-  const tableColor = useColorModeValue('#1a1a1a', '#eaeaea');
 
   if (!walletIsConnected) {
     return (
@@ -146,164 +132,167 @@ const Home = ({ items }: HomeProps) => {
             <tbody {...getTableBodyProps()}>
               {rows.map((row, index) => {
                 prepareRow(row);
+
                 return (
-                  <Box as="tr" fontSize="sm" {...row.getRowProps()} key={index}>
-                    {row.cells.map((cell) => {
-                      switch (cell.column.Header) {
-                        case '': // the image
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '10px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <Image
-                                imageResolution="10dpi"
-                                src={cell.value}
-                                width="50px"
-                                height="50px"
-                                rounded="md"
-                                objectFit="cover"
-                                m="0 auto"
-                              />
-                            </td>
-                          );
-                          break;
+                  <NextLink href={`/item/${row.original._id}`} key={index}>
+                    <Box as="tr" fontSize="sm" {...row.getRowProps()} cursor="pointer">
+                      {row.cells.map((cell) => {
+                        switch (cell.column.Header) {
+                          case '': // the image
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '10px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <Image
+                                  imageResolution="10dpi"
+                                  src={cell.value}
+                                  width="50px"
+                                  height="50px"
+                                  rounded="md"
+                                  objectFit="cover"
+                                  m="0 auto"
+                                />
+                              </td>
+                            );
+                            break;
 
-                        case 'Price':
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <Box fontSize="sm">{cell.value}</Box>
-                            </td>
-                          );
-                          break;
+                          case 'Price':
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <Box fontSize="sm">{cell.value}</Box>
+                              </td>
+                            );
+                            break;
 
-                        case 'Object Rarity':
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <Center>
-                                <Rarity val={cell.value} />
-                              </Center>
-                            </td>
-                          );
-                          break;
+                          case 'Object Rarity':
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <Center>
+                                  <Rarity val={cell.value} />
+                                </Center>
+                              </td>
+                            );
+                            break;
 
-                        case 'ROI':
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <Box px={2}>{Math.round(Math.random() * 100)}%</Box>
-                            </td>
-                          );
-                          break;
+                          case 'ROI':
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <Box px={2}>{Math.round(Math.random() * 100)}%</Box>
+                              </td>
+                            );
+                            break;
 
-                        case 'Price Trend':
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <InventoryTrend />
-                            </td>
-                          );
-                          break;
+                          case 'Price Trend':
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <InventoryTrend />
+                              </td>
+                            );
+                            break;
 
-                        case 'ADX':
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <Box px={2}>{'<25'}</Box>
-                            </td>
-                          );
-                          break;
+                          case 'ADX':
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <Box px={2}>{'<25'}</Box>
+                              </td>
+                            );
+                            break;
 
-                        case 'Activity':
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <Box px={2}>Buys ↑{Math.round(Math.random() * 100)}%</Box>
-                            </td>
-                          );
-                          break;
+                          case 'Volume':
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <Box px={2}>Buys ↑{Math.round(Math.random() * 100)}%</Box>
+                              </td>
+                            );
+                            break;
 
-                        case 'Actions':
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              <HStack spacing={1}>
-                                <Button ml={1} mr={1} size="xs">
-                                  Buy
-                                </Button>
-                                <Button mr={1} size="xs">
-                                  Sell
-                                </Button>
-                                <IconButton
-                                  size="xs"
-                                  float="right"
-                                  variant="ghost"
-                                  rounded="full"
-                                  aria-label="More Options"
-                                >
-                                  <Icon as={HiDotsVertical} />
-                                </IconButton>
-                              </HStack>
-                            </td>
-                          );
-                          break;
+                          case 'Actions':
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                <HStack spacing={1}>
+                                  <Button ml={1} mr={1} size="xs">
+                                    Buy
+                                  </Button>
+                                  <Button mr={1} size="xs">
+                                    Sell
+                                  </Button>
+                                  <IconButton
+                                    size="xs"
+                                    float="right"
+                                    variant="ghost"
+                                    rounded="full"
+                                    aria-label="More Options"
+                                  >
+                                    <Icon as={HiDotsVertical} />
+                                  </IconButton>
+                                </HStack>
+                              </td>
+                            );
+                            break;
 
-                        default:
-                          return (
-                            <td
-                              {...cell.getCellProps()}
-                              style={{
-                                padding: '5px',
-                                borderBottom: 'solid 1px darkgray',
-                              }}
-                            >
-                              {cell.render('Cell')}
-                            </td>
-                          );
-                          break;
-                      }
-                    })}
-                  </Box>
+                          default:
+                            return (
+                              <td
+                                {...cell.getCellProps()}
+                                style={{
+                                  padding: '5px',
+                                  borderBottom: 'solid 1px darkgray',
+                                }}
+                              >
+                                {cell.render('Cell')}
+                              </td>
+                            );
+                            break;
+                        }
+                      })}
+                    </Box>
+                  </NextLink>
                 );
               })}
             </tbody>
