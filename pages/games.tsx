@@ -13,13 +13,13 @@ const Home: NextPage = () => {
   return (
     <Layout title="All games">
       <Box p={[5, 5, 8]}>
-        <Heading fontWeight="bold" textTransform="uppercase" mb={[5, 5,]}>
+        <Heading fontWeight="bold" textTransform="uppercase" mb={[5, 5]}>
           All games
         </Heading>
 
-        <SimpleGrid columns={[1, 1, 1]} spacing={[4, 4, 8]}>
-          {state.games.map((el: any) => {
-            return <GameCard key={el._id} el={el} />;
+        <SimpleGrid gap={5} columns={3}>
+          {state.games.map((game: any) => {
+            return <GameCard key={game._id} game={game} />;
           })}
         </SimpleGrid>
       </Box>
