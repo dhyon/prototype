@@ -24,9 +24,10 @@ const Home = ({ items }: HomeProps) => {
 
   const data = useMemo(
     () =>
-      inventoryItems.map(({ id, price }) => {
+      inventoryItems.map(({ id, price, volume }) => {
         let newItem = items.find((itemData) => itemData._id === id);
-        newItem['price'] = price;
+        newItem.price = price;
+        newItem.volume = volume;
         return newItem;
       }),
     [walletIsConnected], // data is recalculated if hook is triggered
@@ -241,7 +242,7 @@ const Home = ({ items }: HomeProps) => {
                                   borderBottom: 'solid 1px darkgray',
                                 }}
                               >
-                                <Box px={2}>Buys ↑{Math.round(Math.random() * 100)}%</Box>
+                                <Box px={2}>{row.original.volume}</Box>
                               </td>
                             );
                             break;
