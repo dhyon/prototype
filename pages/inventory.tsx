@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useSortBy, TableOptions } from 'react-table';
 import { getAllStarAtlasMarkets } from './api/data/staratlas/markets';
 import Layout from '../components/layout';
 import { Box, Button, Center, HStack, Icon, IconButton, Image } from '@chakra-ui/react';
@@ -28,6 +28,7 @@ const Home = ({ items }: HomeProps) => {
         let newItem = items.find((itemData) => itemData._id === id);
         newItem.price = price;
         newItem.volume = volume;
+        newItem.itemId = id;
         return newItem;
       }),
     [walletIsConnected], // data is recalculated if hook is triggered
@@ -66,6 +67,7 @@ const Home = ({ items }: HomeProps) => {
       },
       {
         Header: 'Volume',
+        accessor: 'volume',
       },
       {
         Header: 'Actions',
@@ -133,8 +135,8 @@ const Home = ({ items }: HomeProps) => {
             <tbody {...getTableBodyProps()}>
               {rows.map((row, index) => {
                 prepareRow(row);
-
                 return (
+                  // @ts-ignore
                   <NextLink href={`/item/${row.original._id}`} key={index}>
                     <Box as="tr" fontSize="sm" {...row.getRowProps()} cursor="pointer">
                       {row.cells.map((cell) => {
@@ -242,7 +244,7 @@ const Home = ({ items }: HomeProps) => {
                                   borderBottom: 'solid 1px darkgray',
                                 }}
                               >
-                                <Box px={2}>{row.original.volume}</Box>
+                                <Box px={2}>{cell.value}</Box>
                               </td>
                             );
                             break;
