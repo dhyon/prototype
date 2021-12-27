@@ -94,14 +94,14 @@ const Home: NextPage = () => {
         </Button>
       </Flex>
 
-      <Flex flex={1} marginTop="40px">
+      <Flex flex={1} marginTop="40px" width="100%">
         <Flex flex={1} flexDirection="column" paddingLeft="40px" marginRight="100px">
           <Heading as="h2" color="white" fontWeight="400" fontSize="50px">
             Dominate with insights into the metaverse
           </Heading>
           <Features />
         </Flex>
-        <Flex flex={1} alignItems="flex-start">
+        <Flex flex={1} alignItems="flex-start" justifyContent="flex-end">
           <Image src={'/frame_generic_dark_short.png'} alt="App screenshot" />
         </Flex>
       </Flex>
