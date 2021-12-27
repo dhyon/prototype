@@ -1,7 +1,9 @@
-import { Heading, Box, Image, Button } from '@chakra-ui/react';
+import { Heading, Box, Image, Button, useColorMode } from '@chakra-ui/react';
 import Link from 'next/link';
 
 function GameCard({ game }) {
+  const { colorMode } = useColorMode();
+
   return (
     <Link href={game.slug ? '/game/' + game.slug : ''}>
       <Box cursor="pointer" borderWidth={1} rounded="lg" display="inline-block" position="relative">
@@ -11,12 +13,16 @@ function GameCard({ game }) {
           position="absolute"
           width="100%"
           bottom={0}
-          backgroundColor="white"
+          backgroundColor={colorMode === 'light' ? 'white' : '#1a202c'}
           padding="10px"
           textAlign="center"
           roundedBottom="lg"
         >
-          <Heading fontSize="24px" color="black" letterSpacing={1}>
+          <Heading
+            fontSize="24px"
+            letterSpacing={1}
+            color={colorMode === 'light' ? 'black' : 'white'}
+          >
             {game.name}
           </Heading>
         </Box>
