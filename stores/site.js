@@ -19,12 +19,12 @@ const store = create((set) => ({
       symbol: 'DL',
     },
     {
-      name: 'Splinterlands',
+      name: 'Chain Myth',
       description: 'Lorem',
       slug: '',
-      _id: 'splinterlands',
-      image: '/splinterlands.png',
-      symbol: 'SP',
+      _id: 'chain-myth',
+      image: '/chain-myth.jpeg',
+      symbol: 'CM',
     },
     {
       name: 'Genopets',
