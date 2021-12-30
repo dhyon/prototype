@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   Spacer,
 } from '@chakra-ui/react';
-import { FaTwitter, FaYoutube, FaInstagram, FaDiscord, FaFacebook, FaGithub } from 'react-icons/fa';
+import { FaTwitter, FaGithub } from 'react-icons/fa';
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -24,6 +24,8 @@ const SocialButton = ({ children, label, href }) => {
       alignItems={'center'}
       justifyContent={'center'}
       transition={'background 0.3s ease'}
+      target="_blank"
+      rel="noopener noreferrer"
       _hover={{
         bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
       }}
@@ -58,12 +60,6 @@ export default function Footer() {
           <Spacer />
 
           <Stack direction={'row'} spacing={4}>
-            <SocialButton label={'YouTube'} href={'https://www.youtube.com/'}>
-              <FaYoutube />
-            </SocialButton>
-            <SocialButton label={'Discord'} href={'https://solana.com/ignition'}>
-              <FaDiscord />
-            </SocialButton>
             <SocialButton label={'Github'} href={'https://github.com/dhyon/prototype'}>
               <FaGithub />
             </SocialButton>

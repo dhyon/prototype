@@ -41,11 +41,8 @@ const features = [
 ];
 
 const socialIcons = [
-  { Icon: FaTwitter, href: '' },
-  { Icon: FaYoutube, href: '' },
-  { Icon: FaInstagram, href: '' },
-  { Icon: FaFacebook, href: '' },
-  { Icon: FaGithub, href: 'https://github.com/dhyon/prototype' },
+  { Icon: FaTwitter, href: 'https://twitter.com/TitanAnalytics_' },
+  { Icon: FaGithub, href: 'https://github.com/cbettridge/prototype' },
 ];
 
 const Home: NextPage = () => {
@@ -76,7 +73,7 @@ const Home: NextPage = () => {
       height="100vh"
       background="radial-gradient(circle, rgba(0,0,0,1) 35%, #290457 69%)"
     >
-      <Flex justifyContent="space-between" width="100%" padding="40px">
+      <Flex justifyContent="space-between" width="100%" padding="40px 20px 40px 40px">
         <Heading as="h1" color="white" textAlign="center">
           Titan Analytics
         </Heading>
@@ -154,7 +151,7 @@ function SocialLinks() {
   return (
     <Stack direction={'row'} spacing={4} alignSelf="flex-end" margin="0 10px 10px 0">
       {socialIcons.map(({ Icon, href }, index) => (
-        <chakra.button key={index} href={href} as="a">
+        <chakra.button key={index} href={href} as="a" target="_blank" rel="noopener noreferrer">
           <Icon size="30px" color="#ffffff63" />
         </chakra.button>
       ))}
