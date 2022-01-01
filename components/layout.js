@@ -18,6 +18,7 @@ import {
   useColorModeValue,
   IconButton,
   Icon,
+  Flex,
 } from '@chakra-ui/react';
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -60,13 +61,12 @@ function Layout({ children, title }) {
             <PageHeader />
           </Box>
 
-          <Box pt={["72px"]} minHeight="100vh">
-            <main>{children}</main>
+          <Box pt={['72px']} minHeight="100vh" display="flex" flexDirection="column">
+            <Flex flex={1}>{children}</Flex>
             <Footer />
           </Box>
         </Box>
       </Grid>
-
     </div>
   );
 }
@@ -92,42 +92,39 @@ function BottomsUp() {
           <DrawerHeader></DrawerHeader>
 
           <DrawerBody>
-            <Stack spacing={4} color={linkColors} mb={ 8 }>
+            <Stack spacing={4} color={linkColors} mb={8}>
               <Box>
-                <ChakraLink as={ Link } href="/games" rounded="sm" >
+                <ChakraLink as={Link} href="/games" rounded="sm">
                   All games
                 </ChakraLink>
               </Box>
 
               <Box>
-                <ChakraLink as={ Link } href="/dashboard" rounded="sm" >
+                <ChakraLink as={Link} href="/dashboard" rounded="sm">
                   Dashboard
                 </ChakraLink>
               </Box>
 
               <Box>
-                <ChakraLink as={ Link } href="/inventory" rounded="sm" >
+                <ChakraLink as={Link} href="/inventory" rounded="sm">
                   Inventory
                 </ChakraLink>
               </Box>
 
               <Box>
-                <ChakraLink as={ Link } href="/history" rounded="sm" >
+                <ChakraLink as={Link} href="/history" rounded="sm">
                   History
                 </ChakraLink>
               </Box>
 
               <Box>
-                <ChakraLink as={ Link } href="/games" rounded="sm" >
+                <ChakraLink as={Link} href="/games" rounded="sm">
                   Games
                 </ChakraLink>
               </Box>
             </Stack>
 
-            <Heading size="md">
-              MY GAMES
-
-            </Heading>
+            <Heading size="md">MY GAMES</Heading>
           </DrawerBody>
 
           <DrawerFooter></DrawerFooter>
