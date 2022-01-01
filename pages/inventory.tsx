@@ -24,11 +24,13 @@ const Home = ({ items }: HomeProps) => {
 
   const data = useMemo(
     () =>
-      inventoryItems.map(({ id, price, volume }) => {
+      inventoryItems.map(({ id, price, volume, trendDirection, trendStrength }) => {
         let newItem = items.find((itemData) => itemData._id === id);
         newItem.price = price;
         newItem.volume = volume;
         newItem.itemId = id;
+        newItem.trendDirection = trendDirection;
+        newItem.trendStrength = trendStrength;
         return newItem;
       }),
     [walletIsConnected], // data is recalculated if hook is triggered
@@ -60,10 +62,12 @@ const Home = ({ items }: HomeProps) => {
         accessor: 'attributes.rarity',
       },
       {
-        Header: 'ROI',
+        Header: 'Trend Direction',
+        accessor: 'trendDirection',
       },
       {
-        Header: 'ADX',
+        Header: 'Trend Strength',
+        accessor: 'trendStrength',
       },
       {
         Header: 'Volume',
@@ -82,7 +86,7 @@ const Home = ({ items }: HomeProps) => {
   if (!walletIsConnected) {
     return (
       <Layout title="Inventory">
-        <Center p={10}>
+        <Center p={10} flex={1}>
           <Button
             rightIcon={<Icon as={RiWallet2Line} />}
             colorScheme="purple"
@@ -97,7 +101,7 @@ const Home = ({ items }: HomeProps) => {
   } else {
     return (
       <Layout title="Inventory">
-        <Box p={[5, 5, 8]} pb={10}>
+        <Box p={[5, 5, 8]} pb={10} width="100%">
           <table width="100%" {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup, index) => (
@@ -193,7 +197,7 @@ const Home = ({ items }: HomeProps) => {
                             );
                             break;
 
-                          case 'ROI':
+                          case 'Trend Direction':
                             return (
                               <td
                                 {...cell.getCellProps()}
@@ -202,7 +206,7 @@ const Home = ({ items }: HomeProps) => {
                                   borderBottom: 'solid 1px darkgray',
                                 }}
                               >
-                                <Box px={2}>{Math.round(Math.random() * 100)}%</Box>
+                                <Box px={2}>{cell.value}</Box>
                               </td>
                             );
                             break;
@@ -221,7 +225,7 @@ const Home = ({ items }: HomeProps) => {
                             );
                             break;
 
-                          case 'ADX':
+                          case 'Price Strength':
                             return (
                               <td
                                 {...cell.getCellProps()}
@@ -230,7 +234,7 @@ const Home = ({ items }: HomeProps) => {
                                   borderBottom: 'solid 1px darkgray',
                                 }}
                               >
-                                <Box px={2}>{'<25'}</Box>
+                                <Box px={2}>{cell.value}</Box>
                               </td>
                             );
                             break;
