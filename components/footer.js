@@ -7,6 +7,7 @@ import {
   chakra,
   useColorModeValue,
   Spacer,
+  Flex,
 } from '@chakra-ui/react';
 import { FaTwitter, FaGithub } from 'react-icons/fa';
 
@@ -48,17 +49,8 @@ export default function Footer() {
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.700')}
       >
-        <Container
-          as={Stack}
-          py={4}
-          direction={{ base: 'column', md: 'row' }}
-          spacing={100}
-          justify={{ md: 'space-between' }}
-          align={{ md: 'center' }}
-        >
-          <Text>© 2021 Project Titan</Text>
-          <Spacer />
-
+        <Flex alignItems="center" justifyContent="space-between" padding="20px">
+          <Text marginRight="40px">© 2021 Project Titan</Text>
           <Stack direction={'row'} spacing={4}>
             <SocialButton label={'Github'} href={'https://github.com/dhyon/prototype'}>
               <FaGithub />
@@ -67,7 +59,7 @@ export default function Footer() {
               <FaTwitter />
             </SocialButton>
           </Stack>
-        </Container>
+        </Flex>
       </Box>
     </Box>
   );
